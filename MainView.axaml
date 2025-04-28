@@ -4,9 +4,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
         MinWidth="800" MinHeight="600"
-        x:Class="MedSync.MainWindow"
+        x:Class="MedSync.MainView"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel"
         Title="MedSync">
-
+    
+    <Design.DataContext>
+        <vm:MainViewModel></vm:MainViewModel>
+    </Design.DataContext>
+    
     <!-- Main Grid -->
     
     <Grid ShowGridLines="True"
@@ -25,7 +31,7 @@
                     <!-- Right Panel Main Border Main Stack Panel -->   
                     
                     <StackPanel Grid.Row="0"
-                                HorizontalAlignment="Stretch"
+                                HorizontalAlignment="{Binding}"
                                 VerticalAlignment="Stretch"
                                 Margin="20,20,20,20"
                                 Spacing="12">
@@ -44,7 +50,7 @@
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                                     <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2C2;"></Label>
-                                    <Label  Content="خانه"></Label>
+                                    <Label  Content="خانه" IsVisible="{Binding SideMenuExpanded}"></Label>
                                 </StackPanel>
                             </Button>
                         </Border>
@@ -55,7 +61,7 @@
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                                     <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2F2;"></Label>
-                                    <Label Content="نوبت دهی"></Label>
+                                    <Label Content="نوبت دهی" IsVisible="{Binding SideMenuExpanded}"></Label>
                                 </StackPanel>
                             </Button>
                         </Border>
@@ -66,7 +72,7 @@
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                                     <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xeb7a;"></Label>
-                                    <Label Content="نسخه نویسی"></Label>
+                                    <Label Content="نسخه نویسی" IsVisible="{Binding SideMenuExpanded}"></Label>
                                 </StackPanel>
                             </Button>
                         </Border>
@@ -77,7 +83,7 @@
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                                     <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2C2;"></Label>
-                                    <Label Content="پشتیبانی"></Label>
+                                    <Label Content="پشتیبانی" IsVisible="{Binding SideMenuExpanded}"></Label>
                                 </StackPanel>
                             </Button>
                         </Border>
