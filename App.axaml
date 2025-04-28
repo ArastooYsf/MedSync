@@ -11,5 +11,18 @@
              
              <Application.Resources>
                  <SolidColorBrush x:Key="PrimaryBackground">#000F24</SolidColorBrush>
+                 
+                 <!-- Shabnam Fonts -->
+                 
+                 <FontFamily x:Key="Shabnam-Bold-FD">/Assets/Fonts/Shabnam-Bold-FD.ttf#Shabnam FD</FontFamily>
+                 <FontFamily x:Key="Shabnam-FD">/Assets/Fonts/Shabnam-FD.ttf#Shabnam FD</FontFamily>
+                 <FontFamily x:Key="Shabnam-Light-FD">/Assets/Fonts/Shabnam-Light-FD.ttf#Shabnam Light FD</FontFamily>
+                 <FontFamily x:Key="Shabnam-Medium-FD">/Assets/Fonts/Shabnam-Medium-FD.ttf#Shabnam Medium FD</FontFamily>
+                 <FontFamily x:Key="Shabnam-Thin-FD">/Assets/Fonts/Shabnam-Thin-FD.ttf#Shabnam Thin FD</FontFamily>
+                 
+                 <!-- Phosphor Fonts -->
+                 
+                 <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
+                 <FontFamily x:Key="Phosphor-Fill">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
              </Application.Resources>
 </Application>

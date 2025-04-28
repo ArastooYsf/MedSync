@@ -3,40 +3,65 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
-        MinWidth="400" MinHeight="300"
+        MinWidth="800" MinHeight="600"
         x:Class="MedSync.MainWindow"
         Title="MedSync">
 
-    <Grid ShowGridLines="True" Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="3*,*">
+    <Grid ShowGridLines="True"
+          Background="{DynamicResource PrimaryBackground}"
+          ColumnDefinitions="3*,*">
         <Border Grid.Column="1" Padding="10">
             <Border Background="#212930"
                     CornerRadius="8">
                 <Grid RowDefinitions="*,Auto">
                     <StackPanel Grid.Row="0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Margin="0,20,0,0"
-                                Spacing="12">
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Margin="20,20,20,20"
+                                Spacing="12"
+                                Background="Green">
                         <Image Source="{SvgImage /Assets/Images/Logo.svg}"
                                Width="100"
                                MaxWidth="150"
                                Stretch="Uniform"
                                HorizontalAlignment="Center"/>
-                        <Border>
-                            <Button Content="خانه"/>
+                        <Border Classes="ButtonShadow">
+                            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                    <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2C2;"></Label>
+                                    <Label Content="خانه"></Label>
+                                </StackPanel>
+                            </Button>
                         </Border>
-                        <Border>
-                            <Button Content="خانه"/>
+                        <Border Classes="ButtonShadow">
+                            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                    <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2F2;"></Label>
+                                    <Label Content="نوبت دهی"></Label>
+                                </StackPanel>
+                            </Button>
                         </Border>
-                        <Border>
-                            <Button Content="خانه"/>
+                        <Border Classes="ButtonShadow">
+                            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                    <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xeb7a;"></Label>
+                                    <Label Content="نسخه نویسی"></Label>
+                                </StackPanel>
+                            </Button>
                         </Border>
-                        <Border>
-                            <Button Content="خانه"/>
+                        <Border Classes="ButtonShadow">
+                            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                    <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2C2;"></Label>
+                                    <Label Content="پشتیبانی"></Label>
+                                </StackPanel>
+                            </Button>
                         </Border>
                     </StackPanel>
                     <Border Grid.Row="1">
-                        <Button></Button>
+                        <Button Classes="icon-only" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
+                            <Label FontSize="20" FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon-only" Content="&#xE272;"></Label>
+                        </Button>
                     </Border>
                 </Grid>
             </Border>

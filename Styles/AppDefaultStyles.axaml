@@ -3,27 +3,19 @@
     <Design.PreviewWith>
         <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
             <!-- Add Controls for Previewer Here -->
-            <StackPanel Grid.Row="0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        Margin="0,20,0,0"
-                        Spacing="12">
-                <Image Source="{SvgImage /Assets/Images/Logo.svg}"
-                       Width="100"
-                       MaxWidth="150"
-                       Stretch="Uniform"
-                       HorizontalAlignment="Center"/>
-                <Border>
-                    <Button Content="خانه"/>
+            <StackPanel Spacing="5">
+                <Border Classes="ButtonShadow">
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                            <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2C2;"></Label>
+                            <Label Content="خانه"></Label>
+                        </StackPanel>
+                    </Button>
                 </Border>
                 <Border>
-                    <Button Content="خانه"/>
-                </Border>
-                <Border>
-                    <Button Content="خانه"/>
-                </Border>
-                <Border>
-                    <Button Content="خانه"/>
+                    <Button Classes="icon-only">
+                        <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon-only" Content="&#xE272;"></Label>
+                    </Button>
                 </Border>
             </StackPanel>
             
@@ -32,40 +24,46 @@
     
     <!-- Add Styles Here -->
 
-    <Style Selector="Border">
+    <Style Selector="Window">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam-FD}"></Setter>
+    </Style>
+    
+    <!-- Box shadow -->
+    
+    <Style Selector="Border.ButtonShadow">
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect
                     BlurRadius="30"
                     OffsetX="0"
-                    OffsetY="10"
-                    Color="White"
-                    Opacity="0.3"/>
+                    OffsetY="7"
+                    Color="#CFCFCF"
+                    Opacity="0.2"/>
             </Setter.Value>
         </Setter>
     </Style>
     
-    <Style Selector="Border:pointerover">
+    <Style Selector="Border.ButtonShadow:pointerover">
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect
                     BlurRadius="30"
                     OffsetX="0"
                     OffsetY="10"
-                    Color="White"
-                    Opacity="0.15" />
+                    Color="#CFCFCF"
+                    Opacity="0.1" />
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- Button -->
     
     <Style Selector="Button">
         <Setter Property="Background" Value="#212930"></Setter>
         <Setter Property="BorderBrush" Value="#0069ff"></Setter>
         <Setter Property="CornerRadius" Value="4"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
-        <Setter Property="FontFamily" Value="Shabnam FD"></Setter>
-        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="Padding" Value="5,2,5,0"></Setter>
     </Style>
     
     <Style Selector="Button:pointerover /template/ ContentPresenter">
@@ -73,7 +71,19 @@
         <Setter Property="BorderBrush" Value="#0069ff"></Setter>
         <Setter Property="CornerRadius" Value="4"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
-        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+    </Style>
+    
+    <Style Selector="Label.icon">
+        <Setter Property="Margin" Value="0,1,0,0"></Setter>
+    </Style>
+    
+    <Style Selector="Button.icon-only">
+        <Setter Property="Padding" Value="0"></Setter>
+    </Style>
+    
+    
+    <Style Selector="Label.icon-only">
+        <Setter Property="Margin" Value="1"></Setter>
     </Style>
     
 </Styles>
