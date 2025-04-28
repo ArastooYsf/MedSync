@@ -7,24 +7,39 @@
         x:Class="MedSync.MainWindow"
         Title="MedSync">
 
+    <!-- Main Grid -->
+    
     <Grid ShowGridLines="True"
           Background="{DynamicResource PrimaryBackground}"
           ColumnDefinitions="3*,*">
+        
+        <!-- Right Panel Main Border -->
+        
         <Border Grid.Column="1" Padding="10">
+            
             <Border Background="#212930"
                     CornerRadius="8">
+                
                 <Grid RowDefinitions="*,Auto">
+                    
+                    <!-- Right Panel Main Border Main Stack Panel -->
+                    
                     <StackPanel Grid.Row="0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Margin="20,20,20,20"
-                                Spacing="12"
-                                Background="Green">
+                                Spacing="12">
+                        
+                        <!-- Medsync Icon -->
+                        
                         <Image Source="{SvgImage /Assets/Images/Logo.svg}"
                                Width="100"
                                MaxWidth="150"
                                Stretch="Uniform"
                                HorizontalAlignment="Center"/>
+                        
+                        <!-- Home Button -->
+                        
                         <Border Classes="ButtonShadow">
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
@@ -33,6 +48,9 @@
                                 </StackPanel>
                             </Button>
                         </Border>
+                        
+                        <!-- List Button -->
+                        
                         <Border Classes="ButtonShadow">
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
@@ -41,6 +59,9 @@
                                 </StackPanel>
                             </Button>
                         </Border>
+                        
+                        <!-- Prescription Button -->
+                        
                         <Border Classes="ButtonShadow">
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
@@ -49,6 +70,9 @@
                                 </StackPanel>
                             </Button>
                         </Border>
+                        
+                        <!-- Help Button -->
+                        
                         <Border Classes="ButtonShadow">
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
@@ -58,14 +82,26 @@
                             </Button>
                         </Border>
                     </StackPanel>
+                    
+                    <!-- End Of Right Panel Main Border Main Stack Panel -->
+                    <!-- Settings Icon -->
+                    
                     <Border Grid.Row="1">
                         <Button Classes="icon-only" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
                             <Label FontSize="20" FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon-only" Content="&#xE272;"></Label>
                         </Button>
                     </Border>
+                    
                 </Grid>
+                
             </Border>
+            
         </Border>
+        
+        <!-- End Of Right Panel Main Border -->
+        
     </Grid>
+    
+    <!-- End Of Main Grid -->
     
 </Window>

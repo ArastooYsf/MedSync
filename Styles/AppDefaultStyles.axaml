@@ -3,12 +3,12 @@
     <Design.PreviewWith>
         <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
             <!-- Add Controls for Previewer Here -->
-            <StackPanel Spacing="5">
+            <StackPanel Spacing="12">
                 <Border Classes="ButtonShadow">
                     <Button HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                             <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2C2;"></Label>
-                            <Label Content="خانه"></Label>
+                            <Label Content="پشتیبانی"></Label>
                         </StackPanel>
                     </Button>
                 </Border>
@@ -73,17 +73,40 @@
         <Setter Property="Foreground" Value="White"></Setter>
     </Style>
     
+    <!-- Icons -->
+    
     <Style Selector="Label.icon">
-        <Setter Property="Margin" Value="0,1,0,0"></Setter>
+        <Setter Property="Margin" Value="0,2,0,0"></Setter>
     </Style>
     
     <Style Selector="Button.icon-only">
         <Setter Property="Padding" Value="0"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
     </Style>
     
+    <Style Selector="Button.icon-only:pointerover /template/ ContentPresenter">
+        <Setter Property="Padding" Value="0"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+    </Style>
     
     <Style Selector="Label.icon-only">
         <Setter Property="Margin" Value="1"></Setter>
+    </Style>
+    
+    <!-- Animation -->
+    
+    <Style Selector="Button Label">
+        <Setter Property="RenderTransform" Value="scale(1)"></Setter>
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:.1"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    
+    <Style Selector="Button:pointerover Label">
+        <Setter Property="RenderTransform" Value="scale(1.2)"></Setter>
     </Style>
     
 </Styles>
