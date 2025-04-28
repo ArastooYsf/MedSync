@@ -1,6 +1,6 @@
 ---
 
-# ⚠️ Development Has Not Started Yet!
+# ⚠️ Still In Development!
 
 ## English Version
 
@@ -73,7 +73,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <br>
 
-## ⚠️ توسعه هنوز آغاز نشده است!
+## ⚠️ درحال توسعه!
 
 ## نسخه فارسی
 
@@ -84,6 +84,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 **MedSync** یک نرم‌افزار قدرتمند و کاربرپسند است که برای ساده‌سازی مدیریت داده‌های بیماران در مطب‌های پزشکی طراحی شده است. این برنامه فرآیندهای پیچیده‌ی مدیریت اطلاعات بیماران را ساده کرده و ارتباط بین پزشکان و پرسنل را بهبود می‌بخشد.
 
 ---
+<div dir="rlt">
 
 ## قابلیت‌ها 🚀
 
@@ -110,7 +111,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 - **معماری مقیاس‌پذیر**:
   - قابل استفاده برای مطب‌های کوچک تا بیمارستان‌های بزرگ
   - طراحی ماژولار برای توسعه‌های آینده
-
+</div>
 ---
 
 ## شروع به کار 🛠️
