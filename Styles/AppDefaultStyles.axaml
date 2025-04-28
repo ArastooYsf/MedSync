@@ -1,11 +1,79 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Padding="20">
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
             <!-- Add Controls for Previewer Here -->
-            <Button Content="Hello World!"></Button>
+            <StackPanel Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,20,0,0"
+                        Spacing="12">
+                <Image Source="{SvgImage /Assets/Images/Logo.svg}"
+                       Width="100"
+                       MaxWidth="150"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"/>
+                <Border>
+                    <Button Content="خانه"/>
+                </Border>
+                <Border>
+                    <Button Content="خانه"/>
+                </Border>
+                <Border>
+                    <Button Content="خانه"/>
+                </Border>
+                <Border>
+                    <Button Content="خانه"/>
+                </Border>
+            </StackPanel>
+            
         </Border>
     </Design.PreviewWith>
-
+    
     <!-- Add Styles Here -->
+
+    <Style Selector="Border">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    BlurRadius="30"
+                    OffsetX="0"
+                    OffsetY="10"
+                    Color="White"
+                    Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Border:pointerover">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    BlurRadius="30"
+                    OffsetX="0"
+                    OffsetY="10"
+                    Color="White"
+                    Opacity="0.15" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Button">
+        <Setter Property="Background" Value="#212930"></Setter>
+        <Setter Property="BorderBrush" Value="#0069ff"></Setter>
+        <Setter Property="CornerRadius" Value="4"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontFamily" Value="Shabnam FD"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+    </Style>
+    
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#212930"></Setter>
+        <Setter Property="BorderBrush" Value="#0069ff"></Setter>
+        <Setter Property="CornerRadius" Value="4"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+    </Style>
+    
 </Styles>
