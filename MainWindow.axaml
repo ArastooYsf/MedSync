@@ -5,5 +5,9 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MedSync.MainWindow"
         Title="MedSync">
-    Welcome to Avalonia!
+        
+        <Grid ShowGridLines="True" Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="3*, 1*">
+                
+        </Grid>
+        
 </Window>
