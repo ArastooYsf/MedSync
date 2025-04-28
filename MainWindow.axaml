@@ -10,7 +10,7 @@
     <!-- Main Grid -->
     
     <Grid ShowGridLines="True"
-          Background="{DynamicResource PrimaryBackground}"
+          Background="#273038"
           ColumnDefinitions="3*,*">
         
         <!-- Right Panel Main Border -->
@@ -22,7 +22,7 @@
                 
                 <Grid RowDefinitions="*,Auto">
                     
-                    <!-- Right Panel Main Border Main Stack Panel -->
+                    <!-- Right Panel Main Border Main Stack Panel -->   
                     
                     <StackPanel Grid.Row="0"
                                 HorizontalAlignment="Stretch"
@@ -44,7 +44,7 @@
                             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
                                     <Label FontFamily="{DynamicResource Phosphor-Fill}" Classes="icon" Content="&#xE2C2;"></Label>
-                                    <Label Content="خانه"></Label>
+                                    <Label  Content="خانه"></Label>
                                 </StackPanel>
                             </Button>
                         </Border>

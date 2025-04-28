@@ -63,6 +63,7 @@
         <Setter Property="BorderBrush" Value="#0069ff"></Setter>
         <Setter Property="CornerRadius" Value="4"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
         <Setter Property="Padding" Value="5,2,5,0"></Setter>
     </Style>
     
@@ -95,18 +96,18 @@
     
     <!-- Animation -->
     
-    <Style Selector="Button Label">
+    <Style Selector="Button.icon-only">
+        <Setter Property="CornerRadius" Value="4"></Setter>
         <Setter Property="RenderTransform" Value="scale(1)"></Setter>
         <Setter Property="Transitions">
             <Transitions>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:.1"/>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:.15"/>
             </Transitions>
         </Setter>
     </Style>
     
-    
-    <Style Selector="Button:pointerover Label">
-        <Setter Property="RenderTransform" Value="scale(1.2)"></Setter>
+    <Style Selector="Button.icon-only:pointerover">
+        <Setter Property="RenderTransform" Value="scale(1.1)"></Setter>
+        <Setter Property="CornerRadius" Value="4"></Setter>
     </Style>
-    
 </Styles>
