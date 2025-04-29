@@ -44,6 +44,10 @@
       <AvaloniaResource Include="Assets\Fonts\Shabnam-Medium-FD.ttf" />
       <None Remove="Assets\Fonts\Shabnam-Thin-FD.ttf" />
       <AvaloniaResource Include="Assets\Fonts\Shabnam-Thin-FD.ttf" />
+      <None Remove="Src\Assets\Images\1.Badge-Bronze 128x128.png" />
+      <AvaloniaResource Include="Src\Assets\Images\Banner.png" />
+      <None Remove="Src\Assets\Images\Banner.svg" />
+      <AvaloniaResource Include="Src\Assets\Images\Banner.svg" />
     </ItemGroup>
 
     <ItemGroup>

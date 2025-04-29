@@ -38,7 +38,7 @@
                         
                         <!-- Medsync Icon -->
                         
-                        <Image Source="{SvgImage /Assets/Images/Logo.svg}"
+                        <Image Source="{SvgImage Src/Assets/Images/Logo.svg}"
                                Width="100"
                                MaxWidth="150"
                                Stretch="Uniform"
