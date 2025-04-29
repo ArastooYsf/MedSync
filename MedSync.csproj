@@ -45,4 +45,23 @@
       <None Remove="Assets\Fonts\Shabnam-Thin-FD.ttf" />
       <AvaloniaResource Include="Assets\Fonts\Shabnam-Thin-FD.ttf" />
     </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Styles\AppDefaultStyles.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Src\Styles\AppDefaultStyles.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Src\App.axaml.cs">
+        <DependentUpon>App.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Src\MainView.axaml.cs">
+        <DependentUpon>MainView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>
