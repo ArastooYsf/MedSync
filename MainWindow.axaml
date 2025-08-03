@@ -29,7 +29,7 @@
                                                         Content="مدیریت"
                                                         HorizontalAlignment="Stretch"
                                                         HorizontalContentAlignment="Center"/>
-                                                <Separator></Separator>
+                                                <Separator Background="#444"></Separator>
                                                 <Button Classes="darkblue"
                                                         Content="بیماران"
                                                         HorizontalAlignment="Stretch"
