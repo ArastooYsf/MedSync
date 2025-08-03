@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="720" d:DesignHeight="480" MinWidth="720" MinHeight="480"
+        x:Class="MedSync.MainWindow"
+        Title="MedSync">
+        
+        <Grid Background="{DynamicResource PrimaryBackground}"
+              ColumnDefinitions="3*,*"
+              ShowGridLines="True">
+              
+                <!-- Side Panel -->
+                
+                <Border Grid.Column="2"
+                        Margin="5"
+                        CornerRadius="8"
+                        BorderBrush="#0069FF"
+                        BorderThickness="2">
+                        
+                        <Border Padding="20">
+                                <Grid RowDefinitions="*, Auto">
+                                        <StackPanel>
+                                                <Image Source="{SvgImage /Assets/Images/Logo.svg}"
+                                                       Margin="50,-10,50,5" 
+                                                       MaxHeight="100" 
+                                                       MaxWidth="100"/>
+                                                <Button Classes="darkblue"
+                                                        Content="مدیریت"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Center"/>
+                                                <Separator></Separator>
+                                                <Button Classes="darkblue"
+                                                        Content="بیماران"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Center"/>
+                                                <Button Classes="darkblue"
+                                                        Content="نسخه نویسی"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Center"/>
+                                                <Button Classes="darkblue"
+                                                        Content="کارمندان"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Center"/>
+                                                <Button Classes="darkblue"
+                                                        Content="بیماران"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Center"/>
+                                        </StackPanel>
+                                </Grid>
+                        </Border>
+                </Border>
+        </Grid>
+</Window>

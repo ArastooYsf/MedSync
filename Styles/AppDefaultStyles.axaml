@@ -1,0 +1,13 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+            <Border BoxShadow="0 10 30 0 #0069FF" BorderBrush="Orange" BorderThickness="1" Padding="0" CornerRadius="3">
+                <Button Content="Hello World" Padding="10,5" Background="Transparent"/>
+            </Border>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+</Styles>
