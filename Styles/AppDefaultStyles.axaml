@@ -1,13 +1,182 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
     <Design.PreviewWith>
-        <Border Padding="20">
+        
+        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
             <!-- Add Controls for Previewer Here -->
-            <Border BoxShadow="0 10 30 0 #0069FF" BorderBrush="Orange" BorderThickness="1" Padding="0" CornerRadius="3">
-                <Button Content="Hello World" Padding="10,5" Background="Transparent"/>
-            </Border>
+            <StackPanel Spacing="10">
+                <Border Classes="ButtonDarkStyleBorder"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="10, 0">
+                    <Button  Content="سلام داپش"/>
+                </Border>
+                <Border Classes="ButtonDarkStyleBorder"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="10, 0">
+                    <Button  Content="Hello World!"/>
+                </Border>
+                <Border Classes="ButtonDarkStyleBorder"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="10, 0">
+                    <Button Background="Aquamarine">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Background="Aqua" Classes="workers" FontFamily="{DynamicResource Shabnam}" Content="کارمندان"/>
+                            <Label Background="Red" Classes="icon" FontFamily="{DynamicResource PhosphorFill}" Content="&#xe4d4;"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Grid.Row="1" Classes="ButtonDarkStyleBorder"
+                        Padding="0"
+                        HorizontalAlignment="Center">
+                    <Button Padding="0">
+                        <Label Classes="icon-only" Content="&#xe272;" FontFamily="{DynamicResource PhosphorFill}"></Label>
+                    </Button>
+                </Border>
+                <Border Grid.Row="1" Classes="ButtonGreenStyleBorder"
+                        Padding="0"
+                        HorizontalAlignment="Center">
+                    <Button Padding="0">
+                        <Label Classes="icon-only" Content="&#xe272;" FontFamily="{DynamicResource PhosphorFill}"></Label>
+                    </Button>
+                </Border>
+                <Border Grid.Row="1" Classes="ButtonRedStyleBorder"
+                        Padding="0"
+                        HorizontalAlignment="Center">
+                    <Button Padding="0">
+                        <Label Classes="icon-only" Content="&#xe272;" FontFamily="{DynamicResource PhosphorFill}"></Label>
+                    </Button>
+                </Border>
+            </StackPanel>
         </Border>
+        
     </Design.PreviewWith>
 
     <!-- Add Styles Here -->
+    
+    <Style Selector="Label.icon">
+        <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}"/>
+        <Setter Property="FontSize" Value="21"/>
+    </Style>
+    
+    <!-- Button -->
+    <Style Selector="Button">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+    
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"></Setter>
+    </Style>
+    
+    <Style Selector="Button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"/>
+        
+    </Style>
+
+    <Style Selector="Border.ButtonRedStyleBorder Button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    
+    <!-- DarkBlue Border -->
+    
+    <Style Selector="Border.ButtonDarkStyleBorder">
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}"/> 
+    </Style>
+    
+    <Style Selector="Border.ButtonDarkStyleBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF"/>
+        <Setter Property="Background" Value="{DynamicResource BlueBrush}"/>
+    </Style>
+    
+    <!-- Green Border -->
+    
+    <Style Selector="Border.ButtonGreenStyleBorder">
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Background" Value="{DynamicResource GreenBrush}"/>
+        <Setter Property="BoxShadow" Value="0 6 20 0 #1FC198"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource GreenBrush}"/> 
+    </Style>
+    
+    <Style Selector="Border.ButtonGreenStyleBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #1FC198"/>
+        <Setter Property="Background" Value="{DynamicResource GreenBrush}"/>
+    </Style>
+    
+    <!-- Red Border -->
+    
+    <Style Selector="Border.ButtonRedStyleBorder">
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Background" Value="{DynamicResource RedBrush}"/>
+        <Setter Property="BoxShadow" Value="0 6 20 0 #ff5271"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource RedBrush}"/> 
+    </Style>
+    
+    <Style Selector="Border.ButtonRedStyleBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #ff5271"/>
+        <Setter Property="Background" Value="{DynamicResource RedBrush}"/>
+    </Style>
+    
+    <!-- Blue Animation -->
+
+    <Style Selector="Border.ButtonDarkStyleBorder">
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2"/>
+                <BrushTransition Property="Background" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Border.ButtonDarkStyleBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF"/>
+    </Style>
+    
+    <!-- Green Animation -->
+
+    <Style Selector="Border.ButtonGreenStyleBorder">
+        <Setter Property="BoxShadow" Value="0 6 20 0 #1FC198"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Border.ButtonGreenStyleBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #1FC198"/>
+    </Style>
+    
+    <!-- Red Animation -->
+
+    <Style Selector="Border.ButtonRedStyleBorder">
+        <Setter Property="BoxShadow" Value="0 6 20 0 #ff5271"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Border.ButtonRedStyleBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #ff5271"/>
+    </Style>
 </Styles>

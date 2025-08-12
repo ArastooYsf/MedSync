@@ -28,5 +28,11 @@
     <ItemGroup>
       <None Remove="Assets\Images\Logo.svg" />
       <AvaloniaResource Include="Assets\Images\Logo.svg" />
+      <None Remove="Assets\Fonts\Shabnam-FD.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Shabnam-FD.ttf" />
+      <None Remove="Assets\Fonts\Phosphor-Fill.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Phosphor-Fill.ttf" />
+      <None Remove="Assets\Fonts\Phosphor.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Phosphor.ttf" />
     </ItemGroup>
 </Project>

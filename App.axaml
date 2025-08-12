@@ -8,38 +8,19 @@
         <FluentTheme />
         <StyleInclude Source="Styles/AppDefaultStyles.axaml"></StyleInclude>
         
-        <Style Selector="Button.darkblue">
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border CornerRadius="4"
-                            BorderBrush="#0069FF"
-                            BorderThickness="2"
-                            BoxShadow="0 10 30 -15 #0069FF"
-                            Background="Transparent"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Margin="10, 5">
-                        <ContentPresenter  Content="{TemplateBinding Content}"
-                                           ContentTemplate="{TemplateBinding ContentTemplate}"
-                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                           Padding="10,5"
-                                           Foreground="White"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter>
-        </Style>
+        <!-- Button -->
         
     </Application.Styles>
              
              <Application.Resources>
                  <SolidColorBrush x:Key="PrimaryBackground">#212930</SolidColorBrush>
-                 <LinearGradientBrush x:Key="PrimaryBackgroundGradient" StartPoint="100%, 0%" EndPoint="0%, 0%">
-                     <GradientStop Offset="0" Color="#0F171E"></GradientStop>
-                     <GradientStop Offset="1" Color="#212930"></GradientStop>
-                 </LinearGradientBrush>
+                 <SolidColorBrush x:Key="BlueBrush">#0069FF</SolidColorBrush>
+                 <SolidColorBrush x:Key="GreenBrush">#1FC198</SolidColorBrush>
+                 <SolidColorBrush x:Key="RedBrush">#ff5271</SolidColorBrush>
+                 
+                 <FontFamily x:Key="Shabnam">/Assets/Fonts/Shabnam-FD.ttf#Shabnam FD</FontFamily>
+                 <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
+                 <FontFamily x:Key="PhosphorFill">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
                  
              </Application.Resources>
 </Application>
