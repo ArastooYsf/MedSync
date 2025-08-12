@@ -74,16 +74,13 @@
     
     <Style Selector="Button:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
     
     <Style Selector="Button:pressed /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
         
-    </Style>
-
-    <Style Selector="Border.ButtonRedStyleBorder Button:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="Transparent"/>
     </Style>
     
     <!-- DarkBlue Border -->
@@ -137,7 +134,6 @@
     <!-- Blue Animation -->
 
     <Style Selector="Border.ButtonDarkStyleBorder">
-        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF"/>
         <Setter Property="Transitions">
             <Transitions>
                 <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2"/>
@@ -146,23 +142,14 @@
         </Setter>
     </Style>
     
-    <Style Selector="Border.ButtonDarkStyleBorder:pointerover">
-        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF"/>
-    </Style>
-    
     <!-- Green Animation -->
 
     <Style Selector="Border.ButtonGreenStyleBorder">
-        <Setter Property="BoxShadow" Value="0 6 20 0 #1FC198"/>
         <Setter Property="Transitions">
             <Transitions>
                 <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2"/>
             </Transitions>
         </Setter>
-    </Style>
-    
-    <Style Selector="Border.ButtonGreenStyleBorder:pointerover">
-        <Setter Property="BoxShadow" Value="0 6 10 0 #1FC198"/>
     </Style>
     
     <!-- Red Animation -->

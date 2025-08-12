@@ -39,7 +39,7 @@
                                         <Border Classes="ButtonDarkStyleBorder">
                                                 <Button HorizontalContentAlignment="Right" HorizontalAlignment="Stretch">
                                                         <StackPanel Orientation="Horizontal">
-                                                                <Label Classes="workers" FontFamily="{DynamicResource Shabnam}" Content="نوبت دهی"/>
+                                                                <Label Classes="workers"  FontFamily="{DynamicResource Shabnam}" Content="نوبت دهی"/>
                                                                 <Label Classes="icon" FontFamily="{DynamicResource PhosphorFill}" Content="&#xe2f2;"/>
                                                         </StackPanel>
                                                 </Button>
@@ -94,7 +94,7 @@
                                                 <Button HorizontalContentAlignment="Right" HorizontalAlignment="Stretch">
                                                         <StackPanel Orientation="Horizontal">
                                                                 <Label Classes="workers" FontFamily="{DynamicResource Shabnam}" Content="گزارشات"/>
-                                                                <Label Classes="icon" FontFamily="{DynamicResource PhosphorFill}" Content="&#xe34e;"/>
+                                                                <Label Classes="icon"  FontFamily="{DynamicResource PhosphorFill}" Content="&#xe34e;"/>
                                                         </StackPanel>
                                                 </Button>
                                         </Border>
