@@ -1,5 +1,11 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+    
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
     
     <Design.PreviewWith>
         
@@ -7,47 +13,40 @@
             <!-- Add Controls for Previewer Here -->
             <StackPanel Spacing="10">
                 <Border Classes="ButtonDarkStyleBorder"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
                         Margin="10, 0">
-                    <Button  Content="سلام داپش"/>
+                    <Button Content="سلام داپش"/>
                 </Border>
                 <Border Classes="ButtonDarkStyleBorder"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
                         Margin="10, 0">
-                    <Button  Content="Hello World!"/>
+                    <Button Content="Hello World!"/>
                 </Border>
                 <Border Classes="ButtonDarkStyleBorder"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
                         Margin="10, 0">
                     <Button Background="Aquamarine">
                         <StackPanel Orientation="Horizontal">
-                            <Label Background="Aqua" Classes="workers" FontFamily="{DynamicResource Shabnam}" Content="کارمندان"/>
-                            <Label Background="Red" Classes="icon" FontFamily="{DynamicResource PhosphorFill}" Content="&#xe4d4;"/>
+                            <Label Background="Aqua" Classes="text" Content="کارمندان"/>
+                            <Label Background="Red" Classes="icon" Content="&#xe4d4;"/>
                         </StackPanel>
                     </Button>
                 </Border>
-                <Border Grid.Row="1" Classes="ButtonDarkStyleBorder"
-                        Padding="0"
+                <Border Classes="ButtonDarkStyleBorder"
                         HorizontalAlignment="Center">
                     <Button Padding="0">
-                        <Label Classes="icon-only" Content="&#xe272;" FontFamily="{DynamicResource PhosphorFill}"></Label>
+                        <Label Classes="icon-only" Content="&#xe272;"/>
                     </Button>
                 </Border>
-                <Border Grid.Row="1" Classes="ButtonGreenStyleBorder"
+                <Border Classes="ButtonGreenStyleBorder"
                         Padding="0"
                         HorizontalAlignment="Center">
                     <Button Padding="0">
-                        <Label Classes="icon-only" Content="&#xe272;" FontFamily="{DynamicResource PhosphorFill}"></Label>
+                        <Label Classes="icon-only" Content="&#xe272;"/>
                     </Button>
                 </Border>
-                <Border Grid.Row="1" Classes="ButtonRedStyleBorder"
+                <Border Classes="ButtonRedStyleBorder"
                         Padding="0"
                         HorizontalAlignment="Center">
                     <Button Padding="0">
-                        <Label Classes="icon-only" Content="&#xe272;" FontFamily="{DynamicResource PhosphorFill}"></Label>
+                        <Label Classes="icon-only" Content="&#xe272;"/>
                     </Button>
                 </Border>
             </StackPanel>
@@ -57,12 +56,39 @@
 
     <!-- Add Styles Here -->
     
+    <Style Selector="Separator">
+        <Setter Property="Background" Value="#444"/>
+        <Setter Property="Height" Value="1"/>
+        <Setter Property="Margin" Value="0,10"/>
+    </Style>
+    
+    <!-- Text -->
+    
+    <Style Selector="TextBlock.SeparatorText">
+        <Setter Property="Foreground" Value="#AAA"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    
+    <!-- Label -->
+    
     <Style Selector="Label.icon">
         <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}"/>
         <Setter Property="FontSize" Value="21"/>
     </Style>
     
+    <Style Selector="Label.icon-only">
+        <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}"/>
+    </Style>
+    
+    <Style Selector="Label.text">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}"/>
+        <Setter Property="IsVisible" Value="{Binding SidePanelExpanded}"/>
+    </Style>
+    
     <!-- Button -->
+    
     <Style Selector="Button">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -80,7 +106,11 @@
     <Style Selector="Button:pressed /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
-        
+    </Style>
+    
+    <Style Selector="Button.SidePanelButton">
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
     </Style>
     
     <!-- DarkBlue Border -->
@@ -103,6 +133,7 @@
     
     <Style Selector="Border.ButtonGreenStyleBorder">
         <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="2.5"/>
         <Setter Property="Background" Value="{DynamicResource GreenBrush}"/>
         <Setter Property="BoxShadow" Value="0 6 20 0 #1FC198"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -119,6 +150,7 @@
     
     <Style Selector="Border.ButtonRedStyleBorder">
         <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="2.5"/>
         <Setter Property="Background" Value="{DynamicResource RedBrush}"/>
         <Setter Property="BoxShadow" Value="0 6 20 0 #ff5271"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -155,7 +187,6 @@
     <!-- Red Animation -->
 
     <Style Selector="Border.ButtonRedStyleBorder">
-        <Setter Property="BoxShadow" Value="0 6 20 0 #ff5271"/>
         <Setter Property="Transitions">
             <Transitions>
                 <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2"/>
@@ -163,7 +194,4 @@
         </Setter>
     </Style>
     
-    <Style Selector="Border.ButtonRedStyleBorder:pointerover">
-        <Setter Property="BoxShadow" Value="0 6 10 0 #ff5271"/>
-    </Style>
 </Styles>
