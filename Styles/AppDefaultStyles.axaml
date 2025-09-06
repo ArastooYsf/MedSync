@@ -3,10 +3,6 @@
         xmlns:vm="clr-namespace:MedSync.ViewModels"
         x:DataType="vm:MainViewModel">
     
-    <Design.DataContext>
-        <vm:MainViewModel/>
-    </Design.DataContext>
-    
     <Design.PreviewWith>
         
         <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
@@ -23,7 +19,7 @@
                 <Border Classes="ButtonDarkStyleBorder"
                         Margin="10, 0">
                     <Button Background="Aquamarine">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Background="BlueViolet" Orientation="Horizontal">
                             <Label Background="Aqua" Classes="text" Content="کارمندان"/>
                             <Label Background="Red" Classes="icon" Content="&#xe4d4;"/>
                         </StackPanel>
@@ -56,6 +52,21 @@
 
     <!-- Add Styles Here -->
     
+    <!-- Logo -->
+    
+    <Style Selector="Image.Logo">
+        <Setter Property="Margin" Value="{Binding LogoMargin}"/>
+        <Setter Property="MinHeight" Value="25"/>
+        <Setter Property="MinWidth" Value="25"/>
+        <Setter Property="MaxHeight" Value="125"/>
+        <Setter Property="MaxWidth" Value="125"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Stretch" Value="Uniform"/>
+    </Style>
+    
+    <!-- Separator -->
+    
     <Style Selector="Separator">
         <Setter Property="Background" Value="#444"/>
         <Setter Property="Height" Value="1"/>
@@ -65,7 +76,7 @@
     <!-- Text -->
     
     <Style Selector="TextBlock.SeparatorText">
-        <Setter Property="Foreground" Value="#AAA"/>
+        <Setter Property="Foreground" Value="GhostWhite"/>
         <Setter Property="FontFamily" Value="{DynamicResource Shabnam}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -75,7 +86,7 @@
     
     <Style Selector="Label.icon">
         <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}"/>
-        <Setter Property="FontSize" Value="21"/>
+        <Setter Property="FontSize" Value="{Binding IconFontSize}"/>
     </Style>
     
     <Style Selector="Label.icon-only">
@@ -92,10 +103,12 @@
     <Style Selector="Button">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="Padding" Value="{Binding ButtonPadding}"/>
         <Setter Property="FontFamily" Value="{DynamicResource Shabnam}"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="0"/>
     </Style>
     
     <Style Selector="Button:pointerover /template/ ContentPresenter">
@@ -117,7 +130,7 @@
     
     <Style Selector="Border.ButtonDarkStyleBorder">
         <Setter Property="CornerRadius" Value="4"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"/>
         <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="ClipToBounds" Value="False"/>
@@ -193,5 +206,20 @@
             </Transitions>
         </Setter>
     </Style>
+    
+    <!-- SidePanel Animation -->
+    
+    <Style Selector="Grid">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Width" Duration="0:0:1"></DoubleTransition>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Button.active">
+        <Setter Property="Background" Value="{DynamicResource BlueBrush}"/>
+    </Style>
+
     
 </Styles>

@@ -1,0 +1,175 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="720" d:DesignHeight="480" MinWidth="720" MinHeight="480"
+        x:Class="MedSync.MainView"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel"
+        Title="MedSync">
+        
+        <Design.DataContext>
+                <vm:MainViewModel/>
+        </Design.DataContext>
+        
+        <Grid Background="{DynamicResource PrimaryBackground}">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="{Binding SidePanelWidth}"/>
+                </Grid.ColumnDefinitions>
+                
+                <ContentControl Grid.Column="0" Content="{Binding CurrentPage}"/>
+
+                <!-- Side Panel -->
+                <Border Grid.Column="1"
+                        Margin="5"
+                        CornerRadius="8"
+                        BorderBrush="{DynamicResource BlueBrush}"
+                        BorderThickness="2"
+                        Padding="20">
+
+                        <Grid RowDefinitions="*, Auto">
+                                <StackPanel Spacing="5">
+                                        
+                                        <Border 
+                                                Classes="ButtonDarkStyleBorder"
+                                                Margin="0,-10,0,15"
+                                                HorizontalAlignment="{Binding ButtonAlignment}">
+                                                <Button Padding="0"
+                                                        Command="{Binding SidePanelResizeCommand}">
+                                                        <Label Classes="icon-only" Content="{Binding ToggleLabel}"/>
+                                                </Button>
+                                        </Border>
+                                        
+                                        <Image Classes="Logo"
+                                               Source="{SvgImage /Assets/Images/ms.svg}"
+                                               IsVisible="{Binding SidePanelExpanded}"/>
+                                        <Image Classes="Logo"
+                                               Source="{SvgImage /Assets/Images/Logo.svg}"
+                                               IsVisible="{Binding !SidePanelExpanded}"/>
+                                        
+                                        <!-- Patient -->
+                                        
+                                        <TextBlock Classes="SeparatorText" Text="MedSync"
+                                                   IsVisible="{Binding SidePanelExpanded}"/>
+
+                                        <Separator IsVisible="{Binding SidePanelExpanded}"/>
+                                        
+                                        <!-- Patient -->
+                                        
+                                        <Border Classes="ButtonDarkStyleBorder">
+                                                <Button Classes="SidePanelButton"
+                                                        Classes.active="{Binding AppointmentsPageIsActive}"
+                                                        Command="{Binding GoToAppointmentsCommand}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <Label Classes="text" Content="نوبت دهی"/>
+                                                                <Label Classes="icon" Content="&#xe2f2;"/>
+                                                        </StackPanel>
+                                                </Button>
+                                        </Border>
+                                        <Border Classes="ButtonDarkStyleBorder">
+                                                <Button Classes="SidePanelButton"
+                                                        Classes.active="{Binding PrescriptionsPageIsActive}"
+                                                        Command="{Binding GoToPrescriptionsCommand}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <Label Classes="text" Content="نسخه ها"/>
+                                                                <Label Classes="icon" Content="&#xe700;"/>
+                                                        </StackPanel>
+                                                </Button>
+                                        </Border>
+                                        <Border Classes="ButtonDarkStyleBorder">
+                                                <Button Classes="SidePanelButton"
+                                                        Classes.active="{Binding TestsPageIsActive}"
+                                                        Command="{Binding GoToTestsCommand}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <Label Classes="text" Content="آزمایش ها"/>
+                                                                <Label Classes="icon" Content="&#xe79e;"/>
+                                                        </StackPanel>
+                                                </Button>
+                                        </Border>
+                                        <Border Classes="ButtonDarkStyleBorder">
+                                                <Button Classes="SidePanelButton"
+                                                        Classes.active="{Binding PatientsPageIsActive}"
+                                                        Command="{Binding GoToPatientsCommand}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <Label Classes="text" Content="بیماران"/>
+                                                                <Label Classes="icon" Content="&#xe56a;"/>
+                                                        </StackPanel>
+                                                </Button>
+                                        </Border>
+
+                                        <!-- Doc -->
+
+                                        <Separator IsVisible="{Binding SidePanelExpanded}"/>
+                                        
+                                        <!-- Doc -->
+                                        
+                                        <Border Classes="ButtonDarkStyleBorder">
+                                                <Button Classes="SidePanelButton"
+                                                        Classes.active="{Binding WorkersPageIsActive}"
+                                                        Command="{Binding GoToWorkersCommand}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <Label Classes="text" Content="کارمندان"/>
+                                                                <Label Classes="icon" Content="&#xe4d4;"/>
+                                                        </StackPanel>
+                                                </Button>
+                                        </Border>
+                                        <Border Classes="ButtonDarkStyleBorder">
+                                                <Button Classes="SidePanelButton"
+                                                        Classes.active="{Binding LogsPageIsActive}"
+                                                        Command="{Binding GoToLogsCommand}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <Label Classes="text" Content="گزارشات"/>
+                                                                <Label Classes="icon" Content="&#xe34e;"/>
+                                                        </StackPanel>
+                                                </Button>
+                                        </Border>
+                                        
+                                        <!-- Support -->
+
+                                        <Separator IsVisible="{Binding SidePanelExpanded}"/>
+                                        
+                                        <!-- Support -->
+                                        
+                                        <Border Classes="ButtonDarkStyleBorder">
+                                                <Button Classes="SidePanelButton"
+                                                        Classes.active="{Binding SupportsPageIsActive}"
+                                                        Command="{Binding GoToSupportsCommand}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                                <Label Classes="text" Content="پشتیبانی"/>
+                                                                <Label Classes="icon" Content="&#xe584;"/>
+                                                        </StackPanel>
+                                                </Button>
+                                        </Border>
+
+                                </StackPanel>
+                                
+                                <!-- End -->
+                                
+                                <Grid Row="1">
+                                        <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Border
+                                                Classes="ButtonGreenStyleBorder"
+                                                HorizontalAlignment="Left"
+                                                IsVisible="{Binding SidePanelExpanded}">
+                                                <Button Padding="0"
+                                                        Command="{Binding GoToSettingsCommand}">
+                                                        <Label Classes="icon-only" Content="&#xe272;"/>
+                                                </Button>
+                                        </Border>
+                                        <Border Grid.Column="{Binding ButtonColumn}"
+                                                Classes="ButtonRedStyleBorder"
+                                                HorizontalAlignment="{Binding ButtonAlignment}">
+                                                <Button Padding="0">
+                                                        <Label Classes="icon-only" Content="&#xe42a;"/>
+                                                </Button>
+                                        </Border>
+                                </Grid>
+                        </Grid>
+                </Border>
+        </Grid>
+</Window>
