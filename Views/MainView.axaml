@@ -26,7 +26,7 @@
                         CornerRadius="8"
                         BorderBrush="{DynamicResource BlueBrush}"
                         BorderThickness="2"
-                        Padding="20">
+                        Padding="21">
 
                         <Grid RowDefinitions="*, Auto">
                                 <StackPanel Spacing="5">
