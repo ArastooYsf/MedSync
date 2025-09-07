@@ -5,47 +5,55 @@
     
     <Design.PreviewWith>
         
-        <Border Padding="20" Background="{DynamicResource PrimaryBackground}">
-            <!-- Add Controls for Previewer Here -->
-            <StackPanel Spacing="10">
-                <Border Classes="ButtonDarkStyleBorder"
-                        Margin="10, 0">
-                    <Button Content="سلام داپش"/>
-                </Border>
-                <Border Classes="ButtonDarkStyleBorder"
-                        Margin="10, 0">
-                    <Button Content="Hello World!"/>
-                </Border>
-                <Border Classes="ButtonDarkStyleBorder"
-                        Margin="10, 0">
-                    <Button Background="Aquamarine">
-                        <StackPanel Background="BlueViolet" Orientation="Horizontal">
-                            <Label Background="Aqua" Classes="text" Content="کارمندان"/>
-                            <Label Background="Red" Classes="icon" Content="&#xe4d4;"/>
-                        </StackPanel>
-                    </Button>
-                </Border>
-                <Border Classes="ButtonDarkStyleBorder"
-                        HorizontalAlignment="Center">
-                    <Button Padding="0">
-                        <Label Classes="icon-only" Content="&#xe272;"/>
-                    </Button>
-                </Border>
-                <Border Classes="ButtonGreenStyleBorder"
-                        Padding="0"
-                        HorizontalAlignment="Center">
-                    <Button Padding="0">
-                        <Label Classes="icon-only" Content="&#xe272;"/>
-                    </Button>
-                </Border>
-                <Border Classes="ButtonRedStyleBorder"
-                        Padding="0"
-                        HorizontalAlignment="Center">
-                    <Button Padding="0">
-                        <Label Classes="icon-only" Content="&#xe272;"/>
-                    </Button>
-                </Border>
-            </StackPanel>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="8"
+                Width="200"
+                Height="200">
+            <ScrollViewer Padding="9">
+                <!-- Add Controls for Previewer Here -->
+                <StackPanel Spacing="10">
+                    <Border Classes="ButtonDarkStyleBorder"
+                            Margin="10, 0">
+                        <Button Content="سلام داپش"/>
+                    </Border>
+                    <Border Classes="ButtonDarkStyleBorder"
+                            Margin="10, 0">
+                        <Button Content="Hello World!"/>
+                    </Border>
+                    <Border Classes="ButtonDarkStyleBorder"
+                            Margin="10, 0">
+                        <Button Background="Aquamarine">
+                            <StackPanel Background="BlueViolet" Orientation="Horizontal">
+                                <Label Background="Aqua" Classes="text" Content="کارمندان"/>
+                                <Label Background="Red" Classes="icon" Content="&#xe4d4;"/>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+                    <Border Classes="ButtonDarkStyleBorder"
+                            HorizontalAlignment="Center">
+                        <Button Padding="0">
+                            <Label Classes="icon-only" Content="&#xe272;"/>
+                        </Button>
+                    </Border>
+                    <Border Classes="ButtonGreenStyleBorder"
+                            Padding="0"
+                            HorizontalAlignment="Center">
+                        <Button Padding="0">
+                            <Label Classes="icon-only" Content="&#xe272;"/>
+                        </Button>
+                    </Border>
+                    <Border Classes="ButtonRedStyleBorder"
+                            Padding="0"
+                            HorizontalAlignment="Center">
+                        <Button Padding="0">
+                            <Label Classes="icon-only" Content="&#xe272;"/>
+                        </Button>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
         
     </Design.PreviewWith>
@@ -124,6 +132,17 @@
     <Style Selector="Button.SidePanelButton">
         <Setter Property="HorizontalContentAlignment" Value="Right"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <!-- Scroll Viewer -->
+    
+    <Style Selector="ScrollBar /template/ Thumb">
+        <Setter Property="Background" Value="{DynamicResource BlueBrush}"/>
+        <Setter Property="CornerRadius" Value="4"/>
+    </Style>
+    
+    <Style Selector="ScrollBar:pointerover /template/ Thumb">
+        <Setter Property="Background" Value="#3399FF"/>
     </Style>
     
     <!-- DarkBlue Border -->

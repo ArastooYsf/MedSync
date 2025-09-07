@@ -53,7 +53,7 @@
                                         <TextBlock Classes="SeparatorText" Text="MedSync"
                                                    IsVisible="{Binding SidePanelExpanded}"/>
 
-                                        <Separator IsVisible="{Binding SidePanelExpanded}"/>
+                                        <Separator Margin="0,10,0,5" IsVisible="{Binding SidePanelExpanded}"/>
                                         
                                         <!-- Patient -->
                                         
@@ -100,7 +100,7 @@
 
                                         <!-- Doc -->
 
-                                        <Separator IsVisible="{Binding SidePanelExpanded}"/>
+                                        <Separator Margin="0,10,0,5" IsVisible="{Binding SidePanelExpanded}"/>
                                         
                                         <!-- Doc -->
                                         
@@ -124,12 +124,6 @@
                                                         </StackPanel>
                                                 </Button>
                                         </Border>
-                                        
-                                        <!-- Support -->
-
-                                        <Separator IsVisible="{Binding SidePanelExpanded}"/>
-                                        
-                                        <!-- Support -->
                                         
                                         <Border Classes="ButtonDarkStyleBorder">
                                                 <Button Classes="SidePanelButton"

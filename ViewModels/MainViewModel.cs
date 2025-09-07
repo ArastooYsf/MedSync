@@ -35,7 +35,12 @@ public partial class MainViewModel : ViewModelBase
     public bool PatientsPageIsActive => CurrentPage.PageName == ApplicationPageNames.Patients;
     public bool WorkersPageIsActive => CurrentPage.PageName == ApplicationPageNames.Workers;
     public bool SupportsPageIsActive => CurrentPage.PageName == ApplicationPageNames.Supports;
-    
+
+    public MainViewModel()
+    {
+        CurrentPage = new SettingsPageViewModel();
+    }
+
     public MainViewModel(PageFactory pageFactory)
     {
         _pageFactory = pageFactory;

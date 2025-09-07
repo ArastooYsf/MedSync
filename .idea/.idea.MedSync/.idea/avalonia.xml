@@ -13,6 +13,7 @@
         <entry key="Views/PatientsPageView.axaml" value="MedSync.csproj" />
         <entry key="Views/PrescriptionsPageView.axaml" value="MedSync.csproj" />
         <entry key="Views/SettingsPageView.axaml" value="MedSync.csproj" />
+        <entry key="Views/SupportsPageView.axaml" value="MedSync.csproj" />
         <entry key="Views/TestsPageView.axaml" value="MedSync.csproj" />
         <entry key="Views/WorkersPageView.axaml" value="MedSync.csproj" />
       </map>

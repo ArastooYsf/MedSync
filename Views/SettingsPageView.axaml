@@ -3,6 +3,50 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="{DynamicResource PrimaryBackground}"
+             Foreground="White"
              x:Class="MedSync.Views.SettingsPageView">
-    Welcome to Settings Page!
+    
+    <Border Margin="5"
+            CornerRadius="8"
+            BorderBrush="{DynamicResource BlueBrush}"
+            BorderThickness="2"
+            Padding="20">
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Line 1"/>
+                <TextBlock Text="Line 2"/>
+                <TextBlock Text="Line 3"/>
+                <TextBlock Text="Line 4"/>
+                <TextBlock Text="Line 5"/>
+                <TextBlock Text="Line 6"/>
+                <TextBlock Text="Line 7"/>
+                <TextBlock Text="Line 8"/>
+                <TextBlock Text="Line 9"/>
+                <TextBlock Text="Line 10"/>
+                <TextBlock Text="Line 11"/>
+                <TextBlock Text="Line 12"/>
+                <TextBlock Text="Line 13"/>
+                <TextBlock Text="Line 14"/>
+                <TextBlock Text="Line 15"/>
+                <TextBlock Text="Line 16"/>
+                <TextBlock Text="Line 17"/>
+                <TextBlock Text="Line 18"/>
+                <TextBlock Text="Line 19"/>
+                <TextBlock Text="Line 21"/>
+                <TextBlock Text="Line 22"/>
+                <TextBlock Text="Line 23"/>
+                <TextBlock Text="Line 24"/>
+                <TextBlock Text="Line 25"/>
+                <TextBlock Text="Line 26"/>
+                <TextBlock Text="Line 27"/>
+                <TextBlock Text="Line 28"/>
+                <TextBlock Text="Line 29"/>
+                <TextBlock Text="Line 30"/>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </Border>
+    
 </UserControl>
