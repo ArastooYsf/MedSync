@@ -144,8 +144,8 @@ cd MedSync
 
 از مشارکت توسعه‌دهندگان سراسر جهان استقبال می‌کنیم!
 
-- 🐛 باگ پیدا کردید؟ [یک Issue باز کنید](https://github.com/ArastooYsf/MedSync/issues)
-- 💡 ایده دارید؟ یک Pull Request ارسال کنید
+- 🐛 باگ پیدا کردید؟ [یک Issue باز کنید](.https://github.com/ArastooYsf/MedSync/issues)
+- 💡 ایده دارید؟ یک Pull Request ارسال کنید.
 
 لطفاً قبل از مشارکت، دستورالعمل‌های همکاری را مطالعه کنید.
 
