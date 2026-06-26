@@ -37,17 +37,15 @@ public partial class AppointmentCardViewModel : ObservableObject
     public string StatusText => Status switch
     {
         AppointmentStatus.Normal => "عادی",
-        AppointmentStatus.Emergency => "اورژانسی",
-        AppointmentStatus.Special => "خاص",
+        AppointmentStatus.Emergency => "اورژانسی", 
         _ => "نامشخص"
     };
 
     public string StatusIcon => Status switch
     {
-        AppointmentStatus.Normal => "\ue13e",
-        AppointmentStatus.Emergency => "\ue14e",
-        AppointmentStatus.Special => "\ue15e",
-        _ => "\ue17e"
+        AppointmentStatus.Normal => "\ue184",
+        AppointmentStatus.Emergency => "\ue4e2",
+        _ => "\ue184"
     };
 
     public bool IsNormalStatus => Status == AppointmentStatus.Normal;

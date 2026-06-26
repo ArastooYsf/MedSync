@@ -34,7 +34,7 @@ public partial class AppointmentsPageViewModel : PageViewModel
     [ObservableProperty] private int     _totalPages           = 1;
     [ObservableProperty] private bool    _hasMoreItems         = false;
 
-    public string[] StatusFilters { get; } = { "همه", "عادی", "اورژانسی", "خاص" };
+    public string[] StatusFilters { get; } = { "همه", "عادی", "اورژانسی" };
 
     public event EventHandler? AddAppointmentRequested;
     public event EventHandler<AppointmentCardViewModel>? EditAppointmentRequested;
@@ -105,7 +105,6 @@ public partial class AppointmentsPageViewModel : PageViewModel
             {
                 "عادی"      => result.Where(a => a.Status == AppointmentStatus.Normal),
                 "اورژانسی" => result.Where(a => a.Status == AppointmentStatus.Emergency),
-                "خاص"       => result.Where(a => a.Status == AppointmentStatus.Special),
                 _            => result
             };
         }

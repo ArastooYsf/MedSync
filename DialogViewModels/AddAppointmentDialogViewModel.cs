@@ -35,7 +35,7 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
 
     public string DialogTitle => _appointmentId.HasValue ? "ویرایش نوبت" : "افزودن نوبت";
     
-    public string[] StatusDisplayOptions { get; } = { "عادی", "اورژانسی", "خاص" };
+    public string[] StatusDisplayOptions { get; } = { "عادی", "اورژانسی" };
 
     public string[] HourOptions { get; } =
         Enumerable.Range(0, 24).Select(h => h.ToString("D2")).ToArray();
@@ -70,7 +70,6 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
         SelectedStatus = existing.Status switch
         {
             AppointmentStatus.Emergency => "اورژانسی",
-            AppointmentStatus.Special   => "خاص",
             _                           => "عادی"
         };
 
@@ -131,7 +130,6 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
             var status = SelectedStatus switch
             {
                 "اورژانسی" => AppointmentStatus.Emergency,
-                "خاص"      => AppointmentStatus.Special,
                 _          => AppointmentStatus.Normal
             };
 

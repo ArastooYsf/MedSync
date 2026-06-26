@@ -39,8 +39,8 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
-        <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="Margin" Value="0,75,0,25" />
+        <Setter Property="CornerRadius" Value="8,8,8,0" />
+        <Setter Property="Margin" Value="0,75,0,0" />
     </Style>
 
     <Style Selector="Border.MainPanelBorder:pointerover">

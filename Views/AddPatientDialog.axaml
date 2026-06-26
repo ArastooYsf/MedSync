@@ -30,7 +30,7 @@
 
                     <!-- First Name -->
                     <StackPanel Orientation="Horizontal">
-                        <Label Classes="h3" Content="* نام" />
+                        <Label Classes="h3" Content="نام" />
                         <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="16" />
                     </StackPanel>
                     <Border Classes="TextBoxBorder">
@@ -47,7 +47,7 @@
 
                     <!-- Last Name -->
                     <StackPanel Orientation="Horizontal">
-                        <Label Classes="h3" Content="* نام خانوادگی" />
+                        <Label Classes="h3" Content="نام خانوادگی" />
                         <Label Classes="icon" Content="&#xe4d6;" Foreground="White" FontSize="16" />
                     </StackPanel>
                     <Border Classes="TextBoxBorder">
@@ -64,7 +64,7 @@
 
                     <!-- Gender -->
                     <StackPanel Orientation="Horizontal">
-                        <Label Classes="h3" Content="* جنسیت" />
+                        <Label Classes="h3" Content="جنسیت" />
                         <Label Classes="icon" Content="&#xe6e6;" Foreground="White" FontSize="16" />
                     </StackPanel>
                     <Border Classes="NormalBlueBorder">
@@ -82,7 +82,7 @@
 
                     <!-- Phone Number -->
                     <StackPanel Orientation="Horizontal">
-                        <Label Classes="h3" Content="* شماره تماس" />
+                        <Label Classes="h3" Content="شماره تماس" />
                         <Label Classes="icon" Content="&#xe3ba;" Foreground="White" FontSize="16" />
                     </StackPanel>
                     <Border Classes="TextBoxBorder">
@@ -99,7 +99,7 @@
 
                     <!-- National Code -->
                     <StackPanel Orientation="Horizontal">
-                        <Label Classes="h3" Content="* کد ملی" />
+                        <Label Classes="h3" Content="کد ملی" />
                         <Label Classes="icon" Content="&#xe2c8;" Foreground="White" FontSize="16" />
                     </StackPanel>
                     <Border Classes="TextBoxBorder">
@@ -116,7 +116,7 @@
 
                     <!-- Birth Date -->
                     <StackPanel Orientation="Horizontal">
-                        <Label Classes="h3" Content="* تاریخ تولد" />
+                        <Label Classes="h3" Content="تاریخ تولد" />
                         <Label Classes="icon" Content="&#xe108;" Foreground="White" FontSize="16" />
                     </StackPanel>
                     <Border Classes="NormalBlueBorder" CornerRadius="4" FlowDirection="LeftToRight">

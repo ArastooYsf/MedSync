@@ -175,16 +175,6 @@
                                             </StackPanel>
                                         </Border>
 
-                                        <!-- Special (Yellow) -->
-                                        <Border Classes="YellowBorder"
-                                                IsVisible="{Binding IsSpecialStatus}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Classes="h3" Content="{Binding StatusText}" />
-                                                <Label Classes="icon" Content="{Binding StatusIcon}" Foreground="White"
-                                                       FontSize="16" />
-                                            </StackPanel>
-                                        </Border>
-
                                     </Panel>
 
                                     <!-- Timer -->
