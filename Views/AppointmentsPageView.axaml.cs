@@ -14,12 +14,21 @@ public partial class AppointmentsPageView : UserControl
         DataContextChanged += OnDataContextChanged;
     }
 
+    private AppointmentsPageViewModel? _previousVm;
+
     private void OnDataContextChanged(object? sender, EventArgs e)
     {
+        if (_previousVm != null)
+        {
+            _previousVm.AddAppointmentRequested  -= OnAddAppointmentRequested;
+            _previousVm.EditAppointmentRequested -= OnEditAppointmentRequested;
+        }
+
         if (DataContext is AppointmentsPageViewModel vm)
         {
             vm.AddAppointmentRequested  += OnAddAppointmentRequested;
             vm.EditAppointmentRequested += OnEditAppointmentRequested;
+            _previousVm = vm;
         }
     }
 

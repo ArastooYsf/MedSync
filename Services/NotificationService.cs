@@ -46,8 +46,8 @@ public class NotificationService
     public async Task<List<Notification>> GetAllNotificationsAsync()
     {
         return await _context.Notifications
-            .Include(n => n.Appointment)
-            .ThenInclude(a => a.Patient)
+            .Include(n => n.Appointment!)
+            .ThenInclude(a => a!.Patient)
             .OrderByDescending(n => n.CreatedAt)
             .ToListAsync();
     }

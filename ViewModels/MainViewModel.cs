@@ -12,7 +12,10 @@ public partial class MainViewModel : ViewModelBase
 {
     
 #if DEBUG
-    public MainViewModel() { } // design-time only
+    public MainViewModel()
+    {
+        _pageFactory = null!;
+    } // design-time only
 #endif
     
     private readonly PageFactory _pageFactory;

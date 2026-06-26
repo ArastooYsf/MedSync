@@ -1,6 +1,4 @@
-﻿// DialogViews/PersianDatePickerDialog.axaml.cs
-using System;
-using System.Collections.Generic;
+﻿using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -15,101 +13,230 @@ public partial class PersianDatePickerDialog : Window
 {
     // ─── Fields ──────────────────────────────────────────────────────────────
 
+    private enum PickerMode { Day, Month, Year }
+
     private int _currentPYear;
     private int _currentPMonth;
     private DateTime? _selectedDate;
+    private PickerMode _mode = PickerMode.Day;
+    private int _yearRangeStart;
 
-    // ─── Constructor ─────────────────────────────────────────────────────────
+    // ─── Constructors ────────────────────────────────────────────────────────
 
-    public PersianDatePickerDialog(DateTime initialDate)
+    public PersianDatePickerDialog()
     {
         InitializeComponent();
-
-        _currentPYear  = PersianCalendarHelper.GetPersianYear(initialDate);
-        _currentPMonth = PersianCalendarHelper.GetPersianMonth(initialDate);
-        _selectedDate  = initialDate;
-
-        PrevMonthButton.Click += OnPrevMonth;
-        NextMonthButton.Click += OnNextMonth;
-        TodayButton.Click     += OnToday;
-        CancelButton.Click    += OnCancel;
-
-        RenderCalendar();
     }
 
-    // ─── Navigation ──────────────────────────────────────────────────────────
-
-    private void OnPrevMonth(object? sender, RoutedEventArgs e)
+    public PersianDatePickerDialog(DateTime initialDate) : this()
     {
-        _currentPMonth--;
-        if (_currentPMonth < 1) { _currentPMonth = 12; _currentPYear--; }
-        RenderCalendar();
+        _currentPYear   = PersianCalendarHelper.GetPersianYear(initialDate);
+        _currentPMonth  = PersianCalendarHelper.GetPersianMonth(initialDate);
+        _selectedDate   = initialDate;
+        _yearRangeStart = (_currentPYear / 12) * 12;
+
+        PrevMonthButton.Click         += OnPrev;
+        NextMonthButton.Click         += OnNext;
+        TodayButton.Click             += OnToday;
+        CancelButton.Click            += OnCancel;
+        MonthLabel.PointerPressed     += OnMonthLabelClick;
+        YearLabel.PointerPressed      += OnYearLabelClick;
+
+        Render();
     }
 
-    private void OnNextMonth(object? sender, RoutedEventArgs e)
+    // ─── Events ──────────────────────────────────────────────────────────────
+
+    private void OnPrev(object? sender, RoutedEventArgs e)
     {
-        _currentPMonth++;
-        if (_currentPMonth > 12) { _currentPMonth = 1; _currentPYear++; }
-        RenderCalendar();
+        switch (_mode)
+        {
+            case PickerMode.Day:
+                _currentPMonth--;
+                if (_currentPMonth < 1) { _currentPMonth = 12; _currentPYear--; }
+                break;
+            case PickerMode.Year:
+                _yearRangeStart -= 12;
+                break;
+        }
+        Render();
     }
 
-    private void OnToday(object? sender, RoutedEventArgs e)
+    private void OnNext(object? sender, RoutedEventArgs e)
     {
-        Close(DateTime.Today);
+        switch (_mode)
+        {
+            case PickerMode.Day:
+                _currentPMonth++;
+                if (_currentPMonth > 12) { _currentPMonth = 1; _currentPYear++; }
+                break;
+            case PickerMode.Year:
+                _yearRangeStart += 12;
+                break;
+        }
+        Render();
     }
 
-    private void OnCancel(object? sender, RoutedEventArgs e)
+    private void OnToday(object? sender, RoutedEventArgs e) => Close(DateTime.Today);
+    private void OnCancel(object? sender, RoutedEventArgs e) => Close(null);
+
+    private void OnMonthLabelClick(object? sender, PointerPressedEventArgs e)
     {
-        Close(null);
+        _mode = _mode == PickerMode.Month ? PickerMode.Day : PickerMode.Month;
+        Render();
     }
 
-    // ─── Render Calendar ─────────────────────────────────────────────────────
-
-    private void RenderCalendar()
+    private void OnYearLabelClick(object? sender, PointerPressedEventArgs e)
     {
-        // آپدیت هدر
-        MonthLabel.Text = PersianCalendarHelper.GetPersianMonthName(_currentPMonth);
-        YearLabel.Text  = _currentPYear.ToString();
+        _mode = _mode == PickerMode.Year ? PickerMode.Day : PickerMode.Year;
+        Render();
+    }
 
+    // ─── Render ──────────────────────────────────────────────────────────────
+
+    private void Render()
+    {
+        UpdateHeader();
         DaysGrid.Items.Clear();
 
-        // روز اول ماه چه روزی از هفته است؟
-        // هفته شمسی: شنبه=0, یکشنبه=1, ..., جمعه=6
-        var firstDay = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, 1);
-        int firstDayOfWeek = GetPersianDayOfWeek(firstDay.DayOfWeek);
-
-        int daysInMonth = PersianCalendarHelper.GetPersianDaysInMonth(_currentPYear, _currentPMonth);
-
-        // خانه‌های خالی قبل از روز اول
-        for (int i = 0; i < firstDayOfWeek; i++)
-            DaysGrid.Items.Add(CreateEmptyCell());
-
-        // روزها
-        for (int day = 1; day <= daysInMonth; day++)
+        switch (_mode)
         {
-            var gregDate = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, day);
-            bool isToday    = gregDate.Date == DateTime.Today;
-            bool isSelected = _selectedDate.HasValue &&
-                              _selectedDate.Value.Date == gregDate.Date;
-
-            DaysGrid.Items.Add(CreateDayCell(day, gregDate, isToday, isSelected));
+            case PickerMode.Day:
+                WeekDaysHeader.IsVisible    = true;
+                PrevMonthButton.IsVisible   = true;
+                NextMonthButton.IsVisible   = true;
+                RenderDays();
+                break;
+            case PickerMode.Month:
+                WeekDaysHeader.IsVisible    = false;
+                PrevMonthButton.IsVisible   = false;
+                NextMonthButton.IsVisible   = false;
+                RenderMonths();
+                break;
+            case PickerMode.Year:
+                WeekDaysHeader.IsVisible    = false;
+                PrevMonthButton.IsVisible   = true;
+                NextMonthButton.IsVisible   = true;
+                RenderYears();
+                break;
         }
     }
 
-    // ─── Cell Builders ───────────────────────────────────────────────────────
+    // ─── Header ──────────────────────────────────────────────────────────────
 
-    private Control CreateEmptyCell()
+    private void UpdateHeader()
     {
-        return new Border { Width = 40, Height = 40, Margin = new Thickness(2) };
+        // ترتیب: ماه سال (مثل تیر ۱۴۰۴)
+        MonthLabel.Text = _mode switch
+        {
+            PickerMode.Month => "انتخاب ماه",
+            _                => PersianCalendarHelper.GetPersianMonthName(_currentPMonth)
+        };
+
+        YearLabel.Text = _mode switch
+        {
+            PickerMode.Year => $"{_yearRangeStart}–{_yearRangeStart + 11}",
+            _               => _currentPYear.ToString()
+        };
+
+        MonthLabel.Foreground = _mode == PickerMode.Month
+            ? new SolidColorBrush(Color.Parse("#3A7FD5"))
+            : new SolidColorBrush(Colors.White);
+
+        YearLabel.Foreground = _mode == PickerMode.Year
+            ? new SolidColorBrush(Color.Parse("#3A7FD5"))
+            : new SolidColorBrush(Colors.White);
     }
 
-    private Control CreateDayCell(int day, DateTime gregDate, bool isToday, bool isSelected)
+    // ─── Day Render ──────────────────────────────────────────────────────────
+
+    private void RenderDays()
     {
-        var bg = isSelected
-            ? new SolidColorBrush(Color.Parse("#3A7FD5"))
-            : isToday
-                ? new SolidColorBrush(Color.Parse("#1E3A5F"))
-                : new SolidColorBrush(Colors.Transparent);
+        var firstGreg    = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, 1);
+        int startOffset  = GetPersianDayOfWeek(firstGreg.DayOfWeek);
+        int daysInMonth  = PersianCalendarHelper.GetPersianDaysInMonth(_currentPYear, _currentPMonth);
+
+        // سلول‌های خالی قبل از روز اول
+        for (int i = 0; i < startOffset; i++)
+            DaysGrid.Items.Add(new Border { Width = 40, Height = 40, Margin = new Thickness(2) });
+
+        for (int day = 1; day <= daysInMonth; day++)
+        {
+            var greg       = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, day);
+            bool isToday   = greg.Date == DateTime.Today;
+            bool isSelected = _selectedDate?.Date == greg.Date;
+            DaysGrid.Items.Add(MakeDayCell(day, greg, isToday, isSelected));
+        }
+    }
+
+    // ─── Month Render ─────────────────────────────────────────────────────────
+
+    private void RenderMonths()
+    {
+        string[] names =
+        {
+            "فروردین","اردیبهشت","خرداد",
+            "تیر","مرداد","شهریور",
+            "مهر","آبان","آذر",
+            "دی","بهمن","اسفند"
+        };
+
+        int todayMonth = PersianCalendarHelper.GetPersianMonth(DateTime.Today);
+        int todayYear  = PersianCalendarHelper.GetPersianYear(DateTime.Today);
+
+        for (int m = 1; m <= 12; m++)
+        {
+            int month      = m;
+            bool isSelected = month == _currentPMonth &&
+                              _selectedDate.HasValue &&
+                              PersianCalendarHelper.GetPersianYear(_selectedDate.Value) == _currentPYear;
+            bool isCurrent  = month == todayMonth && _currentPYear == todayYear;
+
+            var cell = MakePickerCell(names[m - 1], isSelected, isCurrent, () =>
+            {
+                _currentPMonth = month;
+                _mode = PickerMode.Day;
+                Render();
+            });
+
+            DaysGrid.Items.Add(cell);
+        }
+    }
+
+    // ─── Year Render ──────────────────────────────────────────────────────────
+
+    private void RenderYears()
+    {
+        int todayYear = PersianCalendarHelper.GetPersianYear(DateTime.Today);
+
+        for (int i = 0; i < 12; i++)
+        {
+            int year       = _yearRangeStart + i;
+            bool isSelected = year == _currentPYear &&
+                              _selectedDate.HasValue &&
+                              PersianCalendarHelper.GetPersianYear(_selectedDate.Value) == year;
+            bool isCurrent  = year == todayYear;
+
+            var cell = MakePickerCell(year.ToString(), isSelected, isCurrent, () =>
+            {
+                _currentPYear = year;
+                _mode = PickerMode.Day;
+                Render();
+            });
+
+            DaysGrid.Items.Add(cell);
+        }
+    }
+
+    // ─── Cell Factories ───────────────────────────────────────────────────────
+
+    private Control MakeDayCell(int day, DateTime greg, bool isToday, bool isSelected)
+    {
+        var normalBg   = isSelected ? Color.Parse("#3A7FD5")
+                       : isToday   ? Color.Parse("#1E3A5F")
+                                   : Colors.Transparent;
+        var hoverBg    = Color.Parse("#1A3A6A");
+        var restoreBg  = isToday ? Color.Parse("#1E3A5F") : Colors.Transparent;
 
         var border = new Border
         {
@@ -117,7 +244,7 @@ public partial class PersianDatePickerDialog : Window
             Height       = 40,
             Margin       = new Thickness(2),
             CornerRadius = new CornerRadius(6),
-            Background   = bg,
+            Background   = new SolidColorBrush(normalBg),
             Cursor       = new Cursor(StandardCursorType.Hand),
             Child        = new TextBlock
             {
@@ -130,35 +257,66 @@ public partial class PersianDatePickerDialog : Window
             }
         };
 
-        // هایلایت hover
-        border.PointerEntered += (_, _) =>
+        if (!isSelected)
         {
-            if (!isSelected)
-                border.Background = new SolidColorBrush(Color.Parse("#1A3A6A"));
-        };
-
-        border.PointerExited += (_, _) =>
-        {
-            if (!isSelected)
-                border.Background = isToday
-                    ? new SolidColorBrush(Color.Parse("#1E3A5F"))
-                    : new SolidColorBrush(Colors.Transparent);
-        };
+            border.PointerEntered += (_, _) => border.Background = new SolidColorBrush(hoverBg);
+            border.PointerExited  += (_, _) => border.Background = new SolidColorBrush(restoreBg);
+        }
 
         border.PointerPressed += (_, e) =>
         {
             if (e.GetCurrentPoint(border).Properties.IsLeftButtonPressed)
-                Close(gregDate);
+                Close(greg);
         };
 
         return border;
     }
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────
+    private Control MakePickerCell(string label, bool isSelected, bool isCurrent, Action onClick)
+    {
+        var normalBg  = isSelected ? Color.Parse("#3A7FD5")
+                      : isCurrent  ? Color.Parse("#1E3A5F")
+                                   : Colors.Transparent;
+        var hoverBg   = Color.Parse("#1A3A6A");
+        var restoreBg = isCurrent ? Color.Parse("#1E3A5F") : Colors.Transparent;
 
-    /// <summary>
-    /// تبدیل DayOfWeek میلادی به ایندکس هفته شمسی (شنبه=0)
-    /// </summary>
+        var border = new Border
+        {
+            Width        = 72,
+            Height       = 44,
+            Margin       = new Thickness(4),
+            CornerRadius = new CornerRadius(8),
+            Background   = new SolidColorBrush(normalBg),
+            Cursor       = new Cursor(StandardCursorType.Hand),
+            Child        = new TextBlock
+            {
+                Text                = label,
+                FontSize            = 13,
+                Foreground          = new SolidColorBrush(Colors.White),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment   = VerticalAlignment.Center,
+                FontFamily          = new FontFamily("avares://MedSync/Assets/Fonts#Shabnam FD"),
+            }
+        };
+
+        if (!isSelected)
+        {
+            border.PointerEntered += (_, _) => border.Background = new SolidColorBrush(hoverBg);
+            border.PointerExited  += (_, _) => border.Background = new SolidColorBrush(restoreBg);
+        }
+
+        border.PointerPressed += (_, e) =>
+        {
+            if (e.GetCurrentPoint(border).Properties.IsLeftButtonPressed)
+                onClick();
+        };
+
+        return border;
+    }
+
+    // ─── Helper ───────────────────────────────────────────────────────────────
+
+    // شنبه = ستون ۰، جمعه = ستون ۶
     private static int GetPersianDayOfWeek(DayOfWeek dow) => dow switch
     {
         DayOfWeek.Saturday  => 0,

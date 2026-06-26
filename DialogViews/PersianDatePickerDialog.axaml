@@ -1,5 +1,4 @@
-﻿<!-- DialogViews/PersianDatePickerDialog.axaml -->
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="MedSync.DialogViews.PersianDatePickerDialog"
         Title="انتخاب تاریخ"
@@ -8,24 +7,28 @@
         WindowStartupLocation="CenterOwner"
         CanResize="False"
         ShowInTaskbar="False"
+        WindowDecorations="None"
         Background="{DynamicResource PrimaryBackground}"
-        FontFamily="{DynamicResource Shabnam}"
-        FlowDirection="RightToLeft">
+        FontFamily="{DynamicResource Shabnam}">
 
-    <Border Padding="20"
+    <Border Padding="16"
             Background="{DynamicResource PrimaryBackground}">
         <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-            <!-- هدر: ناوبری ماه -->
+            <!-- هدر: ناوبری -->
             <Grid Grid.Row="0"
                   ColumnDefinitions="Auto,*,Auto"
                   Margin="0,0,0,16">
 
                 <Button Grid.Column="0"
                         x:Name="PrevMonthButton"
-                        Classes="nav-icon"
-                        Content="&#xe3d9;"
-                        Width="36" Height="36" />
+                        FontFamily="{DynamicResource PhosphorFill}"
+                        Foreground="White"
+                        FontSize="20"
+                        Content="&#xe138;"
+                        Width="36" Height="36"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" />
 
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal"
@@ -33,35 +36,53 @@
                             Spacing="8">
                     <TextBlock x:Name="MonthLabel"
                                Classes="Pth3"
+                               Cursor="Hand"
+                               TextDecorations="Underline"
                                VerticalAlignment="Center" />
                     <TextBlock x:Name="YearLabel"
                                Classes="Pth3"
+                               Cursor="Hand"
+                               TextDecorations="Underline"
                                VerticalAlignment="Center" />
                 </StackPanel>
 
                 <Button Grid.Column="2"
                         x:Name="NextMonthButton"
-                        Classes="nav-icon"
-                        Content="&#xe3da;"
-                        Width="36" Height="36" />
+                        FontFamily="{DynamicResource PhosphorFill}"
+                        Foreground="White"
+                        FontSize="20"
+                        Content="&#xe13a;"
+                        Width="36" Height="36"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" />
             </Grid>
 
-            <!-- هدر روزهای هفته -->
-            <Grid Grid.Row="1"
-                  ColumnDefinitions="*,*,*,*,*,*,*"
+            <!-- هدر روزهای هفته - فقط در حالت روز -->
+            <Grid x:Name="WeekDaysHeader"
+                  Grid.Row="1"
                   Margin="0,0,0,8">
-                <TextBlock Grid.Column="0" Text="ش"  Classes="Pth4" HorizontalAlignment="Center" />
-                <TextBlock Grid.Column="1" Text="ی"  Classes="Pth4" HorizontalAlignment="Center" />
-                <TextBlock Grid.Column="2" Text="د"  Classes="Pth4" HorizontalAlignment="Center" />
-                <TextBlock Grid.Column="3" Text="س"  Classes="Pth4" HorizontalAlignment="Center" />
-                <TextBlock Grid.Column="4" Text="چ"  Classes="Pth4" HorizontalAlignment="Center" />
-                <TextBlock Grid.Column="5" Text="پ"  Classes="Pth4" HorizontalAlignment="Center" />
-                <TextBlock Grid.Column="6" Text="ج"  Classes="Pth4" HorizontalAlignment="Center" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="ش" Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="ی" Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="د" Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="3" Text="س" Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="4" Text="چ" Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="5" Text="پ" Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="6" Text="ج" Classes="Pth4" HorizontalAlignment="Center" />
             </Grid>
 
-            <!-- گرید روزها -->
+            <!-- گرید روزها / ماه‌ها / سال‌ها -->
             <ItemsControl Grid.Row="2"
-                          x:Name="DaysGrid">
+                          x:Name="DaysGrid"
+                          IsVisible="True">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
@@ -79,16 +100,24 @@
                         Classes="DarkBlueBorder"
                         HorizontalAlignment="Stretch">
                     <Button x:Name="TodayButton"
-                            Content="امروز" />
+                            Content="امروز"
+                            FontFamily="{DynamicResource Shabnam}"
+                            Foreground="White"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center" />
                 </Border>
 
                 <Border Grid.Column="1"
                         Classes="RedBorder"
                         HorizontalAlignment="Stretch">
                     <Button x:Name="CancelButton"
-                            Content="لغو" />
+                            Content="لغو"
+                            FontFamily="{DynamicResource Shabnam}"
+                            Foreground="White"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center" />
                 </Border>
-                
+
             </Grid>
         </Grid>
     </Border>

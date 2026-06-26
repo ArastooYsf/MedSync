@@ -16,11 +16,17 @@ public partial class MainView : Window
         DataContextChanged += MainView_DataContextChanged;
     }
 
+    private MainViewModel? _previousViewModel;
+
     private void MainView_DataContextChanged(object? sender, System.EventArgs e)
     {
+        if (_previousViewModel != null)
+            _previousViewModel.RequestExit -= OnRequestExit;
+
         if (DataContext is MainViewModel mainViewModel)
         {
             mainViewModel.RequestExit += OnRequestExit;
+            _previousViewModel = mainViewModel;
         }
     }
 

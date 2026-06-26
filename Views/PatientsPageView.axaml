@@ -5,6 +5,7 @@
              xmlns:vm="using:MedSync.ViewModels"
              xmlns:views="using:MedSync.Views"
              xmlns:conv="using:MedSync.Converters"
+             xmlns:models="clr-namespace:MedSync.Models"
              mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="576"
              x:Class="MedSync.Views.PatientsPageView"
              x:DataType="vm:PatientsPageViewModel"
@@ -70,13 +71,13 @@
                         </ItemsControl.ItemsPanel>
 
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="models:Patient">
                                 <Border Classes="NormalBlueBorder"
                                         Margin="8"
                                         Width="250"
                                         Height="150">
                                     <Button
-                                        Command="{Binding $parent[ItemsControl].((vm:PatientsPageViewModel)DataContext).OpenDetailCommand}"
+                                        Command="{ReflectionBinding $parent[ItemsControl].DataContext.OpenDetailCommand}"
                                         CommandParameter="{Binding}"
                                         Padding="20"
                                         Width="{Binding $parent[Border].Bounds.Width}"

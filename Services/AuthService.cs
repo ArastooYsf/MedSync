@@ -14,6 +14,7 @@ public class AuthService
             CurrentUser = new User
             {
                 Username = username,
+                FullName = "مدیر سیستم",
                 Role = UserRole.Doctor
             };
             return true;

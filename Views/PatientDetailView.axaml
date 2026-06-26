@@ -35,7 +35,7 @@
 
                 <Border Classes="Circle">
                     <Label Classes="TextProfile"
-                           Content="{Binding ., Converter={x:Static conv:NameInitialsConverter.Instance}}" />
+                           Content="{Binding Patient, Converter={x:Static conv:NameInitialsConverter.Instance}}" />
                 </Border>
 
                 <StackPanel VerticalAlignment="Center" MinWidth="0">

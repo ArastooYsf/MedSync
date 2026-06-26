@@ -33,38 +33,60 @@ public class AppointmentReminderService
     {
         var now = DateTime.Now;
         var reminderTime = now.AddMinutes(10);
+        var todayStart = now.Date;
+        var todayEnd = todayStart.AddDays(1);
 
-        var appointments = await _context.Appointments
+        // فقط نوبت‌هایی که تا ۱۰ دقیقه دیگه هستن و امروزن
+        var upcoming = await _context.Appointments
             .Include(a => a.Patient)
             .Where(a => a.AppointmentDateTime <= reminderTime &&
                         a.AppointmentDateTime > now)
             .ToListAsync();
 
-        foreach (var appointment in appointments)
+        foreach (var appointment in upcoming)
         {
-            await _notificationService.CreateNotificationAsync(
-                NotificationType.AppointmentReminder,
-                "یادآوری نوبت",
-                $"تا 10 دقیقه دیگر نوبت {appointment.Patient.FullName} است.",
-                appointment.Id,
-                "reminder.wav"
-            );
+            // چک کن قبلاً reminder ساخته شده یا نه
+            var alreadyNotified = await _context.Notifications
+                .AnyAsync(n => n.AppointmentId == appointment.Id &&
+                               n.Type == NotificationType.AppointmentReminder &&
+                               n.CreatedAt >= todayStart);
+
+            if (!alreadyNotified)
+            {
+                await _notificationService.CreateNotificationAsync(
+                    NotificationType.AppointmentReminder,
+                    "یادآوری نوبت",
+                    $"تا ۱۰ دقیقه دیگر نوبت {appointment.Patient.FullName} است.",
+                    appointment.Id,
+                    "reminder.wav"
+                );
+            }
         }
 
+        // فقط نوبت‌های امروز که گذشتن
         var missed = await _context.Appointments
             .Include(a => a.Patient)
-            .Where(a => a.AppointmentDateTime < now)
+            .Where(a => a.AppointmentDateTime >= todayStart &&
+                        a.AppointmentDateTime < now)
             .ToListAsync();
 
         foreach (var appointment in missed)
         {
-            await _notificationService.CreateNotificationAsync(
-                NotificationType.AppointmentMissed,
-                "نوبت گذشته",
-                $"نوبت {appointment.Patient.FullName} گذشته است.",
-                appointment.Id,
-                "missed.wav"
-            );
+            var alreadyNotified = await _context.Notifications
+                .AnyAsync(n => n.AppointmentId == appointment.Id &&
+                               n.Type == NotificationType.AppointmentMissed &&
+                               n.CreatedAt >= todayStart);
+
+            if (!alreadyNotified)
+            {
+                await _notificationService.CreateNotificationAsync(
+                    NotificationType.AppointmentMissed,
+                    "نوبت گذشته",
+                    $"نوبت {appointment.Patient.FullName} گذشته است.",
+                    appointment.Id,
+                    "missed.wav"
+                );
+            }
         }
     }
 }

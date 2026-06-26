@@ -30,8 +30,8 @@ public partial class PatientDetailViewModel : ViewModelBase
 
     [ObservableProperty] private string _editNationalCode = string.Empty;
 
-    [ObservableProperty] private DateTimeOffset? _editBirthDate;
-
+    [ObservableProperty] private DateTime? _editBirthDate;
+    
     [ObservableProperty] private string _editPhoneNumber = string.Empty;
 
     [ObservableProperty] private string _editAddress = string.Empty;
@@ -59,7 +59,7 @@ public partial class PatientDetailViewModel : ViewModelBase
         EditFirstName = Patient.FirstName;
         EditLastName = Patient.LastName;
         EditNationalCode = Patient.NationalCode;
-        EditBirthDate = new DateTimeOffset(Patient.BirthDate, TimeSpan.Zero);
+        EditBirthDate = Patient.BirthDate;
         EditPhoneNumber = Patient.PhoneNumber;
         EditAddress = Patient.Address;
         EditGender = Patient.Gender;
@@ -89,7 +89,7 @@ public partial class PatientDetailViewModel : ViewModelBase
         Patient.FirstName = EditFirstName;
         Patient.LastName = EditLastName;
         Patient.NationalCode = EditNationalCode;
-        Patient.BirthDate = EditBirthDate!.Value.DateTime;
+        Patient.BirthDate = EditBirthDate!.Value;
         Patient.PhoneNumber = EditPhoneNumber;
         Patient.Address = EditAddress;
         Patient.Gender = EditGender;

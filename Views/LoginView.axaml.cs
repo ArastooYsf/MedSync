@@ -28,7 +28,7 @@ public partial class LoginView : Window
             DataContext = app.Services!.GetRequiredService<MainViewModel>()
         };
     
-        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = mainView;
             mainView.Show();

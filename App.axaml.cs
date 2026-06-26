@@ -49,7 +49,7 @@ public partial class App : Application
         collection.AddTransient<LoginView>();
         collection.AddTransient<LoginViewModel>();
         collection.AddTransient<AddPatientDialogViewModel>();
-        collection.AddTransient<AppointmentsPageViewModel>();
+        collection.AddSingleton<AppointmentsPageViewModel>();
         collection.AddTransient<LogsPageViewModel>();
         collection.AddTransient<PatientsPageViewModel>();
         collection.AddTransient<PrescriptionsPageViewModel>();

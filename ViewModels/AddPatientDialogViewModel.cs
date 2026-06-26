@@ -23,7 +23,7 @@ public partial class AddPatientDialogViewModel : ViewModelBase
 
     [ObservableProperty] private string? _nationalCodeError;
 
-    [ObservableProperty] private DateTimeOffset? _birthDate = DateTimeOffset.Now.AddYears(-30);
+    [ObservableProperty] private DateTime? _birthDate = DateTime.Now.AddYears(-30);
 
     [ObservableProperty] private string? _birthDateError;
 
@@ -76,11 +76,11 @@ public partial class AddPatientDialogViewModel : ViewModelBase
             PhoneNumberError = null;
     }
 
-    partial void OnBirthDateChanged(DateTimeOffset? value)
+    partial void OnBirthDateChanged(DateTime? value)
     {
         if (value.HasValue &&
-            value.Value.DateTime <= DateTime.Today &&
-            value.Value.DateTime >= DateTime.Today.AddYears(-120))
+            value.Value <= DateTime.Today &&
+            value.Value >= DateTime.Today.AddYears(-120))
         {
             BirthDateError = null;
         }
@@ -107,9 +107,9 @@ public partial class AddPatientDialogViewModel : ViewModelBase
                 FirstName = FirstName.Trim(),
                 LastName = LastName.Trim(),
                 NationalCode = NationalCode.Trim(),
-                BirthDate = BirthDate!.Value.DateTime,
+                BirthDate = BirthDate!.Value,
                 PhoneNumber = PhoneNumber.Trim(),
-                Address = Address?.Trim(),
+                Address = Address.Trim(),
                 Gender = Gender,
                 MedicalHistory = string.IsNullOrWhiteSpace(MedicalHistory) ? null : MedicalHistory.Trim(),
                 CreatedAt = DateTime.Now
@@ -181,12 +181,12 @@ public partial class AddPatientDialogViewModel : ViewModelBase
             BirthDateError = "تاریخ تولد الزامی است";
             isValid = false;
         }
-        else if (BirthDate.Value.DateTime > DateTime.Today)
+        else if (BirthDate.Value > DateTime.Today)
         {
             BirthDateError = "تاریخ تولد نمی‌تواند در آینده باشد";
             isValid = false;
         }
-        else if (BirthDate.Value.DateTime < DateTime.Today.AddYears(-120))
+        else if (BirthDate.Value < DateTime.Today.AddYears(-120))
         {
             BirthDateError = "تاریخ تولد نامعتبر است";
             isValid = false;
