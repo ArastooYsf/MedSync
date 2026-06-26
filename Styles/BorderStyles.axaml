@@ -1,0 +1,317 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+
+
+    <Design.PreviewWith>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="4">
+            <StackPanel Spacing="10">
+
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Navbar Border -->
+
+    <Style Selector="Border.Navbar">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="CornerRadius" Value="{Binding NavbarCorner}" />
+    </Style>
+
+    <Style Selector="Border.Navbar:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+    </Style>
+
+    <!-- Main Panel Border -->
+
+    <Style Selector="Border.MainPanelBorder">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Margin" Value="0,75,0,25" />
+    </Style>
+
+    <Style Selector="Border.MainPanelBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+    </Style>
+
+    <!-- SidePanel Border -->
+
+    <Style Selector="Border.SidePanelBorder">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
+        <Setter Property="CornerRadius" Value="8,0,0,8" />
+    </Style>
+
+    <Style Selector="Border.SidePanelBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+    </Style>
+
+    <!-- Normal Blue Border -->
+
+    <Style Selector="Border.NormalBlueBorder">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
+        <Setter Property="CornerRadius" Value="8" />
+    </Style>
+
+    <Style Selector="Border.NormalBlueBorder:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+    </Style>
+
+    <!-- TextBox Border -->
+
+    <Style Selector="Border.TextBoxBorder">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
+        <Setter Property="CornerRadius" Value="5" />
+    </Style>
+
+    <Style Selector="Border.TextBoxBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+    </Style>
+
+    <!-- Blue Border -->
+
+    <Style Selector="Border.BlueBorder">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+
+    <Style Selector="Border.BlueBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+
+    <!-- Dark Blue Border -->
+
+    <Style Selector="Border.DarkBlueBorder">
+        <Setter Property="Background" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #0069FF" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+
+    <Style Selector="Border.DarkBlueBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <!-- Green Border -->
+
+    <Style Selector="Border.GreenBorder">
+        <Setter Property="Background" Value="{DynamicResource GreenBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GreenBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #1FC198" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Border.GreenBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #1FC198" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryGreenBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryGreenBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <!-- Red Border -->
+
+    <Style Selector="Border.RedBorder">
+        <Setter Property="Background" Value="{DynamicResource RedBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource RedBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #ff5271" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Border.RedBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #ff5271" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryRedBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryRedBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <!-- Yellow Border -->
+
+    <Style Selector="Border.YellowBorder">
+        <Setter Property="Background" Value="{DynamicResource YellowBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource YellowBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BoxShadow" Value="0 6 20 0 #EDD851" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Border.YellowBorder:pointerover">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #EDD851" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryYellowBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryYellowBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <!-- NavIcon Border -->
+
+    <Style Selector="Border.NavIconBorder">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Border.NavIconBorder:pointerover">
+        <Setter Property="Background" Value="#2a384a" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <!-- Active Button Border -->
+
+    <Style Selector="Border.active">
+        <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+    </Style>
+
+    <!-- Animation -->
+
+    <Style Selector="Border.NormalBlueBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.TextBoxBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BlueBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.DarkBlueBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.GreenBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.RedBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.YellowBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.Navbar">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.MainPanelBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.SidePanelBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.PatientCard">
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BoxShadow" Value="0 4 12 0 #00000014" />
+    </Style>
+
+    <Style Selector="Border.StatusBadge">
+        <Setter Property="Background" Value="#DCFCE7" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="6,2" />
+    </Style>
+
+</Styles>

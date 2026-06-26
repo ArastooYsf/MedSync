@@ -1,0 +1,212 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="576"
+        MinWidth="1024"
+        MinHeight="576"
+        x:Class="MedSync.MainView"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel"
+        Title="MedSync">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid Background="{DynamicResource PrimaryBackground}"
+          ColumnSpacing="{Binding ColumnSpacing}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="{Binding SidePanelWidth}" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Navbar -->
+
+        <Border Classes="Navbar">
+            <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto"
+                  ColumnSpacing="5">
+
+                <Border Grid.Column="0"
+                        Classes="Circle">
+                    <Button>
+                        <Image Classes="Profile"
+                               Source="../Assets/Images/profile3.jpg"
+                               Stretch="UniformToFill"
+                               RenderOptions.BitmapInterpolationMode="HighQuality" />
+                    </Button>
+                </Border>
+
+                <Border Grid.Column="1"
+                        Classes="NavIconBorder">
+                    <Button Padding="0">
+                        <Label Classes="nav-icon" Content="&#xe0d0;" />
+                    </Button>
+                </Border>
+
+                <Border Grid.Column="2"
+                        Classes="NavIconBorder">
+                    <Button Padding="0">
+                        <Label Classes="nav-icon" Content="&#xe474;" />
+                    </Button>
+                </Border>
+
+                <Border Grid.Column="4">
+                    <StackPanel VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Spacing="5"
+                                Margin="5,0">
+                        <Border Classes="NavIconBorder"
+                                IsVisible="{Binding !ToggleVisibility}">
+                            <Button Command="{Binding SidePanelResizeCommand}">
+                                <Label Classes="nav-icon" Content="&#xe2f0;" Foreground="White" />
+                            </Button>
+                        </Border>
+                        <Label Classes="nav-text" Content="داشبورد" />
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+        <!-- Main Panel -->
+
+        <Border Grid.Column="0"
+                Classes="MainPanelBorder">
+            <ContentControl Content="{Binding CurrentPage}" />
+        </Border>
+
+        <!-- SidePanel -->
+
+        <Border Grid.Column="1"
+                Classes="SidePanelBorder"
+                IsVisible="{Binding ToggleVisibility}">
+
+            <Grid RowDefinitions="*, Auto">
+
+                <!-- Buttons -->
+
+                <StackPanel Spacing="12"
+                            Margin="20,10,20,20">
+
+                    <Grid ColumnDefinitions="Auto, Auto, *"
+                          FlowDirection="RightToLeft"
+                          ColumnSpacing="5"
+                          HorizontalAlignment="Stretch">
+                        <Border Grid.Column="0"
+                                Background="{DynamicResource BlueBrush}"
+                                CornerRadius="8"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                            <Label Classes="icon-only-regular" Content="&#xe000;" />
+                        </Border>
+                        <Border Grid.Column="1">
+                            <Label Classes="nav-text"
+                                   Content="MedSync"
+                                   VerticalAlignment="Center" />
+                        </Border>
+                        <Border Grid.Column="2"
+                                Classes="NavIconBorder"
+                                HorizontalAlignment="Right">
+                            <Button Command="{Binding SidePanelResizeCommand}">
+                                <Label Classes="icon-only-regular" Content="&#xe4F6;" />
+                            </Button>
+                        </Border>
+                    </Grid>
+
+                    <!-- Pages -->
+
+                    <Border Classes="BlueBorder"
+                            Classes.active="{Binding AppointmentsPageIsActive}">
+                        <IconButton IconText="&#xe2f2;"
+                                    Command="{Binding GoToAppointmentsCommand}"
+                                    HorizontalContentAlignment="Right">
+                            <Label Classes="text" Content="نوبت دهی" />
+                        </IconButton>
+                    </Border>
+                    
+                    <Border Classes="BlueBorder"
+                            Classes.active="{Binding PrescriptionsPageIsActive}">
+                        <IconButton IconText="&#xe700;"
+                                    Command="{Binding GoToPrescriptionsCommand}"
+                                    HorizontalContentAlignment="Right">
+                            <Label Classes="text" Content="نسخه ها" />
+                        </IconButton>
+                    </Border>
+                    
+                    <Border Classes="BlueBorder"
+                            Classes.active="{Binding TestsPageIsActive}">
+                        <IconButton IconText="&#xe79e;"
+                                    Command="{Binding GoToTestsCommand}"
+                                    HorizontalContentAlignment="Right">
+                            <Label Classes="text" Content="آزمایش ها" />
+                        </IconButton>
+                    </Border>
+                    
+                    <Border Classes="BlueBorder"
+                            Classes.active="{Binding PatientsPageIsActive}">
+                        <IconButton IconText="&#xe56a;"
+                                    Command="{Binding GoToPatientsCommand}"
+                                    HorizontalContentAlignment="Right">
+                            <Label Classes="text" Content="بیماران" />
+                        </IconButton>
+                    </Border>
+                    
+                    <Border Classes="BlueBorder"
+                            Classes.active="{Binding WorkersPageIsActive}">
+                        <IconButton IconText="&#xe4d4;"
+                                    Command="{Binding GoToWorkersCommand}"
+                                    HorizontalContentAlignment="Right">
+                            <Label Classes="text" Content="کاربران" />
+                        </IconButton>
+                    </Border>
+                    
+                    <Border Classes="BlueBorder"
+                            Classes.active="{Binding LogsPageIsActive}">
+                        <IconButton IconText="&#xe34e;"
+                                    Command="{Binding GoToLogsCommand}"
+                                    HorizontalContentAlignment="Right">
+                            <Label Classes="text" Content="گزارشات" />
+                        </IconButton>
+                    </Border>
+                    
+                    <Border Classes="BlueBorder"
+                            Classes.active="{Binding SupportsPageIsActive}">
+                        <IconButton IconText="&#xe584;"
+                                    Command="{Binding GoToSupportsCommand}"
+                                    HorizontalContentAlignment="Right">
+                            <Label Classes="text" Content="پشتیبانی" />
+                        </IconButton>
+                    </Border>
+                    
+                </StackPanel>
+
+                <!-- Settings/Exit Button -->
+
+                <Grid Grid.Row="1" ColumnDefinitions="*, *"
+                      Margin="0,10">
+                    <Border Grid.Column="0"
+                            Classes="GreenBorder"
+                            Padding="0">
+                        <Button Command="{Binding GoToSettingsCommand}">
+                            <Label Classes="icon-only"
+                                   Content="&#xe272;" />
+                        </Button>
+                    </Border>
+                    <Border Grid.Column="1"
+                            Classes="RedBorder"
+                            Padding="0">
+                        <Button Command="{Binding ExitCommand}">
+                            <Label Classes="icon-only" Content="&#xe7e6;" />
+                        </Button>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+
+</Window>

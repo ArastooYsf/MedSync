@@ -1,0 +1,204 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+
+    <Design.PreviewWith>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="4">
+            <StackPanel Spacing="10">
+
+                <StackPanel FlowDirection="LeftToRight">
+                    <Border Classes="TextBoxBorder">
+                        <TextBox Text="{Binding #NotifSlider.Value, StringFormat={}{0:0}}" />
+                    </Border>
+                    <Slider x:Name="NotifSlider"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="75" />
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Label -->
+
+    <Style Selector="Label.text">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="Label.ErrorText">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource RedBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,-15,0,0" />
+    </Style>
+
+    <Style Selector="Label.h0">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Label.h1">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Label.h2">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Label.h3">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Label.h4">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="#AAAAAA" />
+    </Style>
+
+    <Style Selector="Label.icon">
+        <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <Style Selector="Label.icon-only">
+        <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Label.icon-only-regular">
+        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style Selector="Label.nav-text">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Label.nav-icon">
+        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}" />
+        <Setter Property="Foreground" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <!-- Text Box -->
+
+    <Style Selector="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="TextBox:pointerover">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="TextBox /template/ Border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+    </Style>
+
+    <Style Selector="TextBox:pointerover /template/ Border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="Cursor" Value="IBeam" />
+    </Style>
+
+    <Style Selector="TextBox.Search">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style Selector="TextBox.Description">
+        <Setter Property="FlowDirection" Value="RightToLeft" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Height" Value="100" />
+        <Setter Property="MaxWidth" Value="{Binding $parent[Border].Bounds.Width}" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+
+    <!-- Text Block -->
+
+    <Style Selector="TextBlock.Pth2">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="TextBlock.Pth3">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+
+    <Style Selector="TextBlock.Pth4">
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="#AAAAAA" />
+    </Style>
+
+    <!-- Animation -->
+
+    <Style Selector="TextBox">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="TextBox /template/ Border">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+</Styles>

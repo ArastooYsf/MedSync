@@ -1,0 +1,197 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MedSync.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="1024"
+             d:DesignHeight="576"
+             x:Class="MedSync.Views.SettingsPageView"
+             x:DataType="vm:SettingsPageViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             CornerRadius="8">
+
+    <ScrollViewer>
+        <StackPanel Margin="30" Spacing="20" FlowDirection="RightToLeft">
+
+            <!-- Title -->
+
+            <StackPanel Orientation="Horizontal">
+                <Label Classes="h1" Content="تنظیمات" />
+                <Label Classes="icon" Content="&#xe272;" Foreground="White" FontSize="24" />
+            </StackPanel>
+
+            <!-- General Settings -->
+
+            <Border Classes="NormalBlueBorder"
+                    Padding="20">
+                <StackPanel Spacing="15">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h1" Content="تنظیمات عمومی" />
+                        <Label Classes="icon" Content="&#xe228;" Foreground="White" FontSize="24" />
+                    </StackPanel>
+
+                    <!-- Theme -->
+
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="*,*"
+                          RowSpacing="20">
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <Label Classes="h3" Content="حالت تاریک" />
+                            <Label Classes="h4" Content="فعال‌سازی تم تیره برای برنامه" />
+                        </StackPanel>
+                        <ToggleSwitch Grid.Row="0" Grid.Column="1" IsChecked="True"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right" />
+
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <Label Classes="h3" Content="زبان" />
+                            <Label Classes="h4" Content="انتخاب زبان رابط کاربری" />
+                        </StackPanel>
+
+                        <!-- Language -->
+
+                        <Border Grid.Row="1" Grid.Column="1"
+                                Classes="BlueBorder"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right">
+                            <ComboBox Width="120"
+                                      SelectedIndex="0"
+                                      FontFamily="{DynamicResource Shabnam}">
+                                <ComboBoxItem Content="فارسی" />
+                                <ComboBoxItem Content="English" />
+                            </ComboBox>
+                        </Border>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Sounds Settings -->
+
+            <Border Classes="NormalBlueBorder"
+                    Padding="20">
+                <StackPanel Spacing="15">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h1" Content="تنظیمات صدا" />
+                        <Label Classes="icon" Content="&#xe450;" Foreground="White" FontSize="24" />
+                    </StackPanel>
+
+                    <!-- Notifications -->
+
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="*, *"
+                          RowSpacing="20">
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <Label Classes="h3" Content="صدای اعلان ها" />
+                            <Label Classes="h4" Content="اعلان جدید، رویداد جدید، رویداد مهم و ..." />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="1"
+                                    FlowDirection="LeftToRight">
+                            <Border Classes="TextBoxBorder">
+                                <TextBox Text="{Binding #NotifSlider.Value, StringFormat={}{0:0}}" />
+                            </Border>
+                            <Slider x:Name="NotifSlider"
+                                    Minimum="0"
+                                    Maximum="100"
+                                    Value="75" />
+                        </StackPanel>
+
+                        <!-- TTS -->
+
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <Label Classes="h3" Content="صدای TTS" />
+                            <Label Classes="h4" Content="متن به گفتار" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1"
+                                    Grid.Column="1"
+                                    FlowDirection="LeftToRight">
+                            <Border Classes="TextBoxBorder">
+                                <TextBox Text="{Binding #TtsSlider.Value, StringFormat={}{0:0}}" />
+                            </Border>
+                            <Slider x:Name="TtsSlider"
+                                    Minimum="0"
+                                    Maximum="100"
+                                    Value="75" />
+                        </StackPanel>
+
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Account Settings -->
+
+            <Border Classes="NormalBlueBorder"
+                    Padding="20">
+                <StackPanel Spacing="15">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h1" Content="حساب کاربری" />
+                        <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="24" />
+                    </StackPanel>
+
+                    <!-- EditProfile -->
+
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="*, *"
+                          RowSpacing="20">
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <Label Classes="h3" Content="ویرایش پروفایل" />
+                            <Label Classes="h4" Content="نام، تصویر و اطلاعات حساب" />
+                        </StackPanel>
+                        <Border Grid.Row="0" Grid.Column="1"
+                                Classes="BlueBorder"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch">
+                            <Button>
+                                <Label Classes="text" Content="ویرایش" />
+                            </Button>
+                        </Border>
+
+                        <!-- Exit -->
+
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <Label Classes="h3" Foreground="#FF6B6B" Content="خروج از حساب" />
+                            <Label Classes="h4" Foreground="#AA7777" Content="پایان جلسه کاربری" />
+                        </StackPanel>
+                        <Border Grid.Row="1" Grid.Column="1"
+                                Classes="RedBorder"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch">
+                            <Button>
+                                <Label Classes="text" Content="خروج" />
+                            </Button>
+                        </Border>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Database Settings -->
+            <Border Classes="NormalBlueBorder"
+                    Padding="20">
+                <StackPanel Spacing="15">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h1" Content="تنظیمات دیتابیس" />
+                        <Label Classes="icon" Content="&#xe1de;" Foreground="White" FontSize="24" />
+                    </StackPanel>
+                    <StackPanel Spacing="10">
+                        <Label Classes="h3" Content="بازنشانی دیتابیس" />
+                        <Label Classes="h4" Content="تمام داده‌ها حذف و دیتابیس از نو ساخته می‌شود" />
+
+                        <Border Classes="RedBorder" HorizontalAlignment="Right">
+                            <Button Command="{Binding ResetDatabaseCommand}">
+                                <Label Classes="text" Content="بازنشانی دیتابیس" />
+                            </Button>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

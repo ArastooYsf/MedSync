@@ -1,0 +1,154 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MedSync.ViewModels"
+        xmlns:models="clr-namespace:MedSync.Models"
+        xmlns:ctrl="clr-namespace:MedSync.Controls"
+        x:Class="MedSync.Views.AddAppointmentDialog"
+        x:DataType="vm:AddAppointmentDialogViewModel"
+        Title="افزودن نوبت"
+        Width="500"
+        Height="580"
+        WindowStartupLocation="CenterOwner"
+        WindowDecorations="None"
+        Background="{DynamicResource PrimaryBackground}"
+        CanResize="False"
+        CornerRadius="8">
+
+    <Border Classes="NormalBlueBorder">
+
+        <Grid RowDefinitions="Auto,*,Auto" Margin="10" FlowDirection="RightToLeft">
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,30">
+                <Label Classes="h1" Content="{Binding DialogTitle}" />
+                <Label Classes="icon" Content="&#xe25e;" Foreground="White" FontSize="24" />
+            </StackPanel>
+
+            <!-- Form -->
+            <ScrollViewer Grid.Row="1" FlowDirection="LeftToRight" Padding="15,0,15,-15">
+                <StackPanel Spacing="16" FlowDirection="RightToLeft">
+
+                    <!-- Patient -->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h3" Content="بیمار" />
+                        <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="16" />
+                    </StackPanel>
+                    <Border Classes="TextBoxBorder">
+                        <ComboBox ItemsSource="{Binding Patients}"
+                                  SelectedItem="{Binding SelectedPatient}"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:Patient">
+                                    <TextBlock Text="{Binding FullName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Border>
+
+                    <!-- Patient Error -->
+                    <Label Classes="ErrorText"
+                           Content="{Binding SelectedPatientError}"
+                           IsVisible="{Binding SelectedPatientError,
+                           Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                    <!-- Date -->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h3" Content="روز" />
+                        <Label Classes="icon" Content="&#xe108;" Foreground="White" FontSize="16" />
+                    </StackPanel>
+                    <Border Classes="NormalBlueBorder" CornerRadius="4">
+                        <ctrl:PersianDatePicker SelectedDate="{Binding AppointmentDate}"
+                                    HorizontalAlignment="Stretch" />
+                    </Border>
+
+                    <!-- Date Error -->
+                    <Label Classes="ErrorText"
+                           Content="{Binding AppointmentDateError}"
+                           IsVisible="{Binding AppointmentDateError,
+                           Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+
+                    <!-- Time -->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h3" Content="ساعت" />
+                        <Label Classes="icon" Content="&#xe006;" Foreground="White" FontSize="16" />
+                    </StackPanel>
+                    <Grid ColumnDefinitions="*,Auto,*"
+                          ColumnSpacing="8">
+                        
+                        <Border Grid.Column="0" Classes="TextBoxBorder">
+                            <ComboBox ItemsSource="{Binding MinuteOptions}"
+                                      SelectedItem="{Binding AppointmentMinute}"
+                                      HorizontalAlignment="Stretch" />
+                        </Border>
+                        
+                        <Label Grid.Column="1"
+                               Classes="h3"
+                               Content=":"
+                               VerticalAlignment="Center" />
+                        
+                        <Border Grid.Column="2" Classes="TextBoxBorder">
+                            <ComboBox ItemsSource="{Binding HourOptions}"
+                                      SelectedItem="{Binding AppointmentHour}"
+                                      HorizontalAlignment="Stretch" />
+                        </Border>
+                        
+                    </Grid>
+
+                    <!-- Time Error -->
+                    <Label Classes="ErrorText"
+                           Content="{Binding AppointmentTimeError}"
+                           IsVisible="{Binding AppointmentTimeError,
+                           Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                    <!-- Status -->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h3" Content="اهمیت" />
+                        <Label Classes="icon" Content="&#xe446;" Foreground="White" FontSize="16" />
+                    </StackPanel>
+                    <Border Classes="TextBoxBorder">
+                        <ComboBox ItemsSource="{Binding StatusDisplayOptions}"
+                                  SelectedItem="{Binding SelectedStatus}"
+                                  HorizontalAlignment="Stretch" />
+                    </Border>
+
+                    <!-- Notes -->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h3" Content="توضیحات (اختیاری)" />
+                        <Label Classes="icon" Content="&#xe348;" Foreground="White" FontSize="16" />
+                    </StackPanel>
+                    <Border Classes="TextBoxBorder">
+                        <TextBox Classes="Description"
+                                 Text="{Binding Notes}"
+                                 PlaceholderText="توضیحات..." />
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Buttons -->
+            <Grid Grid.Row="2"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="40"
+                  Margin="0,30,0,0">
+
+                <Border Grid.Column="0" Classes="GreenBorder" HorizontalAlignment="Stretch">
+                    <IconButton IconText="&#xe182;"
+                                Command="{Binding SaveCommand}"
+                                IsEnabled="{Binding !IsSaving}">
+                        <Label Classes="text" Content="ذخیره نوبت" />
+                    </IconButton>
+                </Border>
+
+                <Border Grid.Column="1" Classes="RedBorder" HorizontalAlignment="Stretch">
+                    <IconButton IconText="&#xe4f6;"
+                                Command="{Binding CancelCommand}">
+                        <Label Classes="text" Content="انصراف" />
+                    </IconButton>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

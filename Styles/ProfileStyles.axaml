@@ -1,0 +1,76 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+
+    <Design.PreviewWith>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="4">
+            <StackPanel Spacing="10">
+
+                <!-- Profile -->
+
+                <Border Classes="Circle">
+                    <Button>
+                        <Image Classes="Profile"
+                               Source="../Assets/Images/profile3.jpg"
+                               RenderOptions.BitmapInterpolationMode="HighQuality"> <!--Source="{SvgImage ../Assets/Images/profile.svg}"-->
+                        </Image>
+                    </Button>
+                </Border>
+
+                <Border Classes="Circle">
+                    <Label Classes="TextProfile" Content="a" />
+                </Border>
+
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Profile Image -->
+
+    <Style Selector="Image.Profile">
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Stretch" Value="UniformToFill" />
+        <Setter Property="Clip">
+            <EllipseGeometry Center="25,25" RadiusX="22" RadiusY="22" />
+        </Setter>
+    </Style>
+
+    <Style Selector="Label.TextProfile">
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="Clip">
+            <EllipseGeometry Center="25,25" RadiusX="22" RadiusY="22" />
+        </Setter>
+    </Style>
+
+    <!-- Profile Border -->
+
+    <Style Selector="Border.Circle">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
+    <Style Selector="Border.Circle:pointerover">
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <!-- Animation -->
+
+</Styles>

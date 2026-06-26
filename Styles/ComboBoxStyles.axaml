@@ -1,0 +1,93 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+
+    <Design.PreviewWith>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="4">
+            <StackPanel Width="150" Height="100">
+
+                <Border Classes="TextBoxBorder">
+                    <ComboBox Text="banana"
+                              HorizontalAlignment="Stretch">
+                        <ComboBoxItem Content="مرد" />
+                        <ComboBoxItem Content="زن" />
+                    </ComboBox>
+                </Border>
+
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Styles -->
+
+    <Style Selector="ComboBox">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="ComboBox:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SecondaryBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="ComboBox /template/ Border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+    </Style>
+
+    <Style Selector="ComboBox:pointerover /template/ Border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBlueBrush}" />
+        <Setter Property="Cursor" Value="IBeam" />
+    </Style>
+
+    <Style Selector="ComboBoxItem">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SecondaryBackground}" />
+    </Style>
+
+    <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BlueBrush}" />
+    </Style>
+
+    <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SecondaryBlueBrush}" />
+    </Style>
+
+    <!-- Animations -->
+
+    <Style Selector="ComboBox">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="ComboBox /template/ Border">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+</Styles>

@@ -1,0 +1,270 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MedSync.ViewModels"
+             xmlns:conv="using:MedSync.Converters"
+             xmlns:ctrl="clr-namespace:MedSync.Controls"
+             mc:Ignorable="d"
+             x:Class="MedSync.Views.AppointmentsPageView"
+             x:DataType="vm:AppointmentsPageViewModel"
+             d:DesignWidth="1024"
+             d:DesignHeight="576"
+             Background="{DynamicResource PrimaryBackground}"
+             CornerRadius="8">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*"
+          Margin="30"
+          FlowDirection="RightToLeft">
+
+        <!-- Title + Clock -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="3*,*"
+              Margin="0,0,0,20">
+
+            <!-- Header -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Label Classes="h1" Content="نوبت دهی" VerticalAlignment="Center" />
+                <Label Classes="icon" Content="&#xedec;" Foreground="White" FontSize="24" />
+            </StackPanel>
+
+            <Border Grid.Column="1"
+                    Classes="NormalBlueBorder"
+                    Padding="10"
+                    HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Vertical" Spacing="2">
+                    <TextBlock Classes="Pth3"
+                               Text="زمان فعلی"
+                               HorizontalAlignment="Center" />
+                    <TextBlock Classes="Pth3"
+                               Text="{Binding CurrentTime}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+        </Grid>
+
+        <!-- Buttons -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,Auto"
+              ColumnSpacing="10"
+              Margin="0,0,0,15">
+
+            <Border Grid.Column="1" Classes="DarkBlueBorder">
+                <IconButton IconText="&#xe4ca;"
+                            Command="{Binding AddAppointmentCommand}">
+                    <Label Classes="text" Content="افزودن نوبت" />
+                </IconButton>
+            </Border>
+
+            <Border Grid.Column="0"
+                    Classes="GreenBorder"
+                    HorizontalAlignment="Left">
+                <IconButton IconText="&#xe096;"
+                            Command="{Binding LoadAppointmentsCommand}">
+                    <Label Classes="text" Content="بروزرسانی" />
+                </IconButton>
+            </Border>
+
+        </Grid>
+
+        <!-- Search + Filter + Date -->
+        <Grid Grid.Row="2"
+              ColumnDefinitions="2*,*,*"
+              ColumnSpacing="10"
+              Margin="0,0,0,20">
+
+            <Border Classes="TextBoxBorder" Grid.Column="0">
+                <TextBox Classes="Search"
+                         PlaceholderText="جستجوی بیمار..."
+                         Text="{Binding SearchText}"
+                         VerticalContentAlignment="Center" />
+            </Border>
+
+            <Border Grid.Column="1" Classes="TextBoxBorder">
+                <ComboBox Height="{Binding $parent[Border].Bounds.Height}"
+                          ItemsSource="{Binding StatusFilters}"
+                          SelectedItem="{Binding SelectedStatusFilter}" />
+            </Border>
+
+            <Border Grid.Column="2" Classes="NormalBlueBorder" CornerRadius="4">
+                <ctrl:PersianDatePicker SelectedDate="{Binding SelectedDate}"
+                                        HorizontalAlignment="Stretch" />
+            </Border>
+
+        </Grid>
+
+        <!-- Appointments List -->
+        <ScrollViewer Grid.Row="3">
+            <StackPanel Spacing="15">
+
+                <ProgressBar Height="4"
+                             IsIndeterminate="True"
+                             IsVisible="{Binding IsLoading}" />
+
+                <ItemsControl ItemsSource="{Binding FilteredAppointments}" ClipToBounds="False">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:AppointmentCardViewModel">
+                            <Border Classes="NormalBlueBorder"
+                                    Width="340"
+                                    Margin="8"
+                                    Padding="15">
+
+                                <Grid RowDefinitions="Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      RowSpacing="8">
+
+                                    <!-- Name -->
+                                    <StackPanel Grid.Row="0"
+                                                Grid.Column="0"
+                                                Spacing="4">
+                                        <TextBlock Classes="Pth3"
+                                                   Text="{Binding PatientFullName}"
+                                                   TextWrapping="NoWrap"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   MaxLines="1"
+                                                   MaxWidth="200" />
+                                        <TextBlock Classes="Pth4">
+                                            <Run Text="تاریخ: " />
+                                            <Run Text="{Binding DateDisplay}" />
+                                            <Run Text="  •  ساعت: " />
+                                            <Run Text="{Binding TimeDisplay}" />
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <!-- Status Badge -->
+                                    <Border Grid.Row="0"
+                                            Grid.Column="1"
+                                            CornerRadius="8">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Classes="h3" Content="{Binding StatusText}" />
+                                            <Label Classes="icon" Content="{Binding StatusIcon}" Foreground="White"
+                                                   FontSize="16" />
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Status Badge -->
+                                    <Panel Grid.Row="0"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right">
+
+                                        <!-- Normal (Green) -->
+                                        <Border Classes="GreenBorder"
+                                                IsVisible="{Binding IsNormalStatus}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Classes="h3" Content="{Binding StatusText}" />
+                                                <Label Classes="icon" Content="{Binding StatusIcon}" Foreground="White"
+                                                       FontSize="16" />
+                                            </StackPanel>
+                                        </Border>
+
+                                        <!-- Emergency (Red) -->
+                                        <Border Classes="RedBorder"
+                                                IsVisible="{Binding IsEmergencyStatus}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Classes="h3" Content="{Binding StatusText}" />
+                                                <Label Classes="icon" Content="{Binding StatusIcon}" Foreground="White"
+                                                       FontSize="16" />
+                                            </StackPanel>
+                                        </Border>
+
+                                        <!-- Special (Yellow) -->
+                                        <Border Classes="YellowBorder"
+                                                IsVisible="{Binding IsSpecialStatus}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Classes="h3" Content="{Binding StatusText}" />
+                                                <Label Classes="icon" Content="{Binding StatusIcon}" Foreground="White"
+                                                       FontSize="16" />
+                                            </StackPanel>
+                                        </Border>
+
+                                    </Panel>
+
+                                    <!-- Timer -->
+                                    <Border Grid.Row="1"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            CornerRadius="6"
+                                            Padding="10,6"
+                                            Margin="0,4,0,0">
+                                        <Border.Background>
+                                            <MultiBinding Converter="{x:Static conv:TimerBackgroundConverter.Instance}">
+                                                <Binding Path="IsPast" />
+                                                <Binding Path="IsNow" />
+                                                <Binding Path="IsUpcoming" />
+                                            </MultiBinding>
+                                        </Border.Background>
+
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBlock Grid.Column="0"
+                                                       Classes="Pth4"
+                                                       Text="{Binding CountdownLabel}" />
+                                            <TextBlock Grid.Column="1"
+                                                       Classes="Pth4"
+                                                       Text="{Binding Countdown}"
+                                                       FontSize="13" />
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Notes + Edit + Delete -->
+                                    <Grid Grid.Row="2"
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          ColumnDefinitions="*,Auto,Auto"
+                                          RowDefinitions="Auto,Auto"
+                                          RowSpacing="5">
+
+                                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                                   Grid.ColumnSpan="3"
+                                                   Classes="Pth3"
+                                                   Text="{Binding Notes}"
+                                                   TextWrapping="NoWrap"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   MaxLines="1"
+                                                   VerticalAlignment="Center" />
+
+                                        <Border Grid.Row="1" Grid.Column="1"
+                                                Classes="GreenBorder"
+                                                Padding="-4">
+                                            <Button
+                                                Command="{ReflectionBinding DataContext.EditAppointmentCommand,
+                                                RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}">
+                                                <Label Classes="icon-only-regular" Content="&#xe4c6;" />
+                                            </Button>
+                                        </Border>
+
+                                        <Border Grid.Row="1" Grid.Column="2"
+                                                Classes="RedBorder"
+                                                Padding="-4"
+                                                Margin="10,0,0,0">
+                                            <Button
+                                                Command="{ReflectionBinding DataContext.DeleteAppointmentCommand,
+                                                RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}">
+                                                <Label Classes="icon-only-regular" Content="&#xe4c8;" />
+                                            </Button>
+                                        </Border>
+
+                                    </Grid>
+
+                                </Grid>
+                            </Border>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

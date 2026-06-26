@@ -1,0 +1,28 @@
+# Build outputs
+bin/
+obj/
+
+# IDE - JetBrains Rider
+.idea/
+
+# Database (local data - never commit!)
+*.db
+*.db-shm
+*.db-wal
+
+# User-specific settings
+*.user
+*.suo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+crash.log
+
+# Temp / personal helper files
+StructureMaker.bat
+structure.txt
+/gitignore

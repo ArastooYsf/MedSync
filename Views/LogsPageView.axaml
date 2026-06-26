@@ -1,0 +1,38 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="576"
+             x:Class="MedSync.Views.LogsPageView"
+             Background="{DynamicResource PrimaryBackground}"
+             CornerRadius="8">
+
+    <ScrollViewer>
+        <StackPanel Margin="30" Spacing="20" FlowDirection="RightToLeft">
+
+            <!-- Title -->
+
+            <StackPanel Orientation="Horizontal">
+                <Label Classes="h1" Content="گزارشات" />
+                <Label Classes="icon" Content="&#xe34e;" Foreground="White" FontSize="24" />
+            </StackPanel>
+
+            <Border Classes="NormalBlueBorder"
+                    Padding="20">
+                <StackPanel Spacing="15">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h1" Content="گزارشات" />
+                        <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="24" />
+                    </StackPanel>
+
+                    <!-- Support Section -->
+
+                </StackPanel>
+            </Border>
+
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

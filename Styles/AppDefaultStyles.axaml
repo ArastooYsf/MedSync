@@ -1,0 +1,126 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+
+    <StyleInclude Source="BorderStyles.axaml" />
+    <StyleInclude Source="ButtonStyles.axaml" />
+    <StyleInclude Source="ProfileStyles.axaml" />
+    <StyleInclude Source="ScrollViewerStyles.axaml" />
+    <StyleInclude Source="SliderStyles.axaml" />
+    <StyleInclude Source="TextStyles.axaml" />
+    <StyleInclude Source="ComboBoxStyles.axaml" />
+    <StyleInclude Source="DatePickerStyles.axaml" />
+
+    <Design.PreviewWith>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="4">
+            <StackPanel Spacing="10">
+
+                <!-- Icons -->
+
+                <Border Classes="RedBorder"
+                        Padding="0"
+                        HorizontalAlignment="Center">
+                    <Button>
+                        <Label Classes="icon-only" Content="&#xe272;" />
+                    </Button>
+                </Border>
+
+                <!-- Profile -->
+
+                <Border Classes="Circle">
+                    <Button>
+                        <Image Classes="Profile"
+                               Source="../Assets/Images/profile3.jpg"
+                               RenderOptions.BitmapInterpolationMode="HighQuality"> <!--Source="{SvgImage ../Assets/Images/profile.svg}"-->
+                        </Image>
+                    </Button>
+                </Border>
+                <Border>
+                    <Button Background="Aqua">
+                        <Label Classes="nav-icon" Content="&#xe474;" Background="Red" />
+                    </Button>
+                </Border>
+
+                <!-- Slider -->
+
+                <StackPanel>
+                    <TextBox Text="{Binding #TtsSlider.Value}" />
+                    <Border>
+                        <Slider x:Name="TtsSlider"
+                                Minimum="0"
+                                MaxHeight="50"
+                                Value="25" />
+                    </Border>
+
+                    <!-- NavBar -->
+
+                    <Border Classes="Navbar">
+                        <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto"
+                              ColumnSpacing="5">
+
+                            <Border Grid.Column="0"
+                                    Classes="Circle">
+                                <Button>
+                                    <Image Classes="Profile"
+                                           Source="../Assets/Images/profile3.jpg"
+                                           Stretch="UniformToFill"
+                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                </Button>
+                            </Border>
+
+                            <Border Grid.Column="1"
+                                    Classes="NavIconBorder">
+                                <Button Padding="0">
+                                    <Label Classes="nav-icon" Content="&#xe0d0;" />
+                                </Button>
+                            </Border>
+
+                            <Border Grid.Column="2"
+                                    Classes="NavIconBorder">
+                                <Button Padding="0">
+                                    <Label Classes="nav-icon" Content="&#xe474;" />
+                                </Button>
+                            </Border>
+
+                            <Border Grid.Column="4">
+                                <StackPanel VerticalAlignment="Center"
+                                            Orientation="Horizontal"
+                                            FlowDirection="RightToLeft"
+                                            Spacing="5"
+                                            Margin="5,0">
+                                    <Border Classes="NavIconBorder"
+                                            IsVisible="{Binding !ToggleVisibility}">
+                                        <Button Command="{Binding SidePanelResizeCommand}">
+                                            <Label Classes="nav-icon" Content="&#xe2f0;" />
+                                        </Button>
+                                    </Border>
+                                    <Label Classes="nav-text" Content="داشبورد" />
+                                </StackPanel>
+                            </Border>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border Classes="TextBoxBorder" BorderThickness="0">
+                        <ComboBox Text="banana"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="مرد" />
+                            <ComboBoxItem Content="زن" />
+                        </ComboBox>
+                    </Border>
+
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Styles -->
+
+</Styles>

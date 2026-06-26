@@ -1,0 +1,39 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MedSync.Controls.PersianDatePicker"
+             x:Name="RootControl">
+
+    <Border x:Name="MainBorder"
+            Background="{DynamicResource PrimaryBackground}"
+            BorderBrush="Transparent"
+            BorderThickness="2"
+            CornerRadius="4"
+            Cursor="Hand"
+            Padding="12,8">
+
+        <Grid ColumnDefinitions="*,Auto">
+
+            <!-- نمایش تاریخ انتخاب شده -->
+            <TextBlock x:Name="DisplayText"
+                       Grid.Column="0"
+                       FontFamily="{DynamicResource Shabnam}"
+                       Foreground="White"
+                       FontSize="13"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Text="انتخاب تاریخ" />
+
+            <!-- آیکون تقویم -->
+            <TextBlock Grid.Column="1"
+                       FontFamily="{DynamicResource PhosphorFill}"
+                       Foreground="{DynamicResource BlueBrush}"
+                       FontSize="16"
+                       Margin="8,0,0,0"
+                       VerticalAlignment="Center"
+                       Text="&#xe712;" />
+        </Grid>
+    </Border>
+</UserControl>

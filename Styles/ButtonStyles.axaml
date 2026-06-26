@@ -1,0 +1,96 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+
+    <Design.PreviewWith>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="4">
+            <StackPanel Spacing="10">
+
+                <!-- Buttons -->
+
+                <Border Classes="BlueBorder">
+                    <Button>
+                        <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                            <Label>های</Label>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Classes="DarkBlueBorder">
+                    <Button>
+                        <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                            <Label>های</Label>
+                            <Label>بای</Label>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Classes="GreenBorder">
+                    <Button>
+                        <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                            <Label Classes="icon" Content="&#xe186;" />
+                            <Label>ورود</Label>
+                        </StackPanel>
+                    </Button>
+                </Border>
+                <Border Classes="RedBorder">
+                    <Button>
+                        <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                            <Label Classes="icon" Content="&#xe7e6;" />
+                            <Label Content="خروج" />
+                        </StackPanel>
+                    </Button>
+                </Border>
+
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Button -->
+
+    <Style Selector=":is(Button)">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#fff" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+
+    <Style Selector=":is(Button):pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#f1f1f1" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <Style Selector=":is(Button):pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#f1f1f1" />
+    </Style>
+
+    <Style Selector=":is(Button):pressed">
+        <Setter Property="RenderTransform" Value="{x:Null}" />
+    </Style>
+
+    <Style Selector="Button.PrimaryButton">
+        <Setter Property="Background" Value="#2563EB" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="CornerRadius" Value="12" />
+    </Style>
+
+    <!-- Animation -->
+
+    <Style Selector=":is(Button) /template/ ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Foreground" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+</Styles>

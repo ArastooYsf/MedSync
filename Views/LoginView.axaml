@@ -1,0 +1,97 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MedSync.ViewModels"
+        x:Class="MedSync.Views.LoginView"
+        x:DataType="vm:LoginViewModel"
+        Title="ورود به سیستم"
+        Width="400" Height="500"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Background="{DynamicResource PrimaryBackground}"
+        CornerRadius="8"
+        ExtendClientAreaToDecorationsHint="True"
+        WindowDecorations="None">
+
+    <Border Classes="NormalBlueBorder" BorderThickness="3">
+        <StackPanel Margin="20" Spacing="20" FlowDirection="RightToLeft">
+
+            <Border Classes="NavIconBorder" HorizontalAlignment="Left">
+                <Button Click="CloseButton_Click">
+                    <Label Classes="icon-only-regular" Content="&#xe4F6;" />
+                </Button>
+            </Border>
+
+
+            <Grid RowDefinitions="Auto,*,Auto">
+
+                <!-- Title -->
+
+                <StackPanel HorizontalAlignment="Center">
+                    <Label Classes="h0" Content="MedSync" />
+                    <Label Classes="h4" Content="سیستم مدیریت مطب" HorizontalAlignment="Center" />
+                </StackPanel>
+
+                <!-- Username -->
+
+                <StackPanel Grid.Row="1" VerticalAlignment="Center" Spacing="20">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h3" Content="نام کاربری" />
+                        <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="16" />
+                    </StackPanel>
+                    <Border Classes="TextBoxBorder">
+                        <TextBox Text="{Binding Username}"
+                                 PlaceholderText="Username"
+                                 HorizontalAlignment="Stretch" />
+                    </Border>
+
+                    <!-- Username Error -->
+                    <Label Classes="ErrorText"
+                           Content="{Binding UsernameError}"
+                           IsVisible="{Binding UsernameError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                    <!-- Password -->
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="h3" Content="رمز عبور" />
+                        <Label Classes="icon" Content="&#xe752;" Foreground="White" FontSize="16" />
+                    </StackPanel>
+                    <Border Classes="TextBoxBorder">
+                        <TextBox Text="{Binding Password}"
+                                 PasswordChar="*"
+                                 PlaceholderText="Password"
+                                 HorizontalAlignment="Stretch" />
+                    </Border>
+
+                    <!-- Password Error -->
+                    <Label Classes="ErrorText"
+                           Content="{Binding PasswordError}"
+                           IsVisible="{Binding PasswordError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                    <!-- General Error -->
+                    <Label Classes="text"
+                           Content="{Binding GeneralError}"
+                           Foreground="{DynamicResource RedBrush}"
+                           IsVisible="{Binding GeneralError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                           HorizontalAlignment="Center" />
+
+                    <!-- Login Button -->
+
+                    <Border Classes="GreenBorder" HorizontalAlignment="Stretch">
+                        <IconButton IconText="&#xe428;"
+                                    Command="{Binding LoginCommand}"
+                                    IsEnabled="{Binding !IsLoading}">
+                            <Label Classes="text" Content="ورود" />
+                        </IconButton>
+                    </Border>
+                </StackPanel>
+
+                <Label Grid.Row="2"
+                       Classes="h4"
+                       Content="نسخه 1.0.0"
+                       HorizontalAlignment="Center"
+                       Margin="0,5,0,0" />
+
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

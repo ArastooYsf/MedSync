@@ -1,0 +1,142 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MedSync.ViewModels"
+             xmlns:views="using:MedSync.Views"
+             xmlns:conv="using:MedSync.Converters"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="576"
+             x:Class="MedSync.Views.PatientsPageView"
+             x:DataType="vm:PatientsPageViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             CornerRadius="8">
+
+    <Panel>
+
+        <!-- لیست بیماران -->
+        <Grid RowDefinitions="Auto,Auto,Auto,*" Margin="30" FlowDirection="RightToLeft"
+              IsVisible="{Binding !ShowDetail}">
+
+            <!-- Title -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+                <Label Classes="h1" Content="بیماران" />
+                <Label Classes="icon" Content="&#xe56a;" Foreground="White" FontSize="24" />
+            </StackPanel>
+
+            <!-- Add Button -->
+            <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="10" Margin="0,0,0,15">
+                <Border Grid.Column="1" Classes="DarkBlueBorder">
+                    <IconButton IconText="&#xe3d4;"
+                                Command="{Binding AddPatientCommand}">
+                        <Label Classes="text" Content="اضافه کردن بیمار" />
+                    </IconButton>
+                </Border>
+
+                <Border Grid.Column="0" Classes="GreenBorder" HorizontalAlignment="Left">
+                    <IconButton IconText="&#xe096;"
+                                Command="{Binding RefreshPatientsCommand}">
+                        <Label Classes="text" Content="بروزرسانی" />
+                    </IconButton>
+                </Border>
+            </Grid>
+
+            <!-- Search & Filter -->
+            <Grid Grid.Row="2" ColumnDefinitions="*, *" Margin="0,0,0,20">
+                <Border Classes="TextBoxBorder">
+                    <TextBox Classes="Search"
+                             PlaceholderText="جستجو کنید ..."
+                             Text="{Binding SearchText}" />
+                </Border>
+                <ComboBox Grid.Column="1"
+                          HorizontalAlignment="Right"
+                          FontFamily="{DynamicResource Shabnam}"
+                          ItemsSource="{Binding FilterOptions}"
+                          SelectedItem="{Binding SelectedFilter}" />
+            </Grid>
+
+            <!-- Patients List with ScrollViewer -->
+            <ScrollViewer Grid.Row="3">
+                <StackPanel Spacing="15">
+
+                    <ProgressBar IsIndeterminate="True"
+                                 IsVisible="{Binding IsLoading}"
+                                 Height="4" />
+
+                    <ItemsControl ItemsSource="{Binding FilteredPatients}" ClipToBounds="False">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Classes="NormalBlueBorder"
+                                        Margin="8"
+                                        Width="250"
+                                        Height="150">
+                                    <Button
+                                        Command="{Binding $parent[ItemsControl].((vm:PatientsPageViewModel)DataContext).OpenDetailCommand}"
+                                        CommandParameter="{Binding}"
+                                        Padding="20"
+                                        Width="{Binding $parent[Border].Bounds.Width}"
+                                        Height="{Binding $parent[Border].Bounds.Height}"
+                                        CornerRadius="8">
+                                        <Grid RowDefinitions="Auto,Auto"
+                                              ColumnDefinitions="Auto,*"
+                                              RowSpacing="8"
+                                              ColumnSpacing="12">
+
+                                            <Border Classes="Circle">
+                                                <Label Classes="TextProfile"
+                                                       Content="{Binding ., Converter={x:Static conv:NameInitialsConverter.Instance}}" />
+                                            </Border>
+
+                                            <StackPanel Grid.Row="0" Grid.Column="1" Spacing="4">
+                                                <TextBlock Classes="Pth3"
+                                                           Text="{Binding FullName}"
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           MaxLines="1"
+                                                           MaxWidth="180" />
+                                                <TextBlock Classes="Pth4" TextWrapping="Wrap">
+                                                    <Run Text="{Binding Gender}" />
+                                                    <Run Text="{Binding Age}" />
+                                                    <Run Text="ساله" />
+                                                </TextBlock>
+                                                <Border Classes="StatusBadge" MaxWidth="180">
+                                                    <TextBlock Classes="Pth4"
+                                                               Text="{Binding MedicalHistory}"
+                                                               TextWrapping="NoWrap"
+                                                               TextTrimming="CharacterEllipsis"
+                                                               MaxLines="1" />
+                                                </Border>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="0" Grid.Row="1"
+                                                        Grid.ColumnSpan="2"
+                                                        Orientation="Horizontal"
+                                                        FlowDirection="LeftToRight"
+                                                        Spacing="6"
+                                                        HorizontalAlignment="Left">
+                                                <Label Classes="h3" Content="{Binding PhoneNumber}" />
+                                                <Label Classes="nav-icon" Content="&#xe17e;" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- صفحه جزئیات -->
+        <Border IsVisible="{Binding ShowDetail}">
+            <views:PatientDetailView DataContext="{Binding DetailViewModel}" />
+        </Border>
+        
+    </Panel>
+</UserControl>

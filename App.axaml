@@ -1,0 +1,54 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:medSync="clr-namespace:MedSync"
+             x:Class="MedSync.App"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <medSync:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="Styles/AppDefaultStyles.axaml" />
+    </Application.Styles>
+
+    <!-- Resources -->
+
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <MergeResourceInclude Source="/Controls/IconButton.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <!-- Color Pallet -->
+        <SolidColorBrush x:Key="PrimaryBackground">#283139</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryBackground">#212930</SolidColorBrush>
+        <SolidColorBrush x:Key="BlueBrush">#0069FF</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryBlueBrush">#005FE6</SolidColorBrush>
+        <SolidColorBrush x:Key="GreenBrush">#1FC198</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryGreenBrush">#1BAB87</SolidColorBrush>
+        <SolidColorBrush x:Key="RedBrush">#FF5271</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryRedBrush">#FF395c</SolidColorBrush>
+        <SolidColorBrush x:Key="YellowBrush">#EDD851</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryYellowBrush">#F5E87A</SolidColorBrush>
+
+        <!-- Dark tones -->
+        <SolidColorBrush x:Key="DarkBlueBrush">#1A3A5C</SolidColorBrush>
+        <SolidColorBrush x:Key="DarkGreenBrush">#1A4A3A</SolidColorBrush>
+        <SolidColorBrush x:Key="DarkRedBrush">#4A1E28</SolidColorBrush>
+
+        <!-- Fonts -->
+        <FontFamily x:Key="Shabnam">/Assets/Fonts/Shabnam-FD.ttf#Shabnam FD</FontFamily>
+        <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
+        <FontFamily x:Key="PhosphorFill">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
+
+        <!-- Dark tones -->
+
+
+    </Application.Resources>
+
+</Application>

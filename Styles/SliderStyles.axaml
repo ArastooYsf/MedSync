@@ -1,0 +1,44 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MedSync.ViewModels"
+        x:DataType="vm:MainViewModel">
+
+    <Design.PreviewWith>
+        <Border Padding="20"
+                Background="{DynamicResource PrimaryBackground}"
+                BorderBrush="{DynamicResource BlueBrush}"
+                BorderThickness="2"
+                CornerRadius="4">
+            <StackPanel Spacing="10">
+
+                <!-- Slider -->
+
+                <StackPanel MinWidth="100">
+                    <TextBox Text="{Binding #TtsSlider.Value}" />
+                    <Border>
+                        <Slider x:Name="TtsSlider"
+                                Minimum="0"
+                                MaxHeight="50"
+                                Value="25" />
+                    </Border>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Slider -->
+
+    <Style Selector="Slider /template/ Thumb">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Margin="5">
+                    <Border Background="{DynamicResource BlueBrush}" CornerRadius="50" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <!-- Animation -->
+
+</Styles>

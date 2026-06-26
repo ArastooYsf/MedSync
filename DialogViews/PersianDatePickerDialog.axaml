@@ -1,0 +1,95 @@
+﻿<!-- DialogViews/PersianDatePickerDialog.axaml -->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MedSync.DialogViews.PersianDatePickerDialog"
+        Title="انتخاب تاریخ"
+        Width="340"
+        Height="420"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False"
+        Background="{DynamicResource PrimaryBackground}"
+        FontFamily="{DynamicResource Shabnam}"
+        FlowDirection="RightToLeft">
+
+    <Border Padding="20"
+            Background="{DynamicResource PrimaryBackground}">
+        <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+            <!-- هدر: ناوبری ماه -->
+            <Grid Grid.Row="0"
+                  ColumnDefinitions="Auto,*,Auto"
+                  Margin="0,0,0,16">
+
+                <Button Grid.Column="0"
+                        x:Name="PrevMonthButton"
+                        Classes="nav-icon"
+                        Content="&#xe3d9;"
+                        Width="36" Height="36" />
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Spacing="8">
+                    <TextBlock x:Name="MonthLabel"
+                               Classes="Pth3"
+                               VerticalAlignment="Center" />
+                    <TextBlock x:Name="YearLabel"
+                               Classes="Pth3"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+
+                <Button Grid.Column="2"
+                        x:Name="NextMonthButton"
+                        Classes="nav-icon"
+                        Content="&#xe3da;"
+                        Width="36" Height="36" />
+            </Grid>
+
+            <!-- هدر روزهای هفته -->
+            <Grid Grid.Row="1"
+                  ColumnDefinitions="*,*,*,*,*,*,*"
+                  Margin="0,0,0,8">
+                <TextBlock Grid.Column="0" Text="ش"  Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="ی"  Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="د"  Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="3" Text="س"  Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="4" Text="چ"  Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="5" Text="پ"  Classes="Pth4" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="6" Text="ج"  Classes="Pth4" HorizontalAlignment="Center" />
+            </Grid>
+
+            <!-- گرید روزها -->
+            <ItemsControl Grid.Row="2"
+                          x:Name="DaysGrid">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <!-- دکمه‌های پایین -->
+            <Grid Grid.Row="3"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="10"
+                  Margin="0,16,0,0">
+
+                <Border Grid.Column="0"
+                        Classes="DarkBlueBorder"
+                        HorizontalAlignment="Stretch">
+                    <Button x:Name="TodayButton"
+                            Content="امروز" />
+                </Border>
+
+                <Border Grid.Column="1"
+                        Classes="RedBorder"
+                        HorizontalAlignment="Stretch">
+                    <Button x:Name="CancelButton"
+                            Content="لغو" />
+                </Border>
+                
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

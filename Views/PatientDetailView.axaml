@@ -1,0 +1,348 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MedSync.ViewModels"
+             xmlns:conv="using:MedSync.Converters"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="576"
+             x:Class="MedSync.Views.PatientDetailView"
+             x:DataType="vm:PatientDetailViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             CornerRadius="8">
+
+    <Grid RowDefinitions="Auto,Auto,*" Margin="16" RowSpacing="12">
+
+        <!-- Header -->
+        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" FlowDirection="RightToLeft">
+
+            <!-- دکمه بازگشت -->
+            <Border Grid.Column="0"
+                    Classes="DarkBlueBorder"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <IconButton IconText="&#xe42a;"
+                            Command="{Binding GoBackCommand}">
+                    <Label Classes="text" Content="بازگشت" />
+                </IconButton>
+            </Border>
+
+            <!-- آواتار + نام -->
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="12"
+                        VerticalAlignment="Center"
+                        Margin="4,0">
+
+                <Border Classes="Circle">
+                    <Label Classes="TextProfile"
+                           Content="{Binding ., Converter={x:Static conv:NameInitialsConverter.Instance}}" />
+                </Border>
+
+                <StackPanel VerticalAlignment="Center" MinWidth="0">
+                    <Label Content="{Binding Patient.FullName}"
+                           Classes="h2"
+                           MaxWidth="300" />
+                    <Label Content="{Binding Patient.NationalCode}" Classes="h4" />
+                </StackPanel>
+
+            </StackPanel>
+
+            <!-- دکمه‌های سمت چپ -->
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal"
+                        Spacing="6"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+
+                <!-- ویرایش - فقط وقتی edit mode نیست -->
+                <Border Classes="BlueBorder"
+                        IsVisible="{Binding !IsEditMode}"
+                        VerticalAlignment="Center">
+                    <IconButton IconText="&#xe3b2;"
+                                Command="{Binding ToggleEditModeCommand}">
+                        <Label Classes="text" Content="ویرایش" />
+                    </IconButton>
+                </Border>
+
+                <!-- انصراف - فقط وقتی edit mode هست -->
+                <Border Classes="RedBorder"
+                        IsVisible="{Binding IsEditMode}"
+                        VerticalAlignment="Center">
+                    <IconButton IconText="&#xe3de;"
+                                Command="{Binding ToggleEditModeCommand}">
+                        <Label Classes="text" Content="انصراف" />
+                    </IconButton>
+                </Border>
+
+                <!-- ذخیره - فقط وقتی edit mode هست -->
+                <Border Classes="GreenBorder"
+                        IsVisible="{Binding IsEditMode}"
+                        VerticalAlignment="Center">
+                    <IconButton IconText="&#xe248;"
+                                Command="{Binding SaveChangesCommand}">
+                        <Label Classes="text" Content="ذخیره" />
+                    </IconButton>
+                </Border>
+
+            </StackPanel>
+
+        </Grid>
+
+
+        <!-- Tabs -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" FlowDirection="RightToLeft" Margin="0,0,0,5">
+
+            <Border Classes="BlueBorder" Classes.active="{Binding IsInfoTab}">
+                <IconButton IconText="&#xe2ce;"
+                            Command="{Binding SetTabCommand}"
+                            CommandParameter="info">
+                    <Label Classes="text" Content="اطلاعات" />
+                </IconButton>
+            </Border>
+
+            <Border Classes="BlueBorder" Classes.active="{Binding IsVisitsTab}">
+                <IconButton IconText="&#xe1a0;"
+                            Command="{Binding SetTabCommand}"
+                            CommandParameter="visits">
+                    <Label Classes="text" Content="سوابق ویزیت" />
+                </IconButton>
+            </Border>
+
+            <Border Classes="BlueBorder" Classes.active="{Binding IsPrescriptionsTab}">
+                <IconButton IconText="&#xe700;"
+                            Command="{Binding SetTabCommand}"
+                            CommandParameter="prescriptions">
+                    <Label Classes="text" Content="نسخه‌ها" />
+                </IconButton>
+            </Border>
+
+            <Border Classes="BlueBorder" Classes.active="{Binding IsTestsTab}">
+                <IconButton IconText="&#xe79e;"
+                            Command="{Binding SetTabCommand}"
+                            CommandParameter="tests">
+                    <Label Classes="text" Content="آزمایش‌ها" />
+                </IconButton>
+            </Border>
+
+            <Border Classes="BlueBorder" Classes.active="{Binding IsFilesTab}">
+                <IconButton IconText="&#xe710;"
+                            Command="{Binding SetTabCommand}"
+                            CommandParameter="files">
+                    <Label Classes="text" Content="فایل‌ها" />
+                </IconButton>
+            </Border>
+
+        </StackPanel>
+
+
+        <!-- Tab Content -->
+        <Border Grid.Row="2" Classes="NormalBlueBorder" Padding="16">
+            <Panel>
+
+                <!-- تب اطلاعات -->
+                <ScrollViewer IsVisible="{Binding IsInfoTab}"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="12">
+
+                        <!-- View Mode -->
+                        <StackPanel IsVisible="{Binding !IsEditMode}" Spacing="12">
+                            <Grid ColumnDefinitions="*,*"
+                                  RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                                  RowSpacing="8"
+                                  ColumnSpacing="16"
+                                  FlowDirection="RightToLeft">
+
+                                <StackPanel Grid.Row="0" Grid.Column="0">
+                                    <TextBlock Classes="Pth4" Text="نام" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.FirstName}" TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="0" Grid.Column="1">
+                                    <TextBlock Classes="Pth4" Text="نام خانوادگی" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.LastName}" TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="1" Grid.Column="0">
+                                    <TextBlock Classes="Pth4" Text="جنسیت" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.Gender}" TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="1" Grid.Column="1">
+                                    <TextBlock Classes="Pth4" Text="شماره تماس" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.PhoneNumber}" TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="2" Grid.Column="0">
+                                    <TextBlock Classes="Pth4" Text="کد ملی" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.NationalCode}" TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="2" Grid.Column="1">
+                                    <TextBlock Classes="Pth4" Text="سن" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.Age}" TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <TextBlock Classes="Pth4" Text="سابقه پزشکی" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.MedicalHistory}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <TextBlock Classes="Pth4" Text="آدرس" />
+                                    <TextBlock Classes="Pth3" Text="{Binding Patient.Address}" TextWrapping="Wrap" />
+                                </StackPanel>
+
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Edit Mode -->
+                        <StackPanel IsVisible="{Binding IsEditMode}" Spacing="10">
+                            <Grid ColumnDefinitions="*,*"
+                                  RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                                  RowSpacing="8"
+                                  ColumnSpacing="16"
+                                  FlowDirection="RightToLeft"
+                                  Margin="10">
+
+                                <StackPanel Grid.Row="0" Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="نام" />
+                                        <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="TextBoxBorder">
+                                        <TextBox Text="{Binding EditFirstName}"
+                                                 PlaceholderText="نام را وارد کنید..."
+                                                 HorizontalAlignment="Stretch"
+                                                 MaxLength="35" />
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="0" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="نام خانوادگی" />
+                                        <Label Classes="icon" Content="&#xe4d6;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="TextBoxBorder">
+                                        <TextBox Text="{Binding EditLastName}"
+                                                 PlaceholderText="نام خانوادگی را وارد کنید..."
+                                                 HorizontalAlignment="Stretch"
+                                                 MaxLength="35" />
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="1" Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="جنسیت" />
+                                        <Label Classes="icon" Content="&#xe6e6;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="NormalBlueBorder">
+                                        <ComboBox SelectedItem="{Binding EditGender}"
+                                                  HorizontalAlignment="Stretch">
+                                            <x:String>مرد</x:String>
+                                            <x:String>زن</x:String>
+                                        </ComboBox>
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="1" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="شماره تماس" />
+                                        <Label Classes="icon" Content="&#xe3ba;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="TextBoxBorder">
+                                        <TextBox Text="{Binding EditPhoneNumber}"
+                                                 PlaceholderText="09xxxxxxxxx"
+                                                 HorizontalAlignment="Stretch"
+                                                 MaxLength="11" />
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="2" Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="کد ملی" />
+                                        <Label Classes="icon" Content="&#xe2c8;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="TextBoxBorder">
+                                        <TextBox Text="{Binding EditNationalCode}"
+                                                 PlaceholderText="کدملی 10 رقمی"
+                                                 HorizontalAlignment="Stretch"
+                                                 MaxLength="10" />
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="2" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="تاریخ تولد" />
+                                        <Label Classes="icon" Content="&#xe108;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="NormalBlueBorder" CornerRadius="4" FlowDirection="LeftToRight"  HorizontalAlignment="Left">
+                                        <PersianDatePicker SelectedDate="{Binding EditBirthDate}"
+                                                    HorizontalAlignment="Stretch" />
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="سابقه پزشکی" />
+                                        <Label Classes="icon" Content="&#xe348;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="TextBoxBorder">
+                                        <TextBox Classes="Description"
+                                                 Text="{Binding EditMedicalHistory}"
+                                                 PlaceholderText="سابقه بیماری یا توضیحات" />
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Classes="h3" Content="آدرس" />
+                                        <Label Classes="icon" Content="&#xe2c4;" Foreground="White" FontSize="16" />
+                                    </StackPanel>
+                                    <Border Classes="TextBoxBorder">
+                                        <TextBox Classes="Description"
+                                                 Text="{Binding EditAddress}"
+                                                 PlaceholderText="آدرس محل سکونت" />
+                                    </Border>
+                                </StackPanel>
+
+                            </Grid>
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- تب سوابق ویزیت -->
+                <StackPanel IsVisible="{Binding IsVisitsTab}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="سوابق ویزیت" Classes="h2" HorizontalAlignment="Center" />
+                    <TextBlock Text="به زودی..." Classes="Pth4" Opacity="0.5" HorizontalAlignment="Center" />
+                </StackPanel>
+
+                <!-- تب نسخه‌ها -->
+                <StackPanel IsVisible="{Binding IsPrescriptionsTab}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="نسخه‌ها" Classes="h2" HorizontalAlignment="Center" />
+                    <TextBlock Text="به زودی..." Classes="Pth4" Opacity="0.5" HorizontalAlignment="Center" />
+                </StackPanel>
+
+                <!-- تب آزمایش‌ها -->
+                <StackPanel IsVisible="{Binding IsTestsTab}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="آزمایش‌ها" Classes="h2" HorizontalAlignment="Center" />
+                    <TextBlock Text="به زودی..." Classes="Pth4" Opacity="0.5" HorizontalAlignment="Center" />
+                </StackPanel>
+
+                <!-- تب فایل‌ها -->
+                <StackPanel IsVisible="{Binding IsFilesTab}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="فایل‌ها" Classes="h2" HorizontalAlignment="Center" />
+                    <TextBlock Text="به زودی..." Classes="Pth4" Opacity="0.5" HorizontalAlignment="Center" />
+                </StackPanel>
+
+            </Panel>
+        </Border>
+
+    </Grid>
+</UserControl>

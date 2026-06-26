@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Svg.Skia" Version="11.3.0" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.4" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.17">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.14" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.14">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.14" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\Audios\Notifications\" />
+      <Folder Include="Assets\Fonts\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\Fonts\Phosphor.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Phosphor.ttf" />
+      <None Remove="Assets\Fonts\Phosphor-Fill.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Phosphor-Fill.ttf" />
+      <None Remove="Assets\Fonts\Shabnam-FD.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Shabnam-FD.ttf" />
+      <None Remove="Assets\Images\pfp.png" />
+      <None Remove="Assets\Images\profile.svg" />
+      <AvaloniaResource Include="Assets\Images\profile.svg" />
+      <None Remove="Assets\Images\profile2.svg" />
+      <AvaloniaResource Include="Assets\Images\profile2.svg" />
+      <None Remove="Assets\Images\profile3.jpg" />
+      <AvaloniaResource Include="Assets\Images\profile3.jpg" />
+      <None Remove="structure.txt" />
+      <None Remove="StructureMaker.bat" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\MainView.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\LoginView.axaml.cs">
+        <DependentUpon>LoginPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="DialogViews\ExitConfirmationView.axaml.cs">
+        <DependentUpon>ExitConfirmationView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+</Project>
