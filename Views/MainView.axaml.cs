@@ -1,11 +1,11 @@
 using Avalonia;
 using Avalonia.Controls;
 using MedSync.DialogViewModels;
-using MedSync.ViewModels;
 using MedSync.DialogViews;
+using MedSync.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MedSync;
+namespace MedSync.Views;
 
 public partial class MainView : Window
 {

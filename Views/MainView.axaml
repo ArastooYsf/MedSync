@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="576"
         MinWidth="1024"
         MinHeight="576"
-        x:Class="MedSync.MainView"
+        x:Class="MedSync.Views.MainView"
         xmlns:vm="clr-namespace:MedSync.ViewModels"
         x:DataType="vm:MainViewModel"
         Title="MedSync">

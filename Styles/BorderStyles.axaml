@@ -91,7 +91,7 @@
     <Style Selector="Border.TextBoxBorder:pointerover">
         <Setter Property="BoxShadow" Value="0 6 10 0 #0069FF" />
     </Style>
-
+    
     <!-- Blue Border -->
 
     <Style Selector="Border.BlueBorder">

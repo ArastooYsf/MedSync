@@ -10,7 +10,8 @@
         Background="{DynamicResource PrimaryBackground}"
         CornerRadius="8"
         ExtendClientAreaToDecorationsHint="True"
-        WindowDecorations="None">
+        WindowDecorations="None"
+        ClipToBounds="False">
 
     <Border Classes="NormalBlueBorder" BorderThickness="3">
         <StackPanel Margin="20" Spacing="20" FlowDirection="RightToLeft">
@@ -36,12 +37,13 @@
                 <StackPanel Grid.Row="1" VerticalAlignment="Center" Spacing="20">
                     <StackPanel Orientation="Horizontal">
                         <Label Classes="h3" Content="نام کاربری" />
-                        <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="16" />
+                        <Label Classes="icon" Content="&#xe4c2;" Foreground="White" FontSize="20" />
                     </StackPanel>
                     <Border Classes="TextBoxBorder">
                         <TextBox Text="{Binding Username}"
                                  PlaceholderText="Username"
-                                 HorizontalAlignment="Stretch" />
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Center" />
                     </Border>
 
                     <!-- Username Error -->
@@ -53,13 +55,14 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Label Classes="h3" Content="رمز عبور" />
-                        <Label Classes="icon" Content="&#xe752;" Foreground="White" FontSize="16" />
+                        <Label Classes="icon" Content="&#xe752;" Foreground="White" FontSize="20" />
                     </StackPanel>
                     <Border Classes="TextBoxBorder">
                         <TextBox Text="{Binding Password}"
                                  PasswordChar="*"
                                  PlaceholderText="Password"
-                                 HorizontalAlignment="Stretch" />
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Center" />
                     </Border>
 
                     <!-- Password Error -->

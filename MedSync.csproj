@@ -56,11 +56,11 @@
 
     <ItemGroup>
       <Compile Update="Views\MainView.axaml.cs">
-        <DependentUpon>MainWindow.axaml</DependentUpon>
+        <DependentUpon>MainView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="Views\LoginView.axaml.cs">
-        <DependentUpon>LoginPageView.axaml</DependentUpon>
+        <DependentUpon>LoginView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="DialogViews\ExitConfirmationDialog.axaml.cs">
@@ -70,6 +70,9 @@
       <Compile Update="DialogViews\AddPatientDialog.axaml.cs">
         <DependentUpon>AddPatientDialog.axaml</DependentUpon>
         <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\AppointmentsPageView.axaml.cs">
+        <DependentUpon>AppointmentsPageView.axaml</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

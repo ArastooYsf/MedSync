@@ -45,7 +45,7 @@ public partial class App : Application
 
         collection.AddTransient<AddAppointmentDialogViewModel>();
         collection.AddTransient<AddAppointmentDialog>();
-        collection.AddTransient<MainView>();
+        collection.AddTransient<Views.MainView>();
         collection.AddTransient<LoginView>();
         collection.AddTransient<LoginViewModel>();
         collection.AddTransient<AddPatientDialogViewModel>();
@@ -104,7 +104,7 @@ public partial class App : Application
             }
             else
             {
-                desktop.MainWindow = new MainView
+                desktop.MainWindow = new Views.MainView
                 {
                     DataContext = services.GetRequiredService<MainViewModel>()
                 };
