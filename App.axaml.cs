@@ -58,7 +58,7 @@ public partial class App : Application
         collection.AddTransient<WorkersPageViewModel>();
         collection.AddTransient<SupportsPageViewModel>();
         collection.AddTransient<ExitConfirmationViewModel>();
-        collection.AddTransient<ExitConfirmationView>();
+        collection.AddTransient<ExitConfirmationDialog>();
 
         collection.AddSingleton<Func<ApplicationPageNames, PageViewModel>>(x => name => name switch
         {

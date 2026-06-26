@@ -50,6 +50,8 @@
       <AvaloniaResource Include="Assets\Images\profile3.jpg" />
       <None Remove="structure.txt" />
       <None Remove="StructureMaker.bat" />
+      <None Remove="Assets\Images\logo.png" />
+      <AvaloniaResource Include="Assets\Images\logo.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -61,8 +63,12 @@
         <DependentUpon>LoginPageView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-      <Compile Update="DialogViews\ExitConfirmationView.axaml.cs">
+      <Compile Update="DialogViews\ExitConfirmationDialog.axaml.cs">
         <DependentUpon>ExitConfirmationView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="DialogViews\AddPatientDialog.axaml.cs">
+        <DependentUpon>AddPatientDialog.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

@@ -121,7 +121,7 @@
 
                     <Border Classes="BlueBorder"
                             Classes.active="{Binding AppointmentsPageIsActive}">
-                        <IconButton IconText="&#xe2f2;"
+                        <IconButton IconText="&#xedec;"
                                     Command="{Binding GoToAppointmentsCommand}"
                                     HorizontalContentAlignment="Right">
                             <Label Classes="text" Content="نوبت دهی" />

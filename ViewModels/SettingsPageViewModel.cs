@@ -28,7 +28,7 @@ public partial class SettingsPageViewModel : PageViewModel
 
         if (mainWindow == null) return;
 
-        var resetDialog = new ResetConfirmationView
+        var resetDialog = new ResetConfirmationDialog
         {
             DataContext = new ResetConfirmationViewModel()
         };
