@@ -4,15 +4,19 @@
         x:Class="MedSync.Views.AddPatientDialog"
         x:DataType="vm:AddPatientDialogViewModel"
         Title="افزودن بیمار"
-        Width="500"
-        Height="700"
+        Width="550"
+        Height="750"
         WindowStartupLocation="CenterOwner"
         CanResize="False"
-        Background="{DynamicResource PrimaryBackground}"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
-        WindowDecorations="None">
+        WindowDecorations="None"
+        CornerRadius="8">
 
-    <Border Classes="NormalBlueBorder">
+    <Border Classes="NormalBlueBorder"
+            Width="500"
+             Height="700">
         <Grid Margin="10" RowDefinitions="Auto,*,Auto" FlowDirection="LeftToRight">
 
             <!-- Title -->

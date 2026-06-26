@@ -4,16 +4,20 @@
         x:Class="MedSync.Views.LoginView"
         x:DataType="vm:LoginViewModel"
         Title="ورود به سیستم"
-        Width="400" Height="500"
+        Width="420"
+        Height="530"
         WindowStartupLocation="CenterScreen"
         CanResize="False"
-        Background="{DynamicResource PrimaryBackground}"
-        CornerRadius="8"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         WindowDecorations="None"
         ClipToBounds="False">
 
-    <Border Classes="NormalBlueBorder" BorderThickness="3">
+    <Border Classes="NormalBlueBorder"
+            BorderThickness="3"
+            Width="400"
+            Height="500">
         <StackPanel Margin="20" Spacing="20" FlowDirection="RightToLeft">
 
             <Border Classes="NavIconBorder" HorizontalAlignment="Left">

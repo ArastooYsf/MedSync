@@ -6,15 +6,17 @@
         x:Class="MedSync.Views.AddAppointmentDialog"
         x:DataType="vm:AddAppointmentDialogViewModel"
         Title="افزودن نوبت"
-        Width="500"
-        Height="580"
+        Width="520"
+        Height="600"
         WindowStartupLocation="CenterOwner"
         WindowDecorations="None"
-        Background="{DynamicResource PrimaryBackground}"
-        CanResize="False"
-        CornerRadius="8">
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
+        CanResize="False">
 
-    <Border Classes="NormalBlueBorder">
+    <Border Classes="NormalBlueBorder"
+            Width="500"
+            Height="580">
 
         <Grid RowDefinitions="Auto,*,Auto" Margin="10" FlowDirection="RightToLeft">
 

@@ -2,17 +2,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="MedSync.DialogViews.PersianDatePickerDialog"
         Title="انتخاب تاریخ"
-        Width="340"
-        Height="420"
+        Width="360"
+        Height="440"
         WindowStartupLocation="CenterOwner"
         CanResize="False"
         ShowInTaskbar="False"
         WindowDecorations="None"
-        Background="{DynamicResource PrimaryBackground}"
-        FontFamily="{DynamicResource Shabnam}">
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
+        FontFamily="{DynamicResource Shabnam}"
+        FlowDirection="RightToLeft">
 
-    <Border Padding="16"
-            Background="{DynamicResource PrimaryBackground}">
+    <Border Classes="NormalBlueBorder"
+            Padding="16"
+            Width="340"
+            Height="420">
         <Grid RowDefinitions="Auto,Auto,*,Auto">
 
             <!-- هدر: ناوبری -->
@@ -25,7 +29,7 @@
                         FontFamily="{DynamicResource PhosphorFill}"
                         Foreground="White"
                         FontSize="20"
-                        Content="&#xe138;"
+                        Content="&#xe13a;"
                         Width="36" Height="36"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center" />
@@ -51,25 +55,17 @@
                         FontFamily="{DynamicResource PhosphorFill}"
                         Foreground="White"
                         FontSize="20"
-                        Content="&#xe13a;"
+                        Content="&#xe138;"
                         Width="36" Height="36"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center" />
             </Grid>
 
-            <!-- هدر روزهای هفته - فقط در حالت روز -->
+            <!-- هدر روزهای هفته -->
             <Grid x:Name="WeekDaysHeader"
                   Grid.Row="1"
-                  Margin="0,0,0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                  ColumnDefinitions="*,*,*,*,*,*,*"
+                  Margin="0,0,0,4">
                 <TextBlock Grid.Column="0" Text="ش" Classes="Pth4" HorizontalAlignment="Center" />
                 <TextBlock Grid.Column="1" Text="ی" Classes="Pth4" HorizontalAlignment="Center" />
                 <TextBlock Grid.Column="2" Text="د" Classes="Pth4" HorizontalAlignment="Center" />
@@ -79,16 +75,29 @@
                 <TextBlock Grid.Column="6" Text="ج" Classes="Pth4" HorizontalAlignment="Center" />
             </Grid>
 
-            <!-- گرید روزها / ماه‌ها / سال‌ها -->
-            <ItemsControl Grid.Row="2"
-                          x:Name="DaysGrid"
-                          IsVisible="True">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <!-- محتوا - سه حالت -->
+            <!-- محتوا - سه حالت -->
+            <Panel Grid.Row="2">
+
+                <!-- حالت روز -->
+                <Grid x:Name="DayPanel"
+                      IsVisible="True"
+                      ColumnDefinitions="*,*,*,*,*,*,*"
+                      RowDefinitions="*,*,*,*,*,*" />
+
+                <!-- حالت ماه -->
+                <Grid x:Name="MonthPanel"
+                      IsVisible="False"
+                      ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*" />
+
+                <!-- حالت سال -->
+                <Grid x:Name="YearPanel"
+                      IsVisible="False"
+                      ColumnDefinitions="*,*,*"
+                      RowDefinitions="*,*,*,*" />
+
+            </Panel>
 
             <!-- دکمه‌های پایین -->
             <Grid Grid.Row="3"

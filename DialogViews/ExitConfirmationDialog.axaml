@@ -4,19 +4,22 @@
         x:Class="MedSync.DialogViews.ExitConfirmationDialog"
         x:DataType="vm:ExitConfirmationViewModel"
         Title="خروج از برنامه"
-        Width="350"
-        Height="180"
+        Width="370"
+        Height="200"
         WindowStartupLocation="CenterOwner"
+        WindowDecorations="None"
         CanResize="False"
-        Background="{DynamicResource PrimaryBackground}"
-        CornerRadius="8"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent"
         ExtendClientAreaToDecorationsHint="True">
 
     <Design.DataContext>
         <vm:ExitConfirmationViewModel />
     </Design.DataContext>
 
-    <Border Classes="NormalBlueBorder">
+    <Border Classes="NormalBlueBorder"
+            Width="350"
+            Height="180">
         <StackPanel Margin="20" Spacing="40">
 
             <StackPanel HorizontalAlignment="Center">

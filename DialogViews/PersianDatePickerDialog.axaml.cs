@@ -11,8 +11,6 @@ namespace MedSync.DialogViews;
 
 public partial class PersianDatePickerDialog : Window
 {
-    // ─── Fields ──────────────────────────────────────────────────────────────
-
     private enum PickerMode { Day, Month, Year }
 
     private int _currentPYear;
@@ -20,8 +18,6 @@ public partial class PersianDatePickerDialog : Window
     private DateTime? _selectedDate;
     private PickerMode _mode = PickerMode.Day;
     private int _yearRangeStart;
-
-    // ─── Constructors ────────────────────────────────────────────────────────
 
     public PersianDatePickerDialog()
     {
@@ -35,17 +31,15 @@ public partial class PersianDatePickerDialog : Window
         _selectedDate   = initialDate;
         _yearRangeStart = (_currentPYear / 12) * 12;
 
-        PrevMonthButton.Click         += OnPrev;
-        NextMonthButton.Click         += OnNext;
-        TodayButton.Click             += OnToday;
-        CancelButton.Click            += OnCancel;
-        MonthLabel.PointerPressed     += OnMonthLabelClick;
-        YearLabel.PointerPressed      += OnYearLabelClick;
+        PrevMonthButton.Click     += OnPrev;
+        NextMonthButton.Click     += OnNext;
+        TodayButton.Click         += OnToday;
+        CancelButton.Click        += OnCancel;
+        MonthLabel.PointerPressed += OnMonthLabelClick;
+        YearLabel.PointerPressed  += OnYearLabelClick;
 
         Render();
     }
-
-    // ─── Events ──────────────────────────────────────────────────────────────
 
     private void OnPrev(object? sender, RoutedEventArgs e)
     {
@@ -92,52 +86,44 @@ public partial class PersianDatePickerDialog : Window
         Render();
     }
 
-    // ─── Render ──────────────────────────────────────────────────────────────
-
     private void Render()
     {
         UpdateHeader();
-        DaysGrid.Items.Clear();
+
+        DayPanel.IsVisible   = _mode == PickerMode.Day;
+        MonthPanel.IsVisible = _mode == PickerMode.Month;
+        YearPanel.IsVisible  = _mode == PickerMode.Year;
+
+        WeekDaysHeader.IsVisible  = _mode == PickerMode.Day;
+        PrevMonthButton.IsVisible = _mode != PickerMode.Month;
+        NextMonthButton.IsVisible = _mode != PickerMode.Month;
 
         switch (_mode)
         {
             case PickerMode.Day:
-                WeekDaysHeader.IsVisible    = true;
-                PrevMonthButton.IsVisible   = true;
-                NextMonthButton.IsVisible   = true;
+                DayPanel.Children.Clear();
                 RenderDays();
                 break;
             case PickerMode.Month:
-                WeekDaysHeader.IsVisible    = false;
-                PrevMonthButton.IsVisible   = false;
-                NextMonthButton.IsVisible   = false;
+                MonthPanel.Children.Clear();
                 RenderMonths();
                 break;
             case PickerMode.Year:
-                WeekDaysHeader.IsVisible    = false;
-                PrevMonthButton.IsVisible   = true;
-                NextMonthButton.IsVisible   = true;
+                YearPanel.Children.Clear();
                 RenderYears();
                 break;
         }
     }
 
-    // ─── Header ──────────────────────────────────────────────────────────────
-
     private void UpdateHeader()
     {
-        // ترتیب: ماه سال (مثل تیر ۱۴۰۴)
-        MonthLabel.Text = _mode switch
-        {
-            PickerMode.Month => "انتخاب ماه",
-            _                => PersianCalendarHelper.GetPersianMonthName(_currentPMonth)
-        };
+        MonthLabel.Text = _mode == PickerMode.Month
+            ? "انتخاب ماه"
+            : PersianCalendarHelper.GetPersianMonthName(_currentPMonth);
 
-        YearLabel.Text = _mode switch
-        {
-            PickerMode.Year => $"{_yearRangeStart}–{_yearRangeStart + 11}",
-            _               => _currentPYear.ToString()
-        };
+        YearLabel.Text = _mode == PickerMode.Year
+            ? $"{_yearRangeStart}–{_yearRangeStart + 11}"
+            : _currentPYear.ToString();
 
         MonthLabel.Foreground = _mode == PickerMode.Month
             ? new SolidColorBrush(Color.Parse("#3A7FD5"))
@@ -148,28 +134,35 @@ public partial class PersianDatePickerDialog : Window
             : new SolidColorBrush(Colors.White);
     }
 
-    // ─── Day Render ──────────────────────────────────────────────────────────
-
     private void RenderDays()
     {
-        var firstGreg    = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, 1);
-        int startOffset  = GetPersianDayOfWeek(firstGreg.DayOfWeek);
-        int daysInMonth  = PersianCalendarHelper.GetPersianDaysInMonth(_currentPYear, _currentPMonth);
+        var firstGreg   = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, 1);
+        int startOffset = GetPersianDayOfWeek(firstGreg.DayOfWeek);
+        int daysInMonth = PersianCalendarHelper.GetPersianDaysInMonth(_currentPYear, _currentPMonth);
 
-        // سلول‌های خالی قبل از روز اول
+        // سلول‌های خالی
         for (int i = 0; i < startOffset; i++)
-            DaysGrid.Items.Add(new Border { Width = 40, Height = 40, Margin = new Thickness(2) });
+        {
+            var empty = new Border();
+            Grid.SetRow(empty, i / 7);
+            Grid.SetColumn(empty, i % 7);
+            DayPanel.Children.Add(empty);
+        }
 
+        // روزها
         for (int day = 1; day <= daysInMonth; day++)
         {
-            var greg       = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, day);
-            bool isToday   = greg.Date == DateTime.Today;
+            var greg        = PersianCalendarHelper.ToGregorian(_currentPYear, _currentPMonth, day);
+            bool isToday    = greg.Date == DateTime.Today;
             bool isSelected = _selectedDate?.Date == greg.Date;
-            DaysGrid.Items.Add(MakeDayCell(day, greg, isToday, isSelected));
+
+            var cell = MakeDayCell(day, greg, isToday, isSelected);
+            int idx  = startOffset + day - 1;
+            Grid.SetRow(cell, idx / 7);
+            Grid.SetColumn(cell, idx % 7);
+            DayPanel.Children.Add(cell);
         }
     }
-
-    // ─── Month Render ─────────────────────────────────────────────────────────
 
     private void RenderMonths()
     {
@@ -186,7 +179,7 @@ public partial class PersianDatePickerDialog : Window
 
         for (int m = 1; m <= 12; m++)
         {
-            int month      = m;
+            int month       = m;
             bool isSelected = month == _currentPMonth &&
                               _selectedDate.HasValue &&
                               PersianCalendarHelper.GetPersianYear(_selectedDate.Value) == _currentPYear;
@@ -199,11 +192,11 @@ public partial class PersianDatePickerDialog : Window
                 Render();
             });
 
-            DaysGrid.Items.Add(cell);
+            Grid.SetRow(cell, (m - 1) / 3);
+            Grid.SetColumn(cell, (m - 1) % 3);
+            MonthPanel.Children.Add(cell);
         }
     }
-
-    // ─── Year Render ──────────────────────────────────────────────────────────
 
     private void RenderYears()
     {
@@ -211,7 +204,7 @@ public partial class PersianDatePickerDialog : Window
 
         for (int i = 0; i < 12; i++)
         {
-            int year       = _yearRangeStart + i;
+            int year        = _yearRangeStart + i;
             bool isSelected = year == _currentPYear &&
                               _selectedDate.HasValue &&
                               PersianCalendarHelper.GetPersianYear(_selectedDate.Value) == year;
@@ -224,24 +217,21 @@ public partial class PersianDatePickerDialog : Window
                 Render();
             });
 
-            DaysGrid.Items.Add(cell);
+            Grid.SetRow(cell, i / 3);
+            Grid.SetColumn(cell, i % 3);
+            YearPanel.Children.Add(cell);
         }
     }
 
-    // ─── Cell Factories ───────────────────────────────────────────────────────
-
     private Control MakeDayCell(int day, DateTime greg, bool isToday, bool isSelected)
     {
-        var normalBg   = isSelected ? Color.Parse("#3A7FD5")
-                       : isToday   ? Color.Parse("#1E3A5F")
-                                   : Colors.Transparent;
-        var hoverBg    = Color.Parse("#1A3A6A");
-        var restoreBg  = isToday ? Color.Parse("#1E3A5F") : Colors.Transparent;
+        var normalBg  = isSelected ? Color.Parse("#3A7FD5")
+                      : isToday   ? Color.Parse("#1E3A5F")
+                                  : Colors.Transparent;
+        var restoreBg = isToday ? Color.Parse("#1E3A5F") : Colors.Transparent;
 
         var border = new Border
         {
-            Width        = 40,
-            Height       = 40,
             Margin       = new Thickness(2),
             CornerRadius = new CornerRadius(6),
             Background   = new SolidColorBrush(normalBg),
@@ -259,7 +249,7 @@ public partial class PersianDatePickerDialog : Window
 
         if (!isSelected)
         {
-            border.PointerEntered += (_, _) => border.Background = new SolidColorBrush(hoverBg);
+            border.PointerEntered += (_, _) => border.Background = new SolidColorBrush(Color.Parse("#1A3A6A"));
             border.PointerExited  += (_, _) => border.Background = new SolidColorBrush(restoreBg);
         }
 
@@ -277,13 +267,10 @@ public partial class PersianDatePickerDialog : Window
         var normalBg  = isSelected ? Color.Parse("#3A7FD5")
                       : isCurrent  ? Color.Parse("#1E3A5F")
                                    : Colors.Transparent;
-        var hoverBg   = Color.Parse("#1A3A6A");
         var restoreBg = isCurrent ? Color.Parse("#1E3A5F") : Colors.Transparent;
 
         var border = new Border
         {
-            Width        = 72,
-            Height       = 44,
             Margin       = new Thickness(4),
             CornerRadius = new CornerRadius(8),
             Background   = new SolidColorBrush(normalBg),
@@ -291,7 +278,7 @@ public partial class PersianDatePickerDialog : Window
             Child        = new TextBlock
             {
                 Text                = label,
-                FontSize            = 13,
+                FontSize            = 14,
                 Foreground          = new SolidColorBrush(Colors.White),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment   = VerticalAlignment.Center,
@@ -301,7 +288,7 @@ public partial class PersianDatePickerDialog : Window
 
         if (!isSelected)
         {
-            border.PointerEntered += (_, _) => border.Background = new SolidColorBrush(hoverBg);
+            border.PointerEntered += (_, _) => border.Background = new SolidColorBrush(Color.Parse("#1A3A6A"));
             border.PointerExited  += (_, _) => border.Background = new SolidColorBrush(restoreBg);
         }
 
@@ -314,9 +301,6 @@ public partial class PersianDatePickerDialog : Window
         return border;
     }
 
-    // ─── Helper ───────────────────────────────────────────────────────────────
-
-    // شنبه = ستون ۰، جمعه = ستون ۶
     private static int GetPersianDayOfWeek(DayOfWeek dow) => dow switch
     {
         DayOfWeek.Saturday  => 0,
