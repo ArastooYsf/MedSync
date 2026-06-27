@@ -7,19 +7,13 @@ using MedSync.Data;
 using MedSync.Models;
 using MedSync.Services;
 
-public class AppointmentReminderService
+public class AppointmentReminderService(
+    AppDbContext context,
+    NotificationService notificationService)
 {
-    private readonly AppDbContext _context;
-    private readonly NotificationService _notificationService;
+    private readonly AppDbContext _context = context;
+    private readonly NotificationService _notificationService = notificationService;
     private Timer? _timer;
-
-    public AppointmentReminderService(
-        AppDbContext context,
-        NotificationService notificationService)
-    {
-        _context = context;
-        _notificationService = notificationService;
-    }
 
     public void Start()
     {

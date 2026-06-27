@@ -28,8 +28,7 @@ public partial class PatientsPageView : UserControl
         var dialogVm = new AddPatientDialogViewModel(vm._patientService);
         var dialog = new AddPatientDialog(dialogVm);
 
-        var parentWindow = TopLevel.GetTopLevel(this) as Window;
-        if (parentWindow == null) return;
+        if (TopLevel.GetTopLevel(this) is not Window parentWindow) return;
 
         await dialog.ShowDialog(parentWindow);
         await vm.RefreshPatientsCommand.ExecuteAsync(null);

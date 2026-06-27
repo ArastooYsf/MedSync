@@ -6,16 +6,16 @@ namespace MedSync;
 
 class Program
 {
-    
+
     [STAThread]
     public static void Main(string[] args)
     {
-        
+
         AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
         {
             File.WriteAllText("crash.log", e.ExceptionObject.ToString());
         };
-        
+
         var flagPath = Path.Combine(Directory.GetCurrentDirectory(), "reset.flag");
 
         if (File.Exists(flagPath))

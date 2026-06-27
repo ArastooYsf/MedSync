@@ -4,5 +4,5 @@ namespace MedSync.ViewModels;
 
 public partial class ViewModelBase : ObservableObject
 {
-    
+
 }

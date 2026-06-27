@@ -18,5 +18,5 @@ public partial class AddAppointmentDialog : Window
             Close(result);
         };
     }
-    
+
 }

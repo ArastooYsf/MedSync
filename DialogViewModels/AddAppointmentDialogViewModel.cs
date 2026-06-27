@@ -13,10 +13,10 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
 {
     private readonly AppointmentService _appointmentService;
     private readonly PatientService _patientService;
-    
-    private int? _appointmentId;
 
-    [ObservableProperty] private List<Patient> _patients = new();
+    private readonly int? _appointmentId;
+
+    [ObservableProperty] private List<Patient> _patients = [];
     [ObservableProperty] private Patient? _selectedPatient;
     [ObservableProperty] private string? _selectedPatientError;
 
@@ -34,43 +34,43 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
     [ObservableProperty] private bool _isSaving;
 
     public string DialogTitle => _appointmentId.HasValue ? "ویرایش نوبت" : "افزودن نوبت";
-    
-    public string[] StatusDisplayOptions { get; } = { "عادی", "اورژانسی" };
+
+    public string[] StatusDisplayOptions { get; } = ["عادی", "اورژانسی"];
 
     public string[] HourOptions { get; } =
-        Enumerable.Range(0, 24).Select(h => h.ToString("D2")).ToArray();
+        [.. Enumerable.Range(0, 24).Select(h => h.ToString("D2"))];
 
     public string[] MinuteOptions { get; } =
-        Enumerable.Range(0, 60).Select(m => m.ToString("D2")).ToArray();
+        [.. Enumerable.Range(0, 60).Select(m => m.ToString("D2"))];
 
     public Action<bool>? CloseDialog { get; set; }
 
     public AddAppointmentDialogViewModel(
         AppointmentService appointmentService,
-        PatientService     patientService)
+        PatientService patientService)
     {
         _appointmentService = appointmentService;
-        _patientService     = patientService;
+        _patientService = patientService;
         _ = LoadPatientsAsync();
     }
-    
+
     public AddAppointmentDialogViewModel(
         AppointmentService appointmentService,
-        PatientService     patientService,
-        Appointment        existing)
+        PatientService patientService,
+        Appointment existing)
         : this(appointmentService, patientService)
     {
         _appointmentId = existing.Id;
 
         AppointmentDate = existing.AppointmentDateTime.Date;
-            AppointmentHour   = existing.AppointmentDateTime.Hour.ToString("D2");
+        AppointmentHour = existing.AppointmentDateTime.Hour.ToString("D2");
         AppointmentMinute = existing.AppointmentDateTime.Minute.ToString("D2");
-        Notes             = existing.Notes ?? string.Empty;
+        Notes = existing.Notes ?? string.Empty;
 
         SelectedStatus = existing.Status switch
         {
             AppointmentStatus.Emergency => "اورژانسی",
-            _                           => "عادی"
+            _ => "عادی"
         };
 
         // بیمار بعد از لود لیست ست می‌شه
@@ -82,11 +82,11 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
         await LoadPatientsAsync();
         SelectedPatient = Patients.FirstOrDefault(p => p.Id == patientId);
     }
-    
+
     private async Task LoadPatientsAsync()
     {
         var list = await _patientService.GetAllPatientsAsync();
-        Patients = list.ToList();
+        Patients = [.. list];
     }
 
     partial void OnSelectedPatientChanged(Patient? value)
@@ -123,14 +123,14 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
         try
         {
             var date = AppointmentDate!.Value;
-            var hour   = int.Parse(AppointmentHour);
+            var hour = int.Parse(AppointmentHour);
             var minute = int.Parse(AppointmentMinute);
-            var dt     = date.AddHours(hour).AddMinutes(minute);
+            var dt = date.AddHours(hour).AddMinutes(minute);
 
             var status = SelectedStatus switch
             {
                 "اورژانسی" => AppointmentStatus.Emergency,
-                _          => AppointmentStatus.Normal
+                _ => AppointmentStatus.Normal
             };
 
             if (_appointmentId.HasValue)
@@ -139,10 +139,10 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
                 var existing = await _appointmentService.GetAppointmentByIdAsync(_appointmentId.Value);
                 if (existing is not null)
                 {
-                    existing.PatientId           = SelectedPatient!.Id;
+                    existing.PatientId = SelectedPatient!.Id;
                     existing.AppointmentDateTime = dt;
-                    existing.Status              = status;
-                    existing.Notes               = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim();
+                    existing.Status = status;
+                    existing.Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim();
 
                     await _appointmentService.UpdateAppointmentAsync(existing);
                 }
@@ -152,11 +152,11 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
                 // ✅ حالت افزودن
                 var appointment = new Appointment
                 {
-                    PatientId           = SelectedPatient!.Id,
+                    PatientId = SelectedPatient!.Id,
                     AppointmentDateTime = dt,
-                    Status              = status,
-                    Notes               = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim(),
-                    CreatedAt           = DateTime.Now
+                    Status = status,
+                    Notes = string.IsNullOrWhiteSpace(Notes) ? null : Notes.Trim(),
+                    CreatedAt = DateTime.Now
                 };
 
                 await _appointmentService.AddAppointmentAsync(appointment);
@@ -201,5 +201,5 @@ public partial class AddAppointmentDialogViewModel : ViewModelBase
 
         return isValid;
     }
-    
+
 }

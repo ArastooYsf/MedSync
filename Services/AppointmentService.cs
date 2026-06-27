@@ -8,16 +8,10 @@ using MedSync.Models;
 
 namespace MedSync.Services;
 
-public class AppointmentService
+public class AppointmentService(AppDbContext context, NotificationService notificationService)
 {
-    private readonly AppDbContext _context;
-    private readonly NotificationService _notificationService;
-
-    public AppointmentService(AppDbContext context, NotificationService notificationService)
-    {
-        _context = context;
-        _notificationService = notificationService;
-    }
+    private readonly AppDbContext _context = context;
+    private readonly NotificationService _notificationService = notificationService;
 
     public async Task<List<Appointment>> GetAllAppointmentsAsync()
     {
@@ -87,7 +81,7 @@ public class AppointmentService
         var appointment = await _context.Appointments
             .Include(a => a.Patient)
             .FirstOrDefaultAsync(a => a.Id == id);
-            
+
         if (appointment is null) return;
 
         // نوتیفیکیشن حذف

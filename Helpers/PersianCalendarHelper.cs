@@ -50,19 +50,19 @@ public static class PersianCalendarHelper
 
     public static string GetPersianMonthName(int month) => month switch
     {
-        1  => "فروردین",
-        2  => "اردیبهشت",
-        3  => "خرداد",
-        4  => "تیر",
-        5  => "مرداد",
-        6  => "شهریور",
-        7  => "مهر",
-        8  => "آبان",
-        9  => "آذر",
+        1 => "فروردین",
+        2 => "اردیبهشت",
+        3 => "خرداد",
+        4 => "تیر",
+        5 => "مرداد",
+        6 => "شهریور",
+        7 => "مهر",
+        8 => "آبان",
+        9 => "آذر",
         10 => "دی",
         11 => "بهمن",
         12 => "اسفند",
-        _  => ""
+        _ => ""
     };
 
     public static int GetPersianDaysInMonth(int year, int month)
@@ -70,7 +70,7 @@ public static class PersianCalendarHelper
         return _pc.GetDaysInMonth(year, month);
     }
 
-    public static int GetPersianYear(DateTime date)  => _pc.GetYear(date);
+    public static int GetPersianYear(DateTime date) => _pc.GetYear(date);
     public static int GetPersianMonth(DateTime date) => _pc.GetMonth(date);
-    public static int GetPersianDay(DateTime date)   => _pc.GetDayOfMonth(date);
+    public static int GetPersianDay(DateTime date) => _pc.GetDayOfMonth(date);
 }

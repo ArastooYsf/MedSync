@@ -3,9 +3,8 @@ using MedSync.Models;
 
 namespace MedSync.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     public DbSet<Patient> Patients { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Notification> Notifications { get; set; }
@@ -28,7 +27,7 @@ public class AppDbContext : DbContext
                 .HasForeignKey(e => e.PatientId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-        
+
         modelBuilder.Entity<Notification>(entity =>
         {
             entity.HasKey(e => e.Id);

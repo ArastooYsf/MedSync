@@ -10,14 +10,14 @@ namespace MedSync.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    
+
 #if DEBUG
     public MainViewModel()
     {
         _pageFactory = null!;
     } // design-time only
 #endif
-    
+
     private readonly PageFactory _pageFactory;
 
     [ObservableProperty] private bool _sidePanelExpanded = true;

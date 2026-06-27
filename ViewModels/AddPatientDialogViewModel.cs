@@ -7,9 +7,9 @@ using MedSync.Services;
 
 namespace MedSync.ViewModels;
 
-public partial class AddPatientDialogViewModel : ViewModelBase
+public partial class AddPatientDialogViewModel(PatientService patientService) : ViewModelBase
 {
-    private readonly PatientService _patientService;
+    private readonly PatientService _patientService = patientService;
 
     [ObservableProperty] private string _firstName = string.Empty;
 
@@ -40,11 +40,6 @@ public partial class AddPatientDialogViewModel : ViewModelBase
     [ObservableProperty] private string _medicalHistory = string.Empty;
 
     [ObservableProperty] private bool _isSaving;
-
-    public AddPatientDialogViewModel(PatientService patientService)
-    {
-        _patientService = patientService;
-    }
 
     partial void OnFirstNameChanged(string value)
     {

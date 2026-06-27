@@ -7,14 +7,9 @@ using MedSync.Models;
 
 namespace MedSync.Services;
 
-public class PatientService
+public class PatientService(AppDbContext context)
 {
-    private readonly AppDbContext _context;
-
-    public PatientService(AppDbContext context)
-    {
-        _context = context;
-    }
+    private readonly AppDbContext _context = context;
 
     public async Task<List<Patient>> GetAllPatientsAsync()
     {

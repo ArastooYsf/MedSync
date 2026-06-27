@@ -46,9 +46,9 @@ public partial class MainView : Window
         var services = ((App)Application.Current!).Services!;
         var exitViewModel = services.GetRequiredService<ExitConfirmationViewModel>();
         var exitDialog = new ExitConfirmationDialog(exitViewModel);
-        
+
         var result = await exitDialog.ShowDialog<bool?>(this);
-        
+
         if (result == true)
         {
             Closing -= MainView_Closing;

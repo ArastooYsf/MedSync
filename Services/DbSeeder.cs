@@ -4,14 +4,9 @@ using MedSync.Data;
 
 namespace MedSync.Services;
 
-public class DbSeeder
+public class DbSeeder(AppDbContext context)
 {
-    private readonly AppDbContext _context;
-
-    public DbSeeder(AppDbContext context)
-    {
-        _context = context;
-    }
+    private readonly AppDbContext _context = context;
 
     public async Task SeedAsync()
     {

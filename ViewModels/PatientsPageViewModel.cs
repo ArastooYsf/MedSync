@@ -14,9 +14,9 @@ public partial class PatientsPageViewModel : PageViewModel
 {
     internal readonly PatientService _patientService;
 
-    [ObservableProperty] private ObservableCollection<Patient> _patients = new();
+    [ObservableProperty] private ObservableCollection<Patient> _patients = [];
 
-    [ObservableProperty] private ObservableCollection<Patient> _filteredPatients = new();
+    [ObservableProperty] private ObservableCollection<Patient> _filteredPatients = [];
 
     [ObservableProperty] private Patient? _selectedPatient;
 
@@ -28,7 +28,7 @@ public partial class PatientsPageViewModel : PageViewModel
 
     [ObservableProperty] private PatientDetailViewModel? _detailViewModel;
 
-    public string[] FilterOptions { get; } = { "همه", "مرد", "زن" };
+    public string[] FilterOptions { get; } = ["همه", "مرد", "زن"];
 
     [ObservableProperty] private string _selectedFilter = "همه";
 

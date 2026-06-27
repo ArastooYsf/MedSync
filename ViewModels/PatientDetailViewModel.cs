@@ -31,7 +31,7 @@ public partial class PatientDetailViewModel : ViewModelBase
     [ObservableProperty] private string _editNationalCode = string.Empty;
 
     [ObservableProperty] private DateTime? _editBirthDate;
-    
+
     [ObservableProperty] private string _editPhoneNumber = string.Empty;
 
     [ObservableProperty] private string _editAddress = string.Empty;

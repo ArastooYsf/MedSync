@@ -37,7 +37,7 @@ public partial class AppointmentCardViewModel : ObservableObject
     public string StatusText => Status switch
     {
         AppointmentStatus.Normal => "عادی",
-        AppointmentStatus.Emergency => "اورژانسی", 
+        AppointmentStatus.Emergency => "اورژانسی",
         _ => "نامشخص"
     };
 

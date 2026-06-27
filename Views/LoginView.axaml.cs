@@ -27,16 +27,16 @@ public partial class LoginView : Window
         {
             DataContext = app.Services!.GetRequiredService<MainViewModel>()
         };
-    
+
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = mainView;
             mainView.Show();
         }
-    
+
         Close();
     }
-    
+
     private void CloseButton_Click(object? sender, RoutedEventArgs e)
     {
         Close();

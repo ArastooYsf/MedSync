@@ -5,9 +5,9 @@ using MedSync.Services;
 
 namespace MedSync.ViewModels;
 
-public partial class LoginViewModel : ObservableObject
+public partial class LoginViewModel(AuthService authService) : ObservableObject
 {
-    private readonly AuthService _authService;
+    private readonly AuthService _authService = authService;
 
     [ObservableProperty] private string _username = string.Empty;
 
@@ -22,11 +22,6 @@ public partial class LoginViewModel : ObservableObject
     [ObservableProperty] private bool _isLoading;
 
     public event Action? LoginSucceeded;
-
-    public LoginViewModel(AuthService authService)
-    {
-        _authService = authService;
-    }
 
     [RelayCommand]
     private void Login()

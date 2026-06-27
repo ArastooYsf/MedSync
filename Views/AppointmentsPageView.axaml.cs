@@ -20,13 +20,13 @@ public partial class AppointmentsPageView : UserControl
     {
         if (_previousVm != null)
         {
-            _previousVm.AddAppointmentRequested  -= OnAddAppointmentRequested;
+            _previousVm.AddAppointmentRequested -= OnAddAppointmentRequested;
             _previousVm.EditAppointmentRequested -= OnEditAppointmentRequested;
         }
 
         if (DataContext is AppointmentsPageViewModel vm)
         {
-            vm.AddAppointmentRequested  += OnAddAppointmentRequested;
+            vm.AddAppointmentRequested += OnAddAppointmentRequested;
             vm.EditAppointmentRequested += OnEditAppointmentRequested;
             _previousVm = vm;
         }
@@ -38,8 +38,7 @@ public partial class AppointmentsPageView : UserControl
         var services = ((App)Avalonia.Application.Current!).Services!;
         var dialogVm = services.GetRequiredService<AddAppointmentDialogViewModel>();
         var dialog = new AddAppointmentDialog(dialogVm);
-        var topLevel = TopLevel.GetTopLevel(this) as Window;
-        if (topLevel is null) return;
+        if (TopLevel.GetTopLevel(this) is not Window topLevel) return;
         var result = await dialog.ShowDialog<bool>(topLevel);
         if (result)
             await vm.LoadAppointmentsCommand.ExecuteAsync(null);
@@ -48,9 +47,9 @@ public partial class AppointmentsPageView : UserControl
     private async void OnEditAppointmentRequested(object? sender, AppointmentCardViewModel cardVm)
     {
         if (DataContext is not AppointmentsPageViewModel vm) return;
-        var services           = ((App)Avalonia.Application.Current!).Services!;
+        var services = ((App)Avalonia.Application.Current!).Services!;
         var appointmentService = services.GetRequiredService<AppointmentService>();
-        var patientService     = services.GetRequiredService<PatientService>();
+        var patientService = services.GetRequiredService<PatientService>();
         var existing = await appointmentService.GetAppointmentByIdAsync(cardVm.Id);
         if (existing is null) return;
         var dialogVm = new AddAppointmentDialogViewModel(
@@ -58,8 +57,7 @@ public partial class AppointmentsPageView : UserControl
             patientService,
             existing);
         var dialog = new AddAppointmentDialog(dialogVm);
-        var topLevel = TopLevel.GetTopLevel(this) as Window;
-        if (topLevel is null) return;
+        if (TopLevel.GetTopLevel(this) is not Window topLevel) return;
         var result = await dialog.ShowDialog<bool>(topLevel);
         if (result)
             await vm.LoadAppointmentsCommand.ExecuteAsync(null);

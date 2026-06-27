@@ -127,7 +127,7 @@
                             <Label Classes="text" Content="نوبت دهی" />
                         </IconButton>
                     </Border>
-                    
+
                     <Border Classes="BlueBorder"
                             Classes.active="{Binding PrescriptionsPageIsActive}">
                         <IconButton IconText="&#xe700;"
@@ -136,7 +136,7 @@
                             <Label Classes="text" Content="نسخه ها" />
                         </IconButton>
                     </Border>
-                    
+
                     <Border Classes="BlueBorder"
                             Classes.active="{Binding TestsPageIsActive}">
                         <IconButton IconText="&#xe79e;"
@@ -145,7 +145,7 @@
                             <Label Classes="text" Content="آزمایش ها" />
                         </IconButton>
                     </Border>
-                    
+
                     <Border Classes="BlueBorder"
                             Classes.active="{Binding PatientsPageIsActive}">
                         <IconButton IconText="&#xe56a;"
@@ -154,7 +154,7 @@
                             <Label Classes="text" Content="بیماران" />
                         </IconButton>
                     </Border>
-                    
+
                     <Border Classes="BlueBorder"
                             Classes.active="{Binding WorkersPageIsActive}">
                         <IconButton IconText="&#xe4d4;"
@@ -163,7 +163,7 @@
                             <Label Classes="text" Content="کاربران" />
                         </IconButton>
                     </Border>
-                    
+
                     <Border Classes="BlueBorder"
                             Classes.active="{Binding LogsPageIsActive}">
                         <IconButton IconText="&#xe34e;"
@@ -172,7 +172,7 @@
                             <Label Classes="text" Content="گزارشات" />
                         </IconButton>
                     </Border>
-                    
+
                     <Border Classes="BlueBorder"
                             Classes.active="{Binding SupportsPageIsActive}">
                         <IconButton IconText="&#xe584;"
@@ -181,7 +181,7 @@
                             <Label Classes="text" Content="پشتیبانی" />
                         </IconButton>
                     </Border>
-                    
+
                 </StackPanel>
 
                 <!-- Settings/Exit Button -->

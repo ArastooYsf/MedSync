@@ -32,7 +32,7 @@ public class NotificationService
             Message = message,
             AppointmentId = appointmentId,
             SoundFileName = soundFileName,
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
             IsRead = false
         };
 
@@ -53,11 +53,12 @@ public class NotificationService
     }
 
     // دریافت نوتیفیکیشن‌های خوانده نشده
-    // دریافت نوتیفیکیشن‌های خوانده نشده
     public async Task<List<Notification>> GetUnreadNotificationsAsync()
     {
         return await _context.Notifications
             .Where(n => !n.IsRead)
+            .Include(n => n.Appointment!)
+            .ThenInclude(a => a!.Patient)
             .OrderByDescending(n => n.CreatedAt)
             .ToListAsync();
     }
@@ -83,4 +84,3 @@ public class NotificationService
     }
 }
 
-    

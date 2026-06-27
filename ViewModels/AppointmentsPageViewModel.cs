@@ -16,25 +16,25 @@ namespace MedSync.ViewModels;
 public partial class AppointmentsPageViewModel : PageViewModel
 {
     private readonly AppointmentService _appointmentService;
-    private readonly PatientService     _patientService;
-    private readonly Timer              _clockTimer;
+    private readonly PatientService _patientService;
+    private readonly Timer _clockTimer;
     private int _tickCounter;
 
     private const int PageSize = 20;
 
-    [ObservableProperty] private ObservableCollection<AppointmentCardViewModel> _appointments       = new();
-    [ObservableProperty] private ObservableCollection<AppointmentCardViewModel> _filteredAppointments = new();
+    [ObservableProperty] private ObservableCollection<AppointmentCardViewModel> _appointments = [];
+    [ObservableProperty] private ObservableCollection<AppointmentCardViewModel> _filteredAppointments = [];
     [ObservableProperty] private AppointmentCardViewModel? _selectedAppointment;
-    [ObservableProperty] private bool    _isLoading;
-    [ObservableProperty] private string  _searchText           = string.Empty;
-    [ObservableProperty] private string  _currentTime          = string.Empty;
-    [ObservableProperty] private string  _selectedStatusFilter = "همه";
-    [ObservableProperty] private DateTime? _selectedDate       = DateTime.Today;
-    [ObservableProperty] private int     _currentPage          = 1;
-    [ObservableProperty] private int     _totalPages           = 1;
-    [ObservableProperty] private bool    _hasMoreItems         = false;
+    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] private string _searchText = string.Empty;
+    [ObservableProperty] private string _currentTime = string.Empty;
+    [ObservableProperty] private string _selectedStatusFilter = "همه";
+    [ObservableProperty] private DateTime? _selectedDate = DateTime.Today;
+    [ObservableProperty] private int _currentPage = 1;
+    [ObservableProperty] private int _totalPages = 1;
+    [ObservableProperty] private bool _hasMoreItems = false;
 
-    public string[] StatusFilters { get; } = { "همه", "عادی", "اورژانسی" };
+    public string[] StatusFilters { get; } = ["همه", "عادی", "اورژانسی"];
 
     public event EventHandler? AddAppointmentRequested;
     public event EventHandler<AppointmentCardViewModel>? EditAppointmentRequested;
@@ -42,14 +42,14 @@ public partial class AppointmentsPageViewModel : PageViewModel
 
     public AppointmentsPageViewModel(
         AppointmentService appointmentService,
-        PatientService     patientService)
+        PatientService patientService)
     {
         PageName = ApplicationPageNames.Appointments;
 
         _appointmentService = appointmentService;
-        _patientService     = patientService;
+        _patientService = patientService;
 
-        _clockTimer          = new Timer(1000);
+        _clockTimer = new Timer(1000);
         _clockTimer.Elapsed += OnTimerTick;
         _clockTimer.Start();
 
@@ -75,9 +75,9 @@ public partial class AppointmentsPageViewModel : PageViewModel
         });
     }
 
-    partial void OnSearchTextChanged(string value)        => ResetPagination();
+    partial void OnSearchTextChanged(string value) => ResetPagination();
     partial void OnSelectedStatusFilterChanged(string value) => ResetPagination();
-    partial void OnSelectedDateChanged(DateTime? value)   => ResetPagination();
+    partial void OnSelectedDateChanged(DateTime? value) => ResetPagination();
 
     private void ResetPagination()
     {
@@ -95,23 +95,23 @@ public partial class AppointmentsPageViewModel : PageViewModel
 
         if (!string.IsNullOrWhiteSpace(SearchText))
             result = result.Where(a =>
-                a.PatientFullName.Contains(SearchText,     StringComparison.OrdinalIgnoreCase) ||
-                a.PatientPhoneNumber.Contains(SearchText,  StringComparison.OrdinalIgnoreCase) ||
+                a.PatientFullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                a.PatientPhoneNumber.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                 a.PatientNationalCode.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
 
         if (SelectedStatusFilter != "همه")
         {
             result = SelectedStatusFilter switch
             {
-                "عادی"      => result.Where(a => a.Status == AppointmentStatus.Normal),
+                "عادی" => result.Where(a => a.Status == AppointmentStatus.Normal),
                 "اورژانسی" => result.Where(a => a.Status == AppointmentStatus.Emergency),
-                _            => result
+                _ => result
             };
         }
 
         var list = result.ToList();
-        TotalPages   = Math.Max(1, (int)Math.Ceiling(list.Count / (double)PageSize));
-        CurrentPage  = Math.Min(CurrentPage, TotalPages);
+        TotalPages = Math.Max(1, (int)Math.Ceiling(list.Count / (double)PageSize));
+        CurrentPage = Math.Min(CurrentPage, TotalPages);
         HasMoreItems = CurrentPage < TotalPages;
 
         var paged = list.Take(CurrentPage * PageSize);

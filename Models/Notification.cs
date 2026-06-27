@@ -10,11 +10,11 @@ public class Notification
     public string Message { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public bool IsRead { get; set; } = false;
-    
+
     // ارتباط با نوبت (اختیاری - برای نوتیف‌های مرتبط با نوبت)
     public int? AppointmentId { get; set; }
     public Appointment? Appointment { get; set; }
-    
+
     // نام فایل صوتی (اختیاری)
     public string? SoundFileName { get; set; }
 }

@@ -13,7 +13,7 @@ public class TimerBackgroundConverter : IMultiValueConverter
     public object? Convert(IList<object?> values, Type targetType,
         object? parameter, CultureInfo culture)
     {
-        if (values is not [bool isPast, bool isNow, bool isUpcoming])
+        if (values is not [bool isPast, bool isNow, bool])
             return new SolidColorBrush(Color.Parse("#1A3A5C"));
 
         if (isPast)
