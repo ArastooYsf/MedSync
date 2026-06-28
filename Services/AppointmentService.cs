@@ -1,99 +1,119 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using MedSync.Data;
 using MedSync.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace MedSync.Services;
-
-public class AppointmentService(AppDbContext context, NotificationService notificationService)
+namespace MedSync.Services
 {
-    private readonly AppDbContext _context = context;
-    private readonly NotificationService _notificationService = notificationService;
-
-    public async Task<List<Appointment>> GetAllAppointmentsAsync()
+    public class AppointmentService
     {
-        return await _context.Appointments
-            .Include(a => a.Patient)
-            .OrderBy(a => a.AppointmentDateTime)
-            .ToListAsync();
-    }
+        private readonly AppDbContext _context;
+        private readonly NotificationService _notificationService;
 
-    public async Task<Appointment?> GetAppointmentByIdAsync(int id)
-    {
-        return await _context.Appointments
-            .Include(a => a.Patient)
-            .FirstOrDefaultAsync(a => a.Id == id);
-    }
-
-    public async Task AddAppointmentAsync(Appointment appointment)
-    {
-        _context.Appointments.Add(appointment);
-        await _context.SaveChangesAsync();
-
-        // بارگذاری Patient برای نوتیفیکیشن
-        await _context.Entry(appointment).Reference(a => a.Patient).LoadAsync();
-
-        // نوتیفیکیشن ایجاد نوبت
-        await _notificationService.CreateNotificationAsync(
-            NotificationType.AppointmentCreated,
-            "نوبت جدید ثبت شد",
-            $"برای بیمار {appointment.Patient?.FullName} نوبت ثبت شد.",
-            appointment.Id,
-            "appointment_created.wav"
-        );
-
-        // اگر اورژانسی بود
-        if (appointment.Status == AppointmentStatus.Emergency)
+        public AppointmentService(AppDbContext context, NotificationService notificationService)
         {
+            _context = context;
+            _notificationService = notificationService;
+        }
+
+        public async Task<List<Appointment>> GetAllAppointmentsAsync()
+        {
+            return await _context.Appointments
+                .Include(a => a.Patient)
+                .OrderBy(a => a.AppointmentDateTime)
+                .ToListAsync();
+        }
+
+        public async Task<Appointment?> GetAppointmentByIdAsync(int id)
+        {
+            return await _context.Appointments
+                .Include(a => a.Patient)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<Appointment> AddAppointmentAsync(Appointment appointment)
+        {
+            _context.Appointments.Add(appointment);
+            await _context.SaveChangesAsync();
+
+            // Reload patient for notification
+            await _context.Entry(appointment)
+                .Reference(a => a.Patient)
+                .LoadAsync();
+
+            var patientName = appointment.Patient?.FullName ?? "نامشخص";
+
+            // ✅ استفاده مستقیم از CreateNotificationAsync
+            if (appointment.Status == AppointmentStatus.Emergency)
+            {
+                await _notificationService.CreateNotificationAsync(
+                    NotificationType.AppointmentEmergency,
+                    "⚠️ نوبت فوری",
+                    $"نوبت فوری برای بیمار {patientName} ثبت شد.",
+                    appointment.Id,
+                    "emergency.wav"
+                );
+            }
+            else
+            {
+                await _notificationService.CreateNotificationAsync(
+                    NotificationType.AppointmentCreated,
+                    "نوبت جدید",
+                    $"نوبت برای بیمار {patientName} در تاریخ {appointment.AppointmentDateTime:yyyy/MM/dd HH:mm} ثبت شد.",
+                    appointment.Id,
+                    "new_appointment.wav"
+                );
+            }
+
+            return appointment;
+        }
+
+        public async Task UpdateAppointmentAsync(Appointment appointment)
+        {
+            _context.Appointments.Update(appointment);
+            await _context.SaveChangesAsync();
+
+            // Reload patient for notification
+            await _context.Entry(appointment)
+                .Reference(a => a.Patient)
+                .LoadAsync();
+
+            var patientName = appointment.Patient?.FullName ?? "نامشخص";
+
+            // ✅ استفاده مستقیم از CreateNotificationAsync
             await _notificationService.CreateNotificationAsync(
-                NotificationType.AppointmentEmergency,
-                "نوبت اورژانسی",
-                $"نوبت اورژانسی برای {appointment.Patient?.FullName} ثبت شد.",
+                NotificationType.AppointmentUpdated,
+                "بروزرسانی نوبت",
+                $"نوبت بیمار {patientName} بروزرسانی شد.",
                 appointment.Id,
-                "emergency.wav"
+                "update.wav"
             );
         }
-    }
 
-    public async Task UpdateAppointmentAsync(Appointment appointment)
-    {
-        _context.Appointments.Update(appointment);
-        await _context.SaveChangesAsync();
+        public async Task DeleteAppointmentAsync(int id)
+        {
+            var appointment = await _context.Appointments
+                .Include(a => a.Patient)
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-        // بارگذاری Patient
-        await _context.Entry(appointment).Reference(a => a.Patient).LoadAsync();
+            if (appointment == null)
+                return;
 
-        // نوتیفیکیشن ویرایش
-        await _notificationService.CreateNotificationAsync(
-            NotificationType.AppointmentUpdated,
-            "ویرایش نوبت",
-            $"نوبت بیمار {appointment.Patient?.FullName} ویرایش شد.",
-            appointment.Id,
-            "appointment_updated.wav"
-        );
-    }
+            var patientName = appointment.Patient?.FullName ?? "نامشخص";
 
-    public async Task DeleteAppointmentAsync(int id)
-    {
-        var appointment = await _context.Appointments
-            .Include(a => a.Patient)
-            .FirstOrDefaultAsync(a => a.Id == id);
+            // ✅ استفاده مستقیم از CreateNotificationAsync (قبل از حذف)
+            await _notificationService.CreateNotificationAsync(
+                NotificationType.AppointmentDeleted,
+                "لغو نوبت",
+                $"نوبت بیمار {patientName} لغو شد.",
+                appointment.Id,
+                "cancel.wav"
+            );
 
-        if (appointment is null) return;
-
-        // نوتیفیکیشن حذف
-        await _notificationService.CreateNotificationAsync(
-            NotificationType.AppointmentDeleted,
-            "حذف نوبت",
-            $"نوبت بیمار {appointment.Patient?.FullName} حذف شد.",
-            null, // AppointmentId null چون حذف شده
-            "appointment_deleted.wav"
-        );
-
-        _context.Appointments.Remove(appointment);
-        await _context.SaveChangesAsync();
+            _context.Appointments.Remove(appointment);
+            await _context.SaveChangesAsync();
+        }
     }
 }

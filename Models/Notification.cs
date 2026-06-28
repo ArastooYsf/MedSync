@@ -1,20 +1,28 @@
 ﻿using System;
 
-namespace MedSync.Models;
-
-public class Notification
+namespace MedSync.Models
 {
-    public int Id { get; set; }
-    public NotificationType Type { get; set; }
-    public string Title { get; set; } = string.Empty;
-    public string Message { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public bool IsRead { get; set; } = false;
+    public class Notification
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+        public NotificationType Type { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now; // ✅ Changed from UtcNow
+        public bool IsRead { get; set; } = false;
+        public string? SoundFileName { get; set; }
+        public int? RelatedAppointmentId { get; set; }
+        public NotificationPriority Priority { get; set; } = NotificationPriority.Normal; // ✅ New
+        
+        // Navigation
+        public Appointment? RelatedAppointment { get; set; }
+    }
 
-    // ارتباط با نوبت (اختیاری - برای نوتیف‌های مرتبط با نوبت)
-    public int? AppointmentId { get; set; }
-    public Appointment? Appointment { get; set; }
-
-    // نام فایل صوتی (اختیاری)
-    public string? SoundFileName { get; set; }
+    public enum NotificationPriority
+    {
+        Low = 0,
+        Normal = 1,
+        High = 2,
+        Emergency = 3
+    }
 }

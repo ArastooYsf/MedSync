@@ -91,6 +91,29 @@ public partial class App : Application
             var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
             await seeder.SeedAsync();
         }).Wait();
+        
+        var reminderService = Services.GetRequiredService<AppointmentReminderService>();
+        reminderService.Start();
+
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            var authService = Services.GetRequiredService<AuthService>();
+
+            if (!authService.IsAuthenticated)
+            {
+                var loginView = Services.GetRequiredService<LoginView>();
+                desktop.MainWindow = loginView;
+                loginView.Show();
+            }
+            else
+            {
+                desktop.MainWindow = new Views.MainView
+                {
+                    DataContext = Services.GetRequiredService<MainViewModel>()
+                };
+            }
+        }
+
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

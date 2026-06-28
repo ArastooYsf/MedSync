@@ -2,84 +2,94 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using MedSync.Data;
 using MedSync.Models;
-using MedSync.Services;
+using Microsoft.EntityFrameworkCore;
 
-public class AppointmentReminderService(
-    AppDbContext context,
-    NotificationService notificationService)
+namespace MedSync.Services
 {
-    private readonly AppDbContext _context = context;
-    private readonly NotificationService _notificationService = notificationService;
-    private Timer? _timer;
-
-    public void Start()
+    public class AppointmentReminderService
     {
-        _timer = new Timer(async _ => await CheckAppointments(),
-            null,
-            TimeSpan.Zero,
-            TimeSpan.FromSeconds(30));
-    }
+        private readonly IServiceProvider _serviceProvider;
+        private Timer? _timer;
+        private readonly TimeSpan _checkInterval = TimeSpan.FromMinutes(1); // Check every 1 minute
+        private readonly TimeSpan _reminderBefore = TimeSpan.FromMinutes(10); // Remind 10 minutes before
 
-    private async Task CheckAppointments()
-    {
-        var now = DateTime.Now;
-        var reminderTime = now.AddMinutes(10);
-        var todayStart = now.Date;
-        var todayEnd = todayStart.AddDays(1);
-
-        // فقط نوبت‌هایی که تا ۱۰ دقیقه دیگه هستن و امروزن
-        var upcoming = await _context.Appointments
-            .Include(a => a.Patient)
-            .Where(a => a.AppointmentDateTime <= reminderTime &&
-                        a.AppointmentDateTime > now)
-            .ToListAsync();
-
-        foreach (var appointment in upcoming)
+        public AppointmentReminderService(IServiceProvider serviceProvider)
         {
-            // چک کن قبلاً reminder ساخته شده یا نه
-            var alreadyNotified = await _context.Notifications
-                .AnyAsync(n => n.AppointmentId == appointment.Id &&
-                               n.Type == NotificationType.AppointmentReminder &&
-                               n.CreatedAt >= todayStart);
-
-            if (!alreadyNotified)
-            {
-                await _notificationService.CreateNotificationAsync(
-                    NotificationType.AppointmentReminder,
-                    "یادآوری نوبت",
-                    $"تا ۱۰ دقیقه دیگر نوبت {appointment.Patient.FullName} است.",
-                    appointment.Id,
-                    "reminder.wav"
-                );
-            }
+            _serviceProvider = serviceProvider;
         }
 
-        // فقط نوبت‌های امروز که گذشتن
-        var missed = await _context.Appointments
-            .Include(a => a.Patient)
-            .Where(a => a.AppointmentDateTime >= todayStart &&
-                        a.AppointmentDateTime < now)
-            .ToListAsync();
-
-        foreach (var appointment in missed)
+        public void Start()
         {
-            var alreadyNotified = await _context.Notifications
-                .AnyAsync(n => n.AppointmentId == appointment.Id &&
-                               n.Type == NotificationType.AppointmentMissed &&
-                               n.CreatedAt >= todayStart);
+            Console.WriteLine("[AppointmentReminderService] Started");
+            _timer = new Timer(CheckAppointments, null, TimeSpan.Zero, _checkInterval);
+        }
 
-            if (!alreadyNotified)
+        public void Stop()
+        {
+            Console.WriteLine("[AppointmentReminderService] Stopped");
+            _timer?.Dispose();
+        }
+
+        private async void CheckAppointments(object? state)
+        {
+            try
             {
-                await _notificationService.CreateNotificationAsync(
-                    NotificationType.AppointmentMissed,
-                    "نوبت گذشته",
-                    $"نوبت {appointment.Patient.FullName} گذشته است.",
-                    appointment.Id,
-                    "missed.wav"
-                );
+                using var scope = _serviceProvider.CreateScope();
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var notificationService = scope.ServiceProvider.GetRequiredService<NotificationService>();
+
+                var now = DateTime.Now;
+                var reminderTime = now.Add(_reminderBefore);
+
+                // ✅ 1. Check for upcoming appointments (10 minutes before)
+                var upcomingAppointments = await context.Appointments
+                    .Include(a => a.Patient)
+                    .Where(a => a.AppointmentDate > now 
+                             && a.AppointmentDate <= reminderTime 
+                             && !a.ReminderSent)
+                    .ToListAsync();
+
+                foreach (var appointment in upcomingAppointments)
+                {
+                    await notificationService.NotifyAppointmentReminderAsync(
+                        appointment.Id,
+                        appointment.Patient?.FullName ?? "نامشخص",
+                        appointment.AppointmentDate
+                    );
+
+                    appointment.ReminderSent = true;
+                }
+
+                // ✅ 2. Check for missed appointments (15 minutes after appointment time)
+                var missedThreshold = now.AddMinutes(-15);
+                var missedAppointments = await context.Appointments
+                    .Include(a => a.Patient)
+                    .Where(a => a.AppointmentDate < missedThreshold 
+                             && a.AppointmentDate > now.AddHours(-24) // Only check last 24 hours
+                             && !a.ReminderSent) // Hasn't been processed yet
+                    .ToListAsync();
+
+                foreach (var appointment in missedAppointments)
+                {
+                    await notificationService.NotifyAppointmentMissedAsync(
+                        appointment.Id,
+                        appointment.Patient?.FullName ?? "نامشخص"
+                    );
+
+                    appointment.ReminderSent = true; // Mark as processed
+                }
+
+                if (upcomingAppointments.Any() || missedAppointments.Any())
+                {
+                    await context.SaveChangesAsync();
+                    Console.WriteLine($"[AppointmentReminderService] Processed {upcomingAppointments.Count} reminders, {missedAppointments.Count} missed");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[AppointmentReminderService] Error: {ex.Message}");
             }
         }
     }
