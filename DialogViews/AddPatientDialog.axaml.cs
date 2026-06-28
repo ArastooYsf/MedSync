@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using MedSync.ViewModels;
 
-namespace MedSync.Views;
+namespace MedSync.DialogViews;
 
 public partial class AddPatientDialog : Window
 {

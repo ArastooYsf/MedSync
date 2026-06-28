@@ -26,7 +26,7 @@ public partial class PatientsPageView : UserControl
         if (DataContext is not PatientsPageViewModel vm) return;
 
         var dialogVm = new AddPatientDialogViewModel(vm._patientService);
-        var dialog = new AddPatientDialog(dialogVm);
+        var dialog = new DialogViews.AddPatientDialog(dialogVm);
 
         if (TopLevel.GetTopLevel(this) is not Window parentWindow) return;
 

@@ -1,7 +1,7 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:MedSync.ViewModels"
-        x:Class="MedSync.Views.AddPatientDialog"
+        x:Class="MedSync.DialogViews.AddPatientDialog"
         x:DataType="vm:AddPatientDialogViewModel"
         Title="افزودن بیمار"
         Width="550"
