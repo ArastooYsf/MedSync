@@ -25,8 +25,6 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty] private bool _sidePanelExpanded = true;
     
-    [ObservableProperty] private bool _notificationPanelOpen;
-    
     public NotificationPanelViewModel NotificationPanel => _notificationPanelViewModel;
     
     public int UnreadNotificationsCount => _notificationPanelViewModel?.UnreadCount ?? 0;
@@ -73,9 +71,6 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void SidePanelResize() => SidePanelExpanded = !SidePanelExpanded;
     
-    [RelayCommand]
-    private void ToggleNotificationPanel() => NotificationPanelOpen = !NotificationPanelOpen;
-
     [RelayCommand]
     private void Exit() => RequestExit?.Invoke();
 

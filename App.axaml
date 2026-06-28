@@ -46,7 +46,14 @@
         <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
         <FontFamily x:Key="PhosphorFill">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
 
-        <!-- Dark tones -->
+        <!-- Notification Flyout Theme -->
+        <ControlTheme x:Key="NotificationFlyoutTheme" TargetType="FlyoutPresenter">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="0" />
+        </ControlTheme>
 
 
     </Application.Resources>

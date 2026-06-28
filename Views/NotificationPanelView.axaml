@@ -1,16 +1,22 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:MedSync.ViewModels"
-             Width="360" 
-             Height="560"
+             mc:Ignorable="d"
+             d:DesignWidth="340" d:DesignHeight="600"
              Background="Transparent"
              x:Class="MedSync.Views.NotificationPanelView"
              x:DataType="vm:NotificationPanelViewModel">
 
-    <Border Classes="NormalBlueBorder"
+    <Border Background="{DynamicResource PrimaryBackground}"
+            BorderBrush="{DynamicResource BlueBrush}"
+            BorderThickness="2"
+            BoxShadow="0 6 20 0 #0069FF"
+            CornerRadius="8"
             Width="340"
             MaxHeight="540"
-            CornerRadius="8">
+            Padding="0">
 
         <Grid RowDefinitions="Auto,*,Auto">
 

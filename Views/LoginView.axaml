@@ -4,8 +4,6 @@
         x:Class="MedSync.Views.LoginView"
         x:DataType="vm:LoginViewModel"
         Title="ورود به سیستم"
-        Width="420"
-        Height="530"
         WindowStartupLocation="CenterScreen"
         CanResize="False"
         TransparencyLevelHint="Transparent"

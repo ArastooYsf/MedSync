@@ -36,6 +36,7 @@ public partial class NotificationPanelViewModel : ViewModelBase
     {
         var item = new NotificationItemViewModel(notification, _notificationService);
         item.ReadStatusChanged += UpdateUnreadCount;
+        item.DeleteRequested += RemoveNotification;
         
         Notifications.Insert(0, item);
         UpdateUnreadCount();
@@ -53,6 +54,7 @@ public partial class NotificationPanelViewModel : ViewModelBase
             {
                 var item = new NotificationItemViewModel(notification, _notificationService);
                 item.ReadStatusChanged += UpdateUnreadCount;
+                item.DeleteRequested += RemoveNotification;
                 Notifications.Add(item);
             }
             
@@ -62,6 +64,12 @@ public partial class NotificationPanelViewModel : ViewModelBase
         {
             IsLoading = false;
         }
+    }
+
+    private void RemoveNotification(NotificationItemViewModel item)
+    {
+        Notifications.Remove(item);
+        UpdateUnreadCount();
     }
 
     [RelayCommand]
@@ -97,6 +105,7 @@ public partial class NotificationItemViewModel : ObservableObject
     private readonly NotificationService _notificationService;
 
     public event Action? ReadStatusChanged;
+    public event Action<NotificationItemViewModel>? DeleteRequested;
 
     [ObservableProperty]
     private bool _isRead;
@@ -186,6 +195,6 @@ public partial class NotificationItemViewModel : ObservableObject
     private async Task DeleteAsync()
     {
         await _notificationService.DeleteNotificationAsync(Id);
-        ReadStatusChanged?.Invoke();
+        DeleteRequested?.Invoke(this);
     }
 }
