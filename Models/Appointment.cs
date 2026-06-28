@@ -18,4 +18,5 @@ public class Appointment
     public AppointmentStatus Status { get; set; } = AppointmentStatus.Normal;
     public string? Notes { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public bool ReminderSent { get; set; } = false;
 }

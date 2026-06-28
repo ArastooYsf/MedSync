@@ -1,0 +1,210 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:MedSync.ViewModels"
+             Width="360" 
+             Height="560"
+             Background="Transparent"
+             x:Class="MedSync.Views.NotificationPanelView"
+             x:DataType="vm:NotificationPanelViewModel">
+
+    <Border Classes="NormalBlueBorder"
+            Width="340"
+            MaxHeight="540"
+            CornerRadius="8">
+
+        <Grid RowDefinitions="Auto,*,Auto">
+
+            <!-- Header -->
+            <Border Grid.Row="0"
+                    Padding="12,10">
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Spacing="8"
+                                VerticalAlignment="Center">
+                        <Label Classes="nav-icon"
+                               Content="&#xe0d0;"
+                               FontSize="18"
+                               Foreground="{DynamicResource BlueBrush}"
+                               Padding="0"
+                               VerticalAlignment="Center" />
+                        <TextBlock Classes="text" 
+                                   Text="اعلان‌ها"
+                                   Foreground="White"
+                                   FontSize="14"
+                                   FontFamily="{DynamicResource Shabnam}"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                        <Button Padding="4"
+                                ToolTip.Tip="علامت‌گذاری همه به عنوان خوانده شده"
+                                Command="{Binding MarkAllAsReadCommand}">
+                            <Label Classes="nav-icon"
+                                   Content="&#xe216;"
+                                   FontSize="16"
+                                   Foreground="{DynamicResource GreenBrush}"
+                                   Padding="0" />
+                        </Button>
+                        <Button Padding="4"
+                                ToolTip.Tip="حذف همه"
+                                Command="{Binding ClearAllCommand}">
+                            <Label Classes="nav-icon"
+                                   Content="&#xe4a6;"
+                                   FontSize="16"
+                                   Foreground="{DynamicResource RedBrush}"
+                                   Padding="0" />
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+
+            <!-- Notifications List -->
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+
+                <StackPanel Spacing="0">
+
+                    <!-- Loading -->
+                    <Border IsVisible="{Binding IsLoading}"
+                            Padding="20,30"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="در حال بارگذاری..."
+                                   Foreground="#888"
+                                   FontFamily="{DynamicResource Shabnam}"
+                                   FontSize="13" />
+                    </Border>
+
+                    <!-- Notification Items -->
+                    <ItemsControl ItemsSource="{Binding Notifications}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="vm:NotificationItemViewModel">
+
+                                <Border Padding="0"
+                                        BorderThickness="0,0,0,1"
+                                        BorderBrush="#1F2A33"
+                                        Background="Transparent">
+                                    <Border.Styles>
+                                        <Style Selector="Border:pointerover">
+                                            <Setter Property="Background" Value="#1a2530" />
+                                        </Style>
+                                    </Border.Styles>
+
+                                    <Grid ColumnDefinitions="Auto,*,Auto"
+                                          Margin="10,8"
+                                          ColumnSpacing="10">
+
+                                        <!-- Type Icon Circle -->
+                                        <Border Grid.Column="0"
+                                                Width="36" Height="36"
+                                                CornerRadius="18"
+                                                VerticalAlignment="Top"
+                                                Background="{Binding TypeColor}">
+                                            <Label Classes="nav-icon"
+                                                   Content="{Binding TypeIcon}"
+                                                   FontSize="18"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Padding="0" />
+                                        </Border>
+
+                                        <!-- Content -->
+                                        <StackPanel Grid.Column="1"
+                                                    Spacing="3"
+                                                    VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Title}"
+                                                       FontFamily="{DynamicResource Shabnam}"
+                                                       FontWeight="SemiBold"
+                                                       FontSize="13"
+                                                       Foreground="White"
+                                                       FlowDirection="RightToLeft"
+                                                       TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding Message}"
+                                                       FontFamily="{DynamicResource Shabnam}"
+                                                       FontSize="11"
+                                                       Foreground="#AAB4C0"
+                                                       FlowDirection="RightToLeft"
+                                                       TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding TimeAgo}"
+                                                       FontFamily="{DynamicResource Shabnam}"
+                                                       FontSize="10"
+                                                       Foreground="#556575" />
+                                        </StackPanel>
+
+                                        <!-- Action buttons -->
+                                        <StackPanel Grid.Column="2"
+                                                    Orientation="Vertical"
+                                                    Spacing="2"
+                                                    VerticalAlignment="Center">
+
+                                            <!-- Unread dot -->
+                                            <Ellipse Width="8" Height="8"
+                                                     HorizontalAlignment="Center"
+                                                     Fill="{DynamicResource BlueBrush}"
+                                                     IsVisible="{Binding !IsRead}"
+                                                     Margin="0,0,0,2" />
+
+                                            <!-- Read/Unread Toggle -->
+                                            <Button Padding="2"
+                                                    ToolTip.Tip="{Binding ReadTooltip}"
+                                                    Command="{Binding ToggleReadStatusCommand}">
+                                                <Label Classes="nav-icon"
+                                                       Content="{Binding ReadIcon}"
+                                                       FontSize="16"
+                                                       Foreground="#556575"
+                                                       Padding="0" />
+                                            </Button>
+
+                                            <!-- Delete -->
+                                            <Button Padding="2"
+                                                    ToolTip.Tip="حذف"
+                                                    Command="{Binding DeleteCommand}">
+                                                <Label Classes="nav-icon"
+                                                       Content="&#xe4a6;"
+                                                       FontSize="14"
+                                                       Foreground="#556575"
+                                                       Padding="0" />
+                                            </Button>
+
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Footer -->
+            <Border Grid.Row="2"
+                    Padding="10,6"
+                    Background="{DynamicResource SecondaryBackground}"
+                    CornerRadius="0,0,8,8">
+                <TextBlock FontFamily="{DynamicResource Shabnam}"
+                           FontSize="11"
+                           Foreground="#556575"
+                           HorizontalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} اعلان ، {1} خوانده نشده">
+                            <Binding Path="Notifications.Count" />
+                            <Binding Path="UnreadCount" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Border>
+
+        </Grid>
+    </Border>
+
+</UserControl>

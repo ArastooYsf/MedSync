@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedSync.Data;
 using MedSync.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MedSync.Services
 {
@@ -46,8 +47,8 @@ namespace MedSync.Services
                 // ✅ 1. Check for upcoming appointments (10 minutes before)
                 var upcomingAppointments = await context.Appointments
                     .Include(a => a.Patient)
-                    .Where(a => a.AppointmentDate > now 
-                             && a.AppointmentDate <= reminderTime 
+                    .Where(a => a.AppointmentDateTime > now 
+                             && a.AppointmentDateTime <= reminderTime 
                              && !a.ReminderSent)
                     .ToListAsync();
 
@@ -56,7 +57,7 @@ namespace MedSync.Services
                     await notificationService.NotifyAppointmentReminderAsync(
                         appointment.Id,
                         appointment.Patient?.FullName ?? "نامشخص",
-                        appointment.AppointmentDate
+                        appointment.AppointmentDateTime
                     );
 
                     appointment.ReminderSent = true;
@@ -66,8 +67,8 @@ namespace MedSync.Services
                 var missedThreshold = now.AddMinutes(-15);
                 var missedAppointments = await context.Appointments
                     .Include(a => a.Patient)
-                    .Where(a => a.AppointmentDate < missedThreshold 
-                             && a.AppointmentDate > now.AddHours(-24) // Only check last 24 hours
+                    .Where(a => a.AppointmentDateTime < missedThreshold 
+                             && a.AppointmentDateTime > now.AddHours(-24) // Only check last 24 hours
                              && !a.ReminderSent) // Hasn't been processed yet
                     .ToListAsync();
 

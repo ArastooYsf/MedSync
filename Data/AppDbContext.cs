@@ -33,9 +33,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Title).IsRequired();
             entity.Property(e => e.Message).IsRequired();
-            entity.HasOne(e => e.Appointment)
+            entity.HasOne(e => e.RelatedAppointment)
                 .WithMany()
-                .HasForeignKey(e => e.AppointmentId)
+                .HasForeignKey(e => e.RelatedAppointmentId)
                 .OnDelete(DeleteBehavior.SetNull);
         });
     }

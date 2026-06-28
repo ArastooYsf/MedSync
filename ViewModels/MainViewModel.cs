@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MedSync.Data;
 using MedSync.Factories;
+using MedSync.Services;
 
 namespace MedSync.ViewModels;
 
@@ -15,12 +16,20 @@ public partial class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         _pageFactory = null!;
+        _notificationPanelViewModel = null!;
     } // design-time only
 #endif
 
     private readonly PageFactory _pageFactory;
+    private readonly NotificationPanelViewModel _notificationPanelViewModel;
 
     [ObservableProperty] private bool _sidePanelExpanded = true;
+    
+    [ObservableProperty] private bool _notificationPanelOpen;
+    
+    public NotificationPanelViewModel NotificationPanel => _notificationPanelViewModel;
+    
+    public int UnreadNotificationsCount => _notificationPanelViewModel?.UnreadCount ?? 0;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(LogsPageIsActive))]
@@ -44,14 +53,28 @@ public partial class MainViewModel : ViewModelBase
 
     public event Action? RequestExit;
 
-    public MainViewModel(PageFactory pageFactory)
+    public MainViewModel(PageFactory pageFactory, NotificationPanelViewModel notificationPanelViewModel)
     {
         _pageFactory = pageFactory;
+        _notificationPanelViewModel = notificationPanelViewModel;
+        
+        // Subscribe to unread count changes
+        _notificationPanelViewModel.PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(NotificationPanelViewModel.UnreadCount))
+            {
+                OnPropertyChanged(nameof(UnreadNotificationsCount));
+            }
+        };
+        
         GoToAppointments();
     }
 
     [RelayCommand]
     private void SidePanelResize() => SidePanelExpanded = !SidePanelExpanded;
+    
+    [RelayCommand]
+    private void ToggleNotificationPanel() => NotificationPanelOpen = !NotificationPanelOpen;
 
     [RelayCommand]
     private void Exit() => RequestExit?.Invoke();

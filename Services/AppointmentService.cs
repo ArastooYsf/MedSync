@@ -49,21 +49,21 @@ namespace MedSync.Services
             if (appointment.Status == AppointmentStatus.Emergency)
             {
                 await _notificationService.CreateNotificationAsync(
-                    NotificationType.AppointmentEmergency,
                     "⚠️ نوبت فوری",
                     $"نوبت فوری برای بیمار {patientName} ثبت شد.",
-                    appointment.Id,
-                    "emergency.wav"
+                    NotificationType.AppointmentEmergency,
+                    "emergency.wav",
+                    appointment.Id
                 );
             }
             else
             {
                 await _notificationService.CreateNotificationAsync(
-                    NotificationType.AppointmentCreated,
                     "نوبت جدید",
                     $"نوبت برای بیمار {patientName} در تاریخ {appointment.AppointmentDateTime:yyyy/MM/dd HH:mm} ثبت شد.",
-                    appointment.Id,
-                    "new_appointment.wav"
+                    NotificationType.AppointmentCreated,
+                    "new_appointment.wav",
+                    appointment.Id
                 );
             }
 
@@ -84,11 +84,11 @@ namespace MedSync.Services
 
             // ✅ استفاده مستقیم از CreateNotificationAsync
             await _notificationService.CreateNotificationAsync(
-                NotificationType.AppointmentUpdated,
                 "بروزرسانی نوبت",
                 $"نوبت بیمار {patientName} بروزرسانی شد.",
-                appointment.Id,
-                "update.wav"
+                NotificationType.AppointmentUpdated,
+                "update.wav",
+                appointment.Id
             );
         }
 
@@ -105,11 +105,11 @@ namespace MedSync.Services
 
             // ✅ استفاده مستقیم از CreateNotificationAsync (قبل از حذف)
             await _notificationService.CreateNotificationAsync(
-                NotificationType.AppointmentDeleted,
                 "لغو نوبت",
                 $"نوبت بیمار {patientName} لغو شد.",
-                appointment.Id,
-                "cancel.wav"
+                NotificationType.AppointmentCancelled,
+                "cancel.wav",
+                appointment.Id
             );
 
             _context.Appointments.Remove(appointment);

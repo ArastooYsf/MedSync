@@ -76,5 +76,8 @@
       <Compile Update="Views\AppointmentsPageView.axaml.cs">
         <DependentUpon>AppointmentsPageView.axaml</DependentUpon>
       </Compile>
+      <Compile Update="Views\NotificationPanelView.axaml.cs">
+        <DependentUpon>NotificationPanelView.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

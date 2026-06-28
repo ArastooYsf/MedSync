@@ -36,11 +36,14 @@ public partial class App : Application
         collection.AddSingleton<MainViewModel>();
         collection.AddSingleton<AuthService>();
         collection.AddSingleton<AppointmentReminderService>();
+        collection.AddSingleton<ViewModels.NotificationPanelViewModel>();
 
         collection.AddScoped<PatientService>();
         collection.AddScoped<AppointmentService>();
         collection.AddScoped<DbSeeder>();
-        collection.AddScoped<NotificationService>();
+        collection.AddSingleton<NotificationService>();
+        collection.AddSingleton<AudioService>();
+        collection.AddSingleton<SystemTrayService>();
 
 
         collection.AddTransient<AddAppointmentDialogViewModel>();
@@ -94,26 +97,6 @@ public partial class App : Application
         
         var reminderService = Services.GetRequiredService<AppointmentReminderService>();
         reminderService.Start();
-
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            var authService = Services.GetRequiredService<AuthService>();
-
-            if (!authService.IsAuthenticated)
-            {
-                var loginView = Services.GetRequiredService<LoginView>();
-                desktop.MainWindow = loginView;
-                loginView.Show();
-            }
-            else
-            {
-                desktop.MainWindow = new Views.MainView
-                {
-                    DataContext = Services.GetRequiredService<MainViewModel>()
-                };
-            }
-        }
-
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

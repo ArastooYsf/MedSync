@@ -7,6 +7,7 @@
         MinHeight="576"
         x:Class="MedSync.Views.MainView"
         xmlns:vm="clr-namespace:MedSync.ViewModels"
+        xmlns:views="clr-namespace:MedSync.Views"
         x:DataType="vm:MainViewModel"
         Title="MedSync">
 
@@ -24,7 +25,7 @@
 
         <!-- Navbar -->
 
-        <Border Classes="Navbar">
+        <Border Classes="Navbar" ZIndex="100">
             <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto"
                   ColumnSpacing="5">
 
@@ -38,12 +39,35 @@
                     </Button>
                 </Border>
 
-                <Border Grid.Column="1"
-                        Classes="NavIconBorder">
-                    <Button Padding="0">
-                        <Label Classes="nav-icon" Content="&#xe0d0;" />
-                    </Button>
-                </Border>
+                <!-- Notification Button with Badge -->
+                <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <Border Classes="NavIconBorder"
+                            Classes.active="{Binding NotificationPanelOpen}">
+                        <Button Padding="0"
+                                Command="{Binding ToggleNotificationPanelCommand}">
+                            <Label Classes="nav-icon" Content="&#xe0d0;" />
+                        </Button>
+                    </Border>
+
+                    <!-- Unread Badge -->
+                    <Border IsVisible="{Binding UnreadNotificationsCount}"
+                            Background="{DynamicResource RedBrush}"
+                            CornerRadius="8"
+                            MinWidth="16"
+                            Height="16"
+                            Padding="3,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,-4,-4,0">
+                        <TextBlock Text="{Binding UnreadNotificationsCount}"
+                                   FontFamily="{DynamicResource Shabnam}"
+                                   FontSize="9"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Border>
+                </Grid>
 
                 <Border Grid.Column="2"
                         Classes="NavIconBorder">
@@ -71,6 +95,16 @@
             </Grid>
 
         </Border>
+
+        <!-- Notification Panel (positioned absolutely) -->
+        <Canvas Grid.Column="0" 
+                IsVisible="{Binding NotificationPanelOpen}"
+                ZIndex="99"
+                Margin="5,70,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+            <views:NotificationPanelView DataContext="{Binding NotificationPanel}" />
+        </Canvas>
 
         <!-- Main Panel -->
 
