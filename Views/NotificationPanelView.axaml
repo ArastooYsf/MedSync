@@ -1,18 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:MedSync.ViewModels"
-             mc:Ignorable="d"
-             d:DesignWidth="340" d:DesignHeight="600"
              Background="Transparent"
+             Width="360"
+             MaxHeight="560"
+             Padding="0,0, 0,20"
              x:Class="MedSync.Views.NotificationPanelView"
              x:DataType="vm:NotificationPanelViewModel">
 
-    <Border Background="{DynamicResource PrimaryBackground}"
-            BorderBrush="{DynamicResource BlueBrush}"
-            BorderThickness="2"
-            BoxShadow="0 6 20 0 #0069FF"
+    <Border Classes="NormalBlueBorder"
             CornerRadius="8"
             Width="340"
             MaxHeight="540"
@@ -82,7 +78,8 @@
                     <Border IsVisible="{Binding IsLoading}"
                             Padding="20,30"
                             HorizontalAlignment="Center">
-                        <TextBlock Text="در حال بارگذاری..."
+                        <TextBlock FlowDirection="RightToLeft"
+                                   Text="درحال بارگیری..."
                                    Foreground="#888"
                                    FontFamily="{DynamicResource Shabnam}"
                                    FontSize="13" />
