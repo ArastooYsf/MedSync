@@ -81,6 +81,4 @@
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
-    <!-- Animation -->
-
 </Styles>

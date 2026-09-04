@@ -4,6 +4,7 @@
 │   │   └── Notifications
 │   ├── Fonts
 │   └── Images
+├── Behaviors
 ├── bin
 │   └── Debug
 │       └── net9.0
@@ -101,4 +102,4 @@
 ├── ViewModels
 └── Views
 
-102 directories
+103 directories

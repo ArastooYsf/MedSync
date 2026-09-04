@@ -125,6 +125,11 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
         <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
         <Setter Property="Foreground" Value="White" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="TextBox:pointerover">
@@ -136,6 +141,11 @@
     <Style Selector="TextBox /template/ Border">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="TextBox:pointerover /template/ Border">
@@ -175,30 +185,11 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
 
-
     <Style Selector="TextBlock.Pth4">
         <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Foreground" Value="#AAAAAA" />
-    </Style>
-
-    <!-- Animation -->
-
-    <Style Selector="TextBox">
-        <Setter Property="Transitions">
-            <Transitions>
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
-            </Transitions>
-        </Setter>
-    </Style>
-
-    <Style Selector="TextBox /template/ Border">
-        <Setter Property="Transitions">
-            <Transitions>
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
-            </Transitions>
-        </Setter>
     </Style>
 
 </Styles>

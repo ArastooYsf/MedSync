@@ -71,6 +71,4 @@
         <Setter Property="Cursor" Value="Hand" />
     </Style>
 
-    <!-- Animation -->
-
 </Styles>

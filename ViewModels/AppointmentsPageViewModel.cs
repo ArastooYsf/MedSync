@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,11 +66,17 @@ public partial class AppointmentsPageViewModel : PageViewModel
             var now = DateTime.Now;
             foreach (var card in Appointments)
             {
-                var diff = Math.Abs((card.AppointmentDateTime - now).TotalHours);
-                if (diff <= 2)
-                    card.Tick();
-                else if (_tickCounter % 10 == 0)
-                    card.Tick();
+                // فقط نوبت‌های فعال (غیر تکمیل شده) تایمر میزنیم
+                if (!card.IsCompleted)
+                {
+                    // نوبت‌های نزدیک: هر ثانیه آپدیت
+                    var diff = Math.Abs((card.AppointmentDateTime - now).TotalHours);
+                    if (diff <= 2)
+                        card.Tick();
+                    // نوبت‌های دور: هر 10 ثانیه آپدیت
+                    else if (_tickCounter % 10 == 0)
+                        card.Tick();
+                }
             }
         });
     }
@@ -132,8 +138,14 @@ public partial class AppointmentsPageViewModel : PageViewModel
 
         var data = await _appointmentService.GetAllAppointmentsAsync();
 
+        // مرتب‌سازی: نوبت‌های تکمیل نشده بر اساس زمان (نزدیک‌ترین اول)، بعد تکمیل شده‌ها
+        var sorted = data
+            .OrderBy(a => a.IsCompleted) // تکمیل نشده‌ها اول
+            .ThenBy(a => a.AppointmentDateTime) // نزدیک‌ترین زمان اول
+            .ToList();
+
         Appointments = new ObservableCollection<AppointmentCardViewModel>(
-            data.Select(a => new AppointmentCardViewModel(a)));
+            sorted.Select(a => new AppointmentCardViewModel(a)));
 
         ResetPagination();
 
@@ -158,6 +170,26 @@ public partial class AppointmentsPageViewModel : PageViewModel
         EditAppointmentRequested?.Invoke(this, vm);
     }
 
+    [RelayCommand]
+    private async Task CompleteAppointment(AppointmentCardViewModel? vm)
+    {
+        if (vm is null) return;
+
+        IsLoading = true;
+        
+        // آپدیت در دیتابیس
+        var appointment = await _appointmentService.GetAppointmentByIdAsync(vm.Id);
+        if (appointment != null)
+        {
+            appointment.IsCompleted = true;
+            await _appointmentService.UpdateAppointmentAsync(appointment);
+        }
+
+        // آپدیت در UI
+        vm.MarkAsCompleted();
+
+        IsLoading = false;
+    }
 
     [RelayCommand]
     private async Task DeleteAppointment(AppointmentCardViewModel? vm)

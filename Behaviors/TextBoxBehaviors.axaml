@@ -1,0 +1,21 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:helpers="using:MedSync.Behaviors">
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- TextBox Enter Key Behaviors                                    -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- TextBox معمولی: Enter → فیلد بعدی -->
+    <Style Selector="TextBox">
+        <Setter Property="(helpers:TextBoxHelper.MoveToNextOnEnter)" Value="True" />
+        <Setter Property="(helpers:TextBoxHelper.IsMultiline)" Value="False" />
+    </Style>
+
+    <!-- TextBox چندخطی: Enter → فیلد بعدی / Shift+Enter → خط جدید -->
+    <Style Selector="TextBox.Multiline">
+        <Setter Property="(helpers:TextBoxHelper.MoveToNextOnEnter)" Value="True" />
+        <Setter Property="(helpers:TextBoxHelper.IsMultiline)" Value="True" />
+    </Style>
+
+</Styles>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MedSync.Models;
 
@@ -19,4 +19,5 @@ public class Appointment
     public string? Notes { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public bool ReminderSent { get; set; } = false;
+    public bool IsCompleted { get; set; } = false;
 }

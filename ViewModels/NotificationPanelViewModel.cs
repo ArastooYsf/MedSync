@@ -170,6 +170,15 @@ public partial class NotificationItemViewModel : ObservableObject
         _isRead = notification.IsRead;
     }
 
+    // ✅ این متد وقتی IsRead تغییر می‌کنه خودکار صدا زده میشه (توسط [ObservableProperty])
+    partial void OnIsReadChanged(bool value)
+    {
+        // Notify UI که ReadIcon و ReadTooltip هم تغییر کردن
+        OnPropertyChanged(nameof(ReadIcon));
+        OnPropertyChanged(nameof(ReadTooltip));
+        ReadStatusChanged?.Invoke();
+    }
+
     [RelayCommand]
     private async Task ToggleReadStatusAsync()
     {
@@ -181,14 +190,8 @@ public partial class NotificationItemViewModel : ObservableObject
         }
         else
         {
-            // Update in database to unread
-            _notification.IsRead = false;
-            await Task.CompletedTask; // Add actual update logic if needed
+            await _notificationService.MarkAsUnreadAsync(Id);
         }
-        
-        OnPropertyChanged(nameof(ReadIcon));
-        OnPropertyChanged(nameof(ReadTooltip));
-        ReadStatusChanged?.Invoke();
     }
 
     [RelayCommand]

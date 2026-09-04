@@ -11,6 +11,7 @@
     <StyleInclude Source="TextStyles.axaml" />
     <StyleInclude Source="ComboBoxStyles.axaml" />
     <StyleInclude Source="DatePickerStyles.axaml" />
+    <StyleInclude Source="../Behaviors/TextBoxBehaviors.axaml" />
 
     <Design.PreviewWith>
         <Border Padding="20"
@@ -120,7 +121,5 @@
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-
-    <!-- Styles -->
 
 </Styles>

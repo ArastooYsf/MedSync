@@ -289,7 +289,7 @@
                                         <Label Classes="icon" Content="&#xe348;" Foreground="White" FontSize="16" />
                                     </StackPanel>
                                     <Border Classes="TextBoxBorder">
-                                        <TextBox Classes="Description"
+                                        <TextBox Classes="Description Multiline"
                                                  Text="{Binding EditMedicalHistory}"
                                                  PlaceholderText="سابقه بیماری یا توضیحات" />
                                     </Border>
@@ -301,7 +301,7 @@
                                         <Label Classes="icon" Content="&#xe2c4;" Foreground="White" FontSize="16" />
                                     </StackPanel>
                                     <Border Classes="TextBoxBorder">
-                                        <TextBox Classes="Description"
+                                        <TextBox Classes="Description Multiline"
                                                  Text="{Binding EditAddress}"
                                                  PlaceholderText="آدرس محل سکونت" />
                                     </Border>

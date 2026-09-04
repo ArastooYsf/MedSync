@@ -1,10 +1,9 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:MedSync.ViewModels"
         x:DataType="vm:MainViewModel">
 
     <Design.PreviewWith>
-        
         <Border Padding="20"
                 Background="{DynamicResource PrimaryBackground}"
                 BorderBrush="{DynamicResource BlueBrush}"
@@ -31,6 +30,11 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
         <Setter Property="FontFamily" Value="{DynamicResource Shabnam}" />
         <Setter Property="Foreground" Value="White" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="DatePicker:pointerover">
@@ -42,6 +46,11 @@
     <Style Selector="DatePicker /template/ Border">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource BlueBrush}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="DatePicker:pointerover /template/ Border">
@@ -55,24 +64,6 @@
         <Setter Property="Padding" Value="12,8" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Foreground" Value="White" />
-    </Style>
-
-    <!-- Animations -->
-
-    <Style Selector="DatePicker">
-        <Setter Property="Transitions">
-            <Transitions>
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
-            </Transitions>
-        </Setter>
-    </Style>
-
-    <Style Selector="DatePicker /template/ Border">
-        <Setter Property="Transitions">
-            <Transitions>
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
-            </Transitions>
-        </Setter>
     </Style>
 
 </Styles>

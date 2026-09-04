@@ -175,6 +175,16 @@ namespace MedSync.Services
             }
         }
 
+
+        public async Task MarkAsUnreadAsync(int notificationId)
+        {
+            var notification = await _context.Notifications.FindAsync(notificationId);
+            if (notification != null)
+            {
+                notification.IsRead = false;
+                await _context.SaveChangesAsync();
+            }
+        }
         public async Task MarkAllAsReadAsync()
         {
             var unreadNotifications = await _context.Notifications
